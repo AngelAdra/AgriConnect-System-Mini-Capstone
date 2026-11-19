@@ -1,0 +1,18 @@
+[
+  {
+    "MyProducts": [
+      {
+        "productName": "ahha basta prodcut",
+        "productStock": 432,
+        "productPrice": 432
+      }
+    ],
+    "myHistory": [],
+    "Username": "u2",
+    "UserPassword": "d1",
+    "UserRole": "Dual",
+    "PhoneNumber": "21361234213",
+    "FullName": "dual",
+    "Barangay": "Tastas"
+  }
+]
