@@ -14,9 +14,9 @@ using System.Windows.Forms;
 
 namespace AgriConnect
 {
-    public partial class D_Registration : Form
+    public partial class Registration : Form
     {
-        public D_Registration()
+        public Registration()
         {
             InitializeComponent();
         }
@@ -174,7 +174,7 @@ namespace AgriConnect
 
         private void btnReturn_Click(object sender, EventArgs e)
         {
-            E_LogIn back = new E_LogIn();
+            LogIn back = new LogIn();
             this.Dispose();
             back.Show();
         }

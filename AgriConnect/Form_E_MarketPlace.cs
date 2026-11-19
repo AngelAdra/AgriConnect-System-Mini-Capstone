@@ -14,10 +14,10 @@ namespace AgriConnect
 {
     public partial class market : Form
     {
-        private AQ_User get = null;
+        private User get = null;
         private readonly Panel _targetPanel;
         private readonly FlowLayoutPanel _targetFLP;
-        public market(AQ_User reveived, Panel getPanel, FlowLayoutPanel getFLP)
+        public market(User reveived, Panel getPanel, FlowLayoutPanel getFLP)
         {
             InitializeComponent();
             get = reveived;
@@ -46,7 +46,7 @@ namespace AgriConnect
 
             foreach (var get in list)
             {
-                AQ_User receive = ActiveUserHelper.activeHelper(get.MarketSeller);
+                User receive = ActiveUserHelper.activeHelper(get.MarketSeller);
                 ActiveUserHelper.getUser(receive);
 
                 G_ProductCard card = new G_ProductCard(

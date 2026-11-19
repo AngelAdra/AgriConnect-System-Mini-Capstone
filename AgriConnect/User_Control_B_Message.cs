@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace AgriConnect
 {
-    public partial class I_Sender : UserControl
+    public partial class MessageBlu : UserControl
     {
 
         bool isUsed = false;
-        public I_Sender(string name, string message, AQ_User sender, AQ_User receiver, G_ProductCard show, FlowLayoutPanel use)
+        public MessageBlu(string name, string message, User sender, User receiver, G_ProductCard show, FlowLayoutPanel use)
         {
             InitializeComponent();
             if (!isUsed)
@@ -24,6 +24,7 @@ namespace AgriConnect
                 use.Controls.Add(show);
                 
                 isUsed = true;
+                
 
             }
             else {

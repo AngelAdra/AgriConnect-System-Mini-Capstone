@@ -12,17 +12,16 @@ namespace AgriConnect
 {
 
 
-    //Class that holds the current user and user role
     public static class CurrentUser
     {
         public static string currentUser { get; set; }
-        public static string UserRole { get; set; } 
+        public static string UserRole { get; set; }
 
     }
 
     //Parent class serve as the blueprint of all child classes
     //this class is also abstract because so we cant instantiate it and for its main purpose is to be the blue print for the child classes
-    public abstract class AQ_User                                                           
+    public abstract class User                                                           
     {
         //backing fields wherein they are the one that store valid data
         //private so it's the only one that can access it and to encapsulate the data from potential data leaks
@@ -129,20 +128,31 @@ namespace AgriConnect
             }
         }
 
+        
+
     }
 
 
     //Child class inherited user 
-    public class Seller : AQ_User
+    public class Seller : User
     {
-        //Seller have a has a relation
-        //its unique to it because it stores its own list of products rather than lettingg the market know who owns it
-        public List<SellerProducts> MyProducts { get; set; } = new List<SellerProducts>();
-        
+        public List<SellerProducts> MyProducts { get; set; } =
+            new List<SellerProducts>();
 
-        //an empty constructor lets us instantiate object without giving any data its usefull for json serialization and deserealization
-        public Seller() { }
-        public Seller(string SellerFullName, string SellerName, string SellerPassword, string SellerRole, string SellerPN, string SellerBarangay)
+        public List<SyncMessage> SyncMessages { get; set; } =
+            new List<SyncMessage>();
+
+        public Seller()
+        {
+        }
+
+        public Seller(
+            string SellerFullName,
+            string SellerName,
+            string SellerPassword,
+            string SellerRole,
+            string SellerPN,
+            string SellerBarangay)
         {
             FullName = SellerFullName;
             Username = SellerName;
@@ -152,13 +162,24 @@ namespace AgriConnect
             Barangay = SellerBarangay;
         }
     }
-    
+
     //Buyer is also unique because it cant list but it can only buy
-    public class Buyer : AQ_User
+    public class Buyer : User
     {
-      
-        public Buyer() { }
-        public Buyer(string BuyerFullName, string BuyerName, string BuyerPassword, string BuyerRole, string BuyerPN, string BuyerBarangay)
+        public List<SyncMessage> SyncMessages { get; set; } =
+            new List<SyncMessage>();
+
+        public Buyer()
+        {
+        }
+
+        public Buyer(
+            string BuyerFullName,
+            string BuyerName,
+            string BuyerPassword,
+            string BuyerRole,
+            string BuyerPN,
+            string BuyerBarangay)
         {
             FullName = BuyerFullName;
             Username = BuyerName;
@@ -167,19 +188,56 @@ namespace AgriConnect
             PhoneNumber = BuyerPN;
             Barangay = BuyerBarangay;
         }
+
+        public void SendTo(Seller target, string message)
+        {
+            string path = C_Global_Variable.GetFilePath("Sellers.json");
+            if (!File.Exists(path))
+                return;
+
+            string read = File.ReadAllText(path);
+            List<Seller> seller = new List<Seller>();
+            seller = JsonSerializer.Deserialize<List<Seller>>(read);
+            Seller getAccess = new Seller();
+            foreach(var get in seller)
+            {
+                if(get.Username == target.Username)
+                {
+                    getAccess = get;
+                    break;
+                }
+            }
+            
+            SyncMessage sync = new SyncMessage(this.FullName, target.FullName, message);
+            getAccess.SyncMessages.Add(sync);
+            string serealize = JsonSerializer.Serialize(seller, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(path, serealize);
+
+
+        }
+
     }
 
     // Same as Seller but Dual has the ability to buy and sell
-    public class Dual : AQ_User
+    public class Dual : User
     {
-        //dual also have a has a relation to list its own list of data
-        public List<SellerProducts> MyProducts { get; set; } = new List<SellerProducts>();
-   
+        public List<SellerProducts> MyProducts { get; set; } =
+            new List<SellerProducts>();
 
-        public Dual() { }
+        public List<SyncMessage> SyncMessages { get; set; } =
+            new List<SyncMessage>();
+
+        public Dual()
+        {
+        }
 
         public Dual(
-            string DualFullName, string DualUser, string DualPassword, string DualRole, string DualPN, string DualBarangay)
+            string DualFullName,
+            string DualUser,
+            string DualPassword,
+            string DualRole,
+            string DualPN,
+            string DualBarangay)
         {
             FullName = DualFullName;
             Username = DualUser;
@@ -193,7 +251,7 @@ namespace AgriConnect
     //Collecting the dual, seller, and buyer 
     //Collection stores all child of our parent class
     //this is crucial for log in and getting the current user whos using the system
-    public class Collection : AQ_User
+    public class Collection : User
     {
         public Collection() { }
 

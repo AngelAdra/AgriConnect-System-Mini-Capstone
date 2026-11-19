@@ -1,6 +1,6 @@
 ﻿namespace AgriConnect
 {
-    partial class F_Seller_Dual_Dashboard
+    partial class SellerHub_Dashboard
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_Seller_Dual_Dashboard));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SellerHub_Dashboard));
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtUser = new System.Windows.Forms.Label();
             this.txtRole = new System.Windows.Forms.Label();

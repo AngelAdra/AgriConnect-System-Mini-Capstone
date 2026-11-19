@@ -14,9 +14,9 @@ namespace AgriConnect
     {
         private readonly Panel _targetPanel;
         private readonly FlowLayoutPanel _targeFLP;
-        private AQ_User getUser = null;
+        private User getUser = null;
         private string holdProduct;
-        private AQ_User received = null;
+        private User received = null;
 
         public G_ProductCard(
             string productName,
@@ -26,10 +26,10 @@ namespace AgriConnect
             string num,
             string img,
             string barangay,
-            AQ_User block,
+            User block,
             Panel getPanel,
             FlowLayoutPanel getFLP,
-            AQ_User receive
+            User receive
             )
         {
             InitializeComponent();
@@ -85,7 +85,7 @@ namespace AgriConnect
                 _targetPanel.Focus();
                 btnContackSeller.Enabled = false;
 
-                I_Sender send = new I_Sender(getUser.FullName, holdProduct, getUser, received, this, _targeFLP);
+                MessageBlu send = new MessageBlu(getUser.FullName, holdProduct, getUser, received, this, _targeFLP);
                 _targeFLP.Controls.Add(send);
                 checkFLP = _targeFLP.Controls.Count;
                 

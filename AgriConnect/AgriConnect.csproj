@@ -78,44 +78,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="B_AgriProduct.cs" />
-    <Compile Include="AgriCoreEngine.cs" />
-    <Compile Include="H_Market.cs">
+    <Compile Include="Class_C_AgriProduct.cs" />
+    <Compile Include="Class_A_AgriCoreEngine.cs" />
+    <Compile Include="Class_D_Messages.cs" />
+    <Compile Include="Form_E_MarketPlace.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="H_Market.Designer.cs">
-      <DependentUpon>H_Market.cs</DependentUpon>
+    <Compile Include="Form_E_MarketPlace.Designer.cs">
+      <DependentUpon>Form_E_MarketPlace.cs</DependentUpon>
     </Compile>
-    <Compile Include="HI_ProductCard.cs">
+    <Compile Include="ProductCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="HI_ProductCard.Designer.cs">
-      <DependentUpon>HI_ProductCard.cs</DependentUpon>
+    <Compile Include="ProductCard.Designer.cs">
+      <DependentUpon>ProductCard.cs</DependentUpon>
     </Compile>
-    <Compile Include="G_Buyer_Dashboard.cs">
+    <Compile Include="Form_D_Patron_Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="G_Buyer_Dashboard.Designer.cs">
-      <DependentUpon>G_Buyer_Dashboard.cs</DependentUpon>
+    <Compile Include="Form_D_Patron_Dashboard.Designer.cs">
+      <DependentUpon>Form_D_Patron_Dashboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="F_Seller_Dual_Dashboard.cs">
+    <Compile Include="Form_C_SellerHub_Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="F_Seller_Dual_Dashboard.Designer.cs">
-      <DependentUpon>F_Seller_Dual_Dashboard.cs</DependentUpon>
+    <Compile Include="Form_C_SellerHub_Dashboard.Designer.cs">
+      <DependentUpon>Form_C_SellerHub_Dashboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="AQ_User.cs" />
-    <Compile Include="E_LogIn.cs">
+    <Compile Include="Class_B_Users.cs" />
+    <Compile Include="Form_B_LogIn.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="E_LogIn.Designer.cs">
-      <DependentUpon>E_LogIn.cs</DependentUpon>
+    <Compile Include="Form_B_LogIn.Designer.cs">
+      <DependentUpon>Form_B_LogIn.cs</DependentUpon>
     </Compile>
-    <Compile Include="D_Registration.cs">
+    <Compile Include="Form_A_Registration.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="D_Registration.Designer.cs">
-      <DependentUpon>D_Registration.cs</DependentUpon>
+    <Compile Include="Form_A_Registration.Designer.cs">
+      <DependentUpon>Form_A_Registration.cs</DependentUpon>
     </Compile>
     <Compile Include="I_Message.cs">
       <SubType>UserControl</SubType>
@@ -131,23 +132,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="H_Market.resx">
-      <DependentUpon>H_Market.cs</DependentUpon>
+    <EmbeddedResource Include="Form_E_MarketPlace.resx">
+      <DependentUpon>Form_E_MarketPlace.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HI_ProductCard.resx">
-      <DependentUpon>HI_ProductCard.cs</DependentUpon>
+    <EmbeddedResource Include="ProductCard.resx">
+      <DependentUpon>ProductCard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="F_Seller_Dual_Dashboard.resx">
-      <DependentUpon>F_Seller_Dual_Dashboard.cs</DependentUpon>
+    <EmbeddedResource Include="Form_C_SellerHub_Dashboard.resx">
+      <DependentUpon>Form_C_SellerHub_Dashboard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="E_LogIn.resx">
-      <DependentUpon>E_LogIn.cs</DependentUpon>
+    <EmbeddedResource Include="Form_B_LogIn.resx">
+      <DependentUpon>Form_B_LogIn.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="D_Registration.resx">
-      <DependentUpon>D_Registration.cs</DependentUpon>
+    <EmbeddedResource Include="Form_A_Registration.resx">
+      <DependentUpon>Form_A_Registration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="G_Buyer_Dashboard.resx">
-      <DependentUpon>G_Buyer_Dashboard.cs</DependentUpon>
+    <EmbeddedResource Include="Form_D_Patron_Dashboard.resx">
+      <DependentUpon>Form_D_Patron_Dashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="I_Message.resx">
       <DependentUpon>I_Message.cs</DependentUpon>

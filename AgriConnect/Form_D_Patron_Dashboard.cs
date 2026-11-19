@@ -13,15 +13,15 @@ using System.Windows.Forms;
 
 namespace AgriConnect
 {
-    public partial class G_Buyer_Dashboard : Form
+    public partial class Patron_Dashboard : Form
     {
-        public G_Buyer_Dashboard()
+        public Patron_Dashboard()
         {
             InitializeComponent();
         }
 
         private static market reOpen = new market();
-        private AQ_User ActiveUser = ActiveUserHelper.activeHelper(CurrentUser.currentUser);
+        private User ActiveUser = ActiveUserHelper.activeHelper(CurrentUser.currentUser);
         
 
         private void G_Buyer_Dashboard_Load(object sender, EventArgs e)
@@ -61,7 +61,7 @@ namespace AgriConnect
                     (prod.barangay.ToLower().Contains(product.ToLower())) ||
                     (prod.MarketPhoneNumber.ToLower().Contains(product.ToLower())))
                 {
-                    AQ_User receive = ActiveUserHelper.activeHelper(prod.MarketSeller);
+                    User receive = ActiveUserHelper.activeHelper(prod.MarketSeller);
                     ActiveUserHelper.getUser(receive);
 
                     G_ProductCard set = new G_ProductCard(
@@ -117,7 +117,7 @@ namespace AgriConnect
                 list = JsonSerializer.Deserialize<List<MarketplaceListings>>(readJson);
                 foreach (var display in list)
                 {
-                AQ_User receive = ActiveUserHelper.activeHelper(display.MarketSeller);
+                User receive = ActiveUserHelper.activeHelper(display.MarketSeller);
                 ActiveUserHelper.getUser(receive);
 
 
@@ -150,7 +150,7 @@ namespace AgriConnect
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            E_LogIn open = new E_LogIn();
+            LogIn open = new LogIn();
             reOpen.Dispose();
             open.Show();
             this.Dispose();
@@ -214,6 +214,11 @@ namespace AgriConnect
         }
 
         private void flpMessage_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnSend_Click(object sender, EventArgs e)
         {
 
         }

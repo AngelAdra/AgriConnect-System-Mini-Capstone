@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 namespace AgriConnect
 {
-    public partial class E_LogIn : Form
+    public partial class LogIn : Form
     {
-        public E_LogIn()
+        public LogIn()
         {
             InitializeComponent();
             this.AcceptButton = btnLogin;
@@ -40,7 +40,7 @@ namespace AgriConnect
         private void lblCreateAcc_Click(object sender, EventArgs e)
         {
             this.Hide();
-            D_Registration make = new D_Registration();
+            Registration make = new Registration();
             make.Show();
         }
 
@@ -87,14 +87,14 @@ namespace AgriConnect
             {
                 if (CurrentUser.UserRole == "Seller" || CurrentUser.UserRole == "Dual")
                 {
-                    F_Seller_Dual_Dashboard make_Seller_Dashboard = new F_Seller_Dual_Dashboard();
+                    SellerHub_Dashboard make_Seller_Dashboard = new SellerHub_Dashboard();
                     make_Seller_Dashboard.Show();
                    
                     this.Hide();
                 }
                 else
                 {
-                    G_Buyer_Dashboard make_Buyer_Dashboard = new G_Buyer_Dashboard();
+                    Patron_Dashboard make_Buyer_Dashboard = new Patron_Dashboard();
                     make_Buyer_Dashboard.Show();
                    
                     this.Hide();

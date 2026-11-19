@@ -14,15 +14,15 @@ using System.Drawing.Text;
 
 namespace AgriConnect
 {
-    public partial class F_Seller_Dual_Dashboard : Form
+    public partial class SellerHub_Dashboard : Form
     {
-        public F_Seller_Dual_Dashboard()
+        public SellerHub_Dashboard()
         {
             InitializeComponent();
 
         }
         private string selectedImagePath = "";
-        private AQ_User ActiveUser = ActiveUserHelper.activeHelper(CurrentUser.currentUser);
+        private User ActiveUser = ActiveUserHelper.activeHelper(CurrentUser.currentUser);
         private static market reOpen = new market();
 
         private void label1_Click_1(object sender, EventArgs e)
@@ -160,7 +160,7 @@ namespace AgriConnect
 
         private void LogOff_Click(object sender, EventArgs e)
         {
-            E_LogIn login = new E_LogIn();
+            LogIn login = new LogIn();
             reOpen.Dispose();
             login.Show();
             this.Dispose();
@@ -262,7 +262,7 @@ namespace AgriConnect
                     (prod.barangay.ToLower().Contains(product.ToLower()))||
                     (prod.MarketPhoneNumber.ToLower().Contains(product.ToLower())))
                 {
-                    AQ_User receive = ActiveUserHelper.activeHelper(prod.MarketSeller);
+                    User receive = ActiveUserHelper.activeHelper(prod.MarketSeller);
                     ActiveUserHelper.getUser(receive);
 
 
@@ -321,7 +321,7 @@ namespace AgriConnect
             list = JsonSerializer.Deserialize<List<MarketplaceListings>>(readJson);
             foreach (var display in list)
             {
-                AQ_User receive = ActiveUserHelper.activeHelper(display.MarketSeller);
+                User receive = ActiveUserHelper.activeHelper(display.MarketSeller);
                 ActiveUserHelper.getUser(receive);
 
                 G_ProductCard card = new G_ProductCard(

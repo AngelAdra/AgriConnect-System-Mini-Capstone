@@ -13,6 +13,8 @@ using System.Windows.Forms;
 
 namespace AgriConnect
 {
+    //Class that holds the current user and user role
+    
     internal class C_Global_Variable
     {
         //this method backs two parens and into the project name folder
@@ -48,8 +50,7 @@ namespace AgriConnect
     }
     internal static class ActiveUserHelper
     {
-
-        internal static AQ_User getUser(AQ_User target)
+        internal static User getUser(User target)
         {
 
 
@@ -119,7 +120,7 @@ namespace AgriConnect
             return null;
         }
 
-        internal static void Delist(string delist, AQ_User target)
+        internal static void Delist(string delist, User target)
         {
             if (target.UserRole == "Seller")
             {
@@ -292,7 +293,7 @@ namespace AgriConnect
             CurrentUser.currentUser = null;
         }
 
-        internal static void SaveListTo(AQ_User Target, string productName, int stock, double price, string PN, string imgPath)
+        internal static void SaveListTo(User Target, string productName, int stock, double price, string PN, string imgPath)
         {
 
 
@@ -421,7 +422,7 @@ namespace AgriConnect
         }
 
 
-        internal static AQ_User saveToMarket(AQ_User target, SellerProducts updateMyList, List<MarketplaceListings> productList, string productName, int stock,
+        internal static User saveToMarket(User target, SellerProducts updateMyList, List<MarketplaceListings> productList, string productName, int stock,
             double price, string filePath)
         {
             if (target is Seller sellerSave)
@@ -500,13 +501,9 @@ namespace AgriConnect
             MessageBox.Show("List Updated", "Successs", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        public static void SendMessage()
-        {
 
-        }
-       
 
     }
 
-    
-    }
+
+}

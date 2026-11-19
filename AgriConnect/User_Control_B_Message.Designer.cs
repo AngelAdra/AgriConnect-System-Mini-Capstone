@@ -1,6 +1,6 @@
 ﻿namespace AgriConnect
 {
-    partial class I_Sender
+    partial class MessageBlu
     {
         /// <summary> 
         /// Required designer variable.
@@ -51,7 +51,7 @@
             this.rtbMessage.Text = "";
             this.rtbMessage.TextChanged += new System.EventHandler(this.rtbMessage_TextChanged);
             // 
-            // I_Sender
+            // Message
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -59,7 +59,7 @@
             this.Controls.Add(this.rtbMessage);
             this.Controls.Add(this.lblSender);
             this.Enabled = false;
-            this.Name = "I_Sender";
+            this.Name = "Message";
             this.Size = new System.Drawing.Size(235, 69);
             this.Load += new System.EventHandler(this.I_Sender_Load);
             this.ResumeLayout(false);
