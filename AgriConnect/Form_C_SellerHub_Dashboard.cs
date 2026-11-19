@@ -266,7 +266,7 @@ namespace AgriConnect
                     ActiveUserHelper.getUser(receive);
 
 
-                    G_ProductCard set = new G_ProductCard(
+                    ProductCard set = new ProductCard(
                         prod.productName,
                         prod.productStock,
                         prod.productPrice,
@@ -324,7 +324,7 @@ namespace AgriConnect
                 User receive = ActiveUserHelper.activeHelper(display.MarketSeller);
                 ActiveUserHelper.getUser(receive);
 
-                G_ProductCard card = new G_ProductCard(
+                ProductCard card = new ProductCard(
                     display.productName,
                     display.productStock,
                     display.productPrice,

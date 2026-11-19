@@ -1,6 +1,6 @@
 ﻿namespace AgriConnect
 {
-    partial class G_ProductCard
+    partial class ProductCard
     {
         /// <summary>
         /// Required designer variable.

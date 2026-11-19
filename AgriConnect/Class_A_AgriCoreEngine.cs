@@ -14,7 +14,12 @@ using System.Windows.Forms;
 namespace AgriConnect
 {
     //Class that holds the current user and user role
-    
+    public static class CurrentUser
+    {
+        public static string currentUser { get; set; }
+        public static string UserRole { get; set; }
+
+    }
     internal class C_Global_Variable
     {
         //this method backs two parens and into the project name folder

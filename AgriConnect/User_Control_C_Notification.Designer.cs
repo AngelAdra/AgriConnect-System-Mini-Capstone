@@ -1,6 +1,6 @@
 ﻿namespace AgriConnect
 {
-    partial class K_Notification
+    partial class Notification
     {
         /// <summary> 
         /// Required designer variable.
@@ -40,6 +40,7 @@
             this.lblNotif.Size = new System.Drawing.Size(189, 56);
             this.lblNotif.TabIndex = 0;
             this.lblNotif.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNotif.Click += new System.EventHandler(this.lblNotif_Click);
             // 
             // btnOpen
             // 

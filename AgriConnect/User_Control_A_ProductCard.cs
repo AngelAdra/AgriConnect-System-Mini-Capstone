@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AgriConnect
 {
-    public partial class G_ProductCard : UserControl
+    public partial class ProductCard : UserControl
     {
         private readonly Panel _targetPanel;
         private readonly FlowLayoutPanel _targeFLP;
@@ -18,7 +18,7 @@ namespace AgriConnect
         private string holdProduct;
         private User received = null;
 
-        public G_ProductCard(
+        public ProductCard(
             string productName,
             int stock,
             double price,
@@ -85,7 +85,7 @@ namespace AgriConnect
                 _targetPanel.Focus();
                 btnContackSeller.Enabled = false;
 
-                MessageBlu send = new MessageBlu(getUser.FullName, holdProduct, getUser, received, this, _targeFLP);
+                Message send = new Message(getUser.FullName, holdProduct, received.FullName, this, _targeFLP);
                 _targeFLP.Controls.Add(send);
                 checkFLP = _targeFLP.Controls.Count;
                 

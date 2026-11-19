@@ -87,11 +87,11 @@
     <Compile Include="Form_E_MarketPlace.Designer.cs">
       <DependentUpon>Form_E_MarketPlace.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProductCard.cs">
+    <Compile Include="User_Control_A_ProductCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ProductCard.Designer.cs">
-      <DependentUpon>ProductCard.cs</DependentUpon>
+    <Compile Include="User_Control_A_ProductCard.Designer.cs">
+      <DependentUpon>User_Control_A_ProductCard.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_D_Patron_Dashboard.cs">
       <SubType>Form</SubType>
@@ -118,25 +118,25 @@
     <Compile Include="Form_A_Registration.Designer.cs">
       <DependentUpon>Form_A_Registration.cs</DependentUpon>
     </Compile>
-    <Compile Include="I_Message.cs">
+    <Compile Include="User_Control_B_Message.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="I_Message.Designer.cs">
-      <DependentUpon>I_Message.cs</DependentUpon>
+    <Compile Include="User_Control_B_Message.Designer.cs">
+      <DependentUpon>User_Control_B_Message.cs</DependentUpon>
     </Compile>
-    <Compile Include="K_Notification.cs">
+    <Compile Include="User_Control_C_Notification.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="K_Notification.Designer.cs">
-      <DependentUpon>K_Notification.cs</DependentUpon>
+    <Compile Include="User_Control_C_Notification.Designer.cs">
+      <DependentUpon>User_Control_C_Notification.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form_E_MarketPlace.resx">
       <DependentUpon>Form_E_MarketPlace.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProductCard.resx">
-      <DependentUpon>ProductCard.cs</DependentUpon>
+    <EmbeddedResource Include="User_Control_A_ProductCard.resx">
+      <DependentUpon>User_Control_A_ProductCard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_C_SellerHub_Dashboard.resx">
       <DependentUpon>Form_C_SellerHub_Dashboard.cs</DependentUpon>
@@ -150,11 +150,11 @@
     <EmbeddedResource Include="Form_D_Patron_Dashboard.resx">
       <DependentUpon>Form_D_Patron_Dashboard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="I_Message.resx">
-      <DependentUpon>I_Message.cs</DependentUpon>
+    <EmbeddedResource Include="User_Control_B_Message.resx">
+      <DependentUpon>User_Control_B_Message.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="K_Notification.resx">
-      <DependentUpon>K_Notification.cs</DependentUpon>
+    <EmbeddedResource Include="User_Control_C_Notification.resx">
+      <DependentUpon>User_Control_C_Notification.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

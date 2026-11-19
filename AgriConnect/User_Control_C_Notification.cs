@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace AgriConnect
 {
-    public partial class K_Notification : UserControl
+    public partial class Notification : UserControl
     {
-        public K_Notification()
+        public Notification()
         {
             InitializeComponent();
+        }
+
+        private void lblNotif_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

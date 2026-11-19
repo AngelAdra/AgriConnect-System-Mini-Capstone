@@ -49,7 +49,7 @@ namespace AgriConnect
                 User receive = ActiveUserHelper.activeHelper(get.MarketSeller);
                 ActiveUserHelper.getUser(receive);
 
-                G_ProductCard card = new G_ProductCard(
+                ProductCard card = new ProductCard(
                     get.productName,
                     get.productStock,
                     get.productPrice,

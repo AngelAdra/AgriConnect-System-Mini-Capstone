@@ -12,12 +12,7 @@ namespace AgriConnect
 {
 
 
-    public static class CurrentUser
-    {
-        public static string currentUser { get; set; }
-        public static string UserRole { get; set; }
-
-    }
+    
 
     //Parent class serve as the blueprint of all child classes
     //this class is also abstract because so we cant instantiate it and for its main purpose is to be the blue print for the child classes

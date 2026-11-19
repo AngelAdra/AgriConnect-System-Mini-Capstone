@@ -64,7 +64,7 @@ namespace AgriConnect
                     User receive = ActiveUserHelper.activeHelper(prod.MarketSeller);
                     ActiveUserHelper.getUser(receive);
 
-                    G_ProductCard set = new G_ProductCard(
+                    ProductCard set = new ProductCard(
                         prod.productName,
                         prod.productStock,
                         prod.productPrice,
@@ -121,7 +121,7 @@ namespace AgriConnect
                 ActiveUserHelper.getUser(receive);
 
 
-                G_ProductCard card = new G_ProductCard(
+                ProductCard card = new ProductCard(
                         display.productName,
                         display.productStock,
                         display.productPrice,
@@ -217,10 +217,13 @@ namespace AgriConnect
         {
 
         }
+        //FixBUgTom
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-
+            string getMessage = rtbMessage.Text.Trim();
+            Message display = new Message(getMessage, flpMessage);
+            
         }
     }
 }

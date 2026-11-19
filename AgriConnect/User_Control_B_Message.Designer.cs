@@ -1,6 +1,6 @@
 ﻿namespace AgriConnect
 {
-    partial class MessageBlu
+    partial class Message
     {
         /// <summary> 
         /// Required designer variable.

@@ -10,32 +10,38 @@ using System.Windows.Forms;
 
 namespace AgriConnect
 {
-    public partial class MessageBlu : UserControl
+    public partial class Message : UserControl
     {
 
         bool isUsed = false;
-        public MessageBlu(string name, string message, User sender, User receiver, G_ProductCard show, FlowLayoutPanel use)
+        private static string getreceiver;
+        private static string getsender;
+        public Message(string name, string message, string receiver, ProductCard show, FlowLayoutPanel use)
         {
             InitializeComponent();
             if (!isUsed)
             {
                 lblSender.Text = name;
-                rtbMessage.Text = $"Hello Mr/Ms {receiver.Username}, i'd Like to buy your Product {message}"; 
+                rtbMessage.Text = $"Hello Mr/Ms {receiver}, i'd Like to buy your Product {message}"; 
                 use.Controls.Add(show);
                 
                 isUsed = true;
-                
-
+                getreceiver = receiver;
+                getsender = name;
             }
             else {
                 lblSender.Text = name;
                 rtbMessage.Text = message;
         } }
 
-        public void MyMessage()
+        public Message( string message, FlowLayoutPanel use) :
+            this(getsender, message, getreceiver , null, use)
         {
-
+            lblSender.Text = getsender;
+            rtbMessage.Text = message;
+            use.Controls.Add(this);
         }
+
 
         private void I_Sender_Load(object sender, EventArgs e)
         {
