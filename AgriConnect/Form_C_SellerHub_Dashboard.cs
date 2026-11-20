@@ -22,7 +22,7 @@ namespace AgriConnect
 
         }
         private string selectedImagePath = "";
-        private User ActiveUser = ActiveUserHelper.activeHelper(CurrentUser.currentUser);
+        private User ActiveUser = SelfBuiltEngine.activeHelper(CurrentUser.currentUser);
         private static market reOpen = new market();
 
         private void label1_Click_1(object sender, EventArgs e)
@@ -34,21 +34,22 @@ namespace AgriConnect
         {
             if (ActiveUser.UserRole == "Seller")
                 btnMarket.Text = "View Market";
-            
-                Collection active = ActiveUserHelper.activeHelper(CurrentUser.currentUser);
+
+            Collection active = SelfBuiltEngine.activeHelper(CurrentUser.currentUser);
             txtUser.Text = $"User: {active.Username}";
             txtFullName.Text = $"Name: {active.FullName}";
             txtPhoneNumber.Text = $"Phone Number: {active.PhoneNumber}";
             txtRole.Text = $"Role: {active.UserRole}";
 
 
-           
+
             RefreshSellerListedProduct();
-            loadSearch();
+
+            SelfBuiltEngine.LoadSearch(flpSearch, ActiveUser, pMessage, flpMessage);
             listedProductBySeller.Visible = false;
         }
 
-        
+
 
 
         internal void RefreshSellerListedProduct()
@@ -61,7 +62,7 @@ namespace AgriConnect
                 string getJson = C_Global_Variable.GetFilePath("Sellers.Json");
                 if (!File.Exists(getJson))
                     return;
-                
+
                 string readFile = File.ReadAllText(getJson);
                 seller = JsonSerializer.Deserialize<List<Seller>>(readFile);
 
@@ -147,14 +148,14 @@ namespace AgriConnect
 
 
 
-            ActiveUserHelper.SaveListTo(ActiveUser, productName, stock, price, tempPN, selectedImagePath);
-            loadSearch();
+            SelfBuiltEngine.SaveListTo(ActiveUser, productName, stock, price, tempPN, selectedImagePath);
+            SelfBuiltEngine.LoadSearch(flpSearch, ActiveUser, pMessage, flpMessage);
 
             txtProductName.Clear();
             txtProductStock.Clear();
             txtProductPrice.Clear();
             selectedImagePath = "";
-            
+
             RefreshSellerListedProduct();
         }
 
@@ -196,15 +197,15 @@ namespace AgriConnect
 
             string delist = txtProductName.Text.Trim();
 
-            ActiveUserHelper.Delist(delist, ActiveUser);
-            loadSearch();
+            SelfBuiltEngine.Delist(delist, ActiveUser);
+            SelfBuiltEngine.LoadSearch(flpSearch, ActiveUser, pMessage, flpMessage);
             txtProductName.Clear();
             RefreshSellerListedProduct();
 
 
         }
 
-        
+
         private void btnMarket_Click(object sender, EventArgs e)
         {
             if (reOpen == null || reOpen.IsDisposed)
@@ -236,117 +237,13 @@ namespace AgriConnect
             }
         }
 
-        private void filterSearch(string product)
-        {
 
 
-            reload();
 
-            string get = C_Global_Variable.GetFilePath("MarketListing.Json");
-
-            if (!File.Exists(get))
-            {
-                MessageBox.Show("File not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            string readJson = File.ReadAllText(get);
-            List<MarketplaceListings> list = new List<MarketplaceListings>();
-            list = JsonSerializer.Deserialize<List<MarketplaceListings>>(readJson);
-            
-
-            foreach (var prod in list)
-            {
-                if (prod.productName.ToLower().Contains(product.ToLower())||
-                    (prod.MarketSeller.ToLower().Contains(product.ToLower())) ||
-                    (prod.barangay.ToLower().Contains(product.ToLower()))||
-                    (prod.MarketPhoneNumber.ToLower().Contains(product.ToLower())))
-                {
-                    User receive = ActiveUserHelper.activeHelper(prod.MarketSeller);
-                    ActiveUserHelper.getUser(receive);
-
-
-                    ProductCard set = new ProductCard(
-                        prod.productName,
-                        prod.productStock,
-                        prod.productPrice,
-                        prod.MarketSeller,
-                        prod.MarketPhoneNumber,
-                        prod.ImagePath,
-                        prod.barangay,
-                        ActiveUser,
-                        pMessage,
-                        flpMessage,
-                        receive
-                        );
-                    flpSearch.Controls.Add(set);
-                }
-            }
-            if (flpSearch.Controls.Count == 0)
-            {
-                MessageBox.Show("Product Not Found ", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                loadSearch();
-            }
-        }
-
-        private void reload()
-        {
-
-            if (flpSearch.Controls.Count == 0)
-                return;
-
-            while (flpSearch.Controls.Count > 0)
-            {
-                Control card = flpSearch.Controls[0];
-                flpSearch.Controls.Remove(card);
-                card.Dispose();
-
-            }
-        }
-        
-        private void loadSearch()
-        {
-            flpSearch.SuspendLayout();
-
-            string get = C_Global_Variable.GetFilePath("MarketListing.Json");
-
-            if (!File.Exists(get))
-            {
-                MessageBox.Show("File not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            string readJson = File.ReadAllText(get);
-            List<MarketplaceListings> list = new List<MarketplaceListings>();
-            list = JsonSerializer.Deserialize<List<MarketplaceListings>>(readJson);
-            foreach (var display in list)
-            {
-                User receive = ActiveUserHelper.activeHelper(display.MarketSeller);
-                ActiveUserHelper.getUser(receive);
-
-                ProductCard card = new ProductCard(
-                    display.productName,
-                    display.productStock,
-                    display.productPrice,
-                    display.MarketSeller,
-                    display.MarketPhoneNumber,
-                    display.ImagePath,
-                    display.barangay,
-                    ActiveUser,
-                    pMessage,
-                    flpMessage,
-                    receive
-                    );
-                flpSearch.Controls.Add(card);
-                
-            }
-            flpSearch.ResumeLayout();
-
-        }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            if(listedProductBySeller.Visible == true)
+            if (listedProductBySeller.Visible == true)
             {
                 listedProductBySeller.Visible = false;
                 flpSearch.Visible = true;
@@ -355,8 +252,8 @@ namespace AgriConnect
                 return;
 
             string prod = txtSearchFilter.Text.Trim();
-            
-            filterSearch(prod);
+
+            SelfBuiltEngine.filterSearch(prod, flpSearch, ActiveUser, pMessage, flpMessage);
         }
 
         private void MarketPlace_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -372,7 +269,7 @@ namespace AgriConnect
             flpSearch.ResumeLayout();
         }
 
-       
+
 
         private void lblQuickSearch_Click(object sender, EventArgs e)
         {
@@ -387,35 +284,13 @@ namespace AgriConnect
 
         }
 
-        private void panel4_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void pMessage_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
-
-        private void lblNotification_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pMessage_Paint_1(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 
 

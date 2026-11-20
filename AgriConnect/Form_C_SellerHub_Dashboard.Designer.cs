@@ -84,7 +84,7 @@
             this.panel1.Controls.Add(this.Welcome);
             this.panel1.Location = new System.Drawing.Point(-1, -1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(164, 225);
+            this.panel1.Size = new System.Drawing.Size(202, 490);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -146,9 +146,9 @@
             // 
             // btnList
             // 
-            this.btnList.Location = new System.Drawing.Point(3, 124);
+            this.btnList.Location = new System.Drawing.Point(284, 17);
             this.btnList.Name = "btnList";
-            this.btnList.Size = new System.Drawing.Size(151, 46);
+            this.btnList.Size = new System.Drawing.Size(113, 46);
             this.btnList.TabIndex = 2;
             this.btnList.Text = "List";
             this.btnList.UseVisualStyleBackColor = true;
@@ -156,7 +156,7 @@
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(4, 79);
+            this.label3.Location = new System.Drawing.Point(129, 78);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 16);
             this.label3.TabIndex = 9;
@@ -164,7 +164,7 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(4, 40);
+            this.label2.Location = new System.Drawing.Point(129, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 8;
@@ -172,7 +172,7 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(4, 1);
+            this.label1.Location = new System.Drawing.Point(129, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 2;
@@ -180,7 +180,7 @@
             // 
             // txtProductPrice
             // 
-            this.txtProductPrice.Location = new System.Drawing.Point(3, 98);
+            this.txtProductPrice.Location = new System.Drawing.Point(128, 97);
             this.txtProductPrice.Name = "txtProductPrice";
             this.txtProductPrice.Size = new System.Drawing.Size(150, 20);
             this.txtProductPrice.TabIndex = 7;
@@ -188,7 +188,7 @@
             // 
             // txtProductStock
             // 
-            this.txtProductStock.Location = new System.Drawing.Point(3, 56);
+            this.txtProductStock.Location = new System.Drawing.Point(128, 55);
             this.txtProductStock.Name = "txtProductStock";
             this.txtProductStock.Size = new System.Drawing.Size(150, 20);
             this.txtProductStock.TabIndex = 6;
@@ -196,14 +196,14 @@
             // 
             // txtProductName
             // 
-            this.txtProductName.Location = new System.Drawing.Point(3, 17);
+            this.txtProductName.Location = new System.Drawing.Point(128, 16);
             this.txtProductName.Name = "txtProductName";
             this.txtProductName.Size = new System.Drawing.Size(150, 20);
             this.txtProductName.TabIndex = 2;
             // 
             // picProduct
             // 
-            this.picProduct.Location = new System.Drawing.Point(160, 16);
+            this.picProduct.Location = new System.Drawing.Point(5, 13);
             this.picProduct.Name = "picProduct";
             this.picProduct.Size = new System.Drawing.Size(118, 104);
             this.picProduct.TabIndex = 10;
@@ -216,9 +216,9 @@
             // 
             // btnDelist
             // 
-            this.btnDelist.Location = new System.Drawing.Point(2, 176);
+            this.btnDelist.Location = new System.Drawing.Point(284, 76);
             this.btnDelist.Name = "btnDelist";
-            this.btnDelist.Size = new System.Drawing.Size(151, 42);
+            this.btnDelist.Size = new System.Drawing.Size(113, 42);
             this.btnDelist.TabIndex = 12;
             this.btnDelist.Text = "De-List";
             this.btnDelist.UseVisualStyleBackColor = true;
@@ -234,11 +234,10 @@
             this.listedProductBySeller.ReadOnly = true;
             this.listedProductBySeller.Size = new System.Drawing.Size(293, 331);
             this.listedProductBySeller.TabIndex = 14;
-            this.listedProductBySeller.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.listedProductBySeller_CellContentClick);
             // 
             // btnMarket
             // 
-            this.btnMarket.Location = new System.Drawing.Point(157, 126);
+            this.btnMarket.Location = new System.Drawing.Point(694, 453);
             this.btnMarket.Name = "btnMarket";
             this.btnMarket.Size = new System.Drawing.Size(121, 46);
             this.btnMarket.TabIndex = 15;
@@ -249,9 +248,9 @@
             // flpSearch
             // 
             this.flpSearch.AutoScroll = true;
-            this.flpSearch.Location = new System.Drawing.Point(0, 69);
+            this.flpSearch.Location = new System.Drawing.Point(3, 68);
             this.flpSearch.Name = "flpSearch";
-            this.flpSearch.Size = new System.Drawing.Size(308, 333);
+            this.flpSearch.Size = new System.Drawing.Size(308, 229);
             this.flpSearch.TabIndex = 16;
             // 
             // txtSearchFilter
@@ -283,7 +282,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(314, 402);
             this.panel2.TabIndex = 19;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // lblQuickSearch
             // 
@@ -310,32 +308,30 @@
             this.PListProduct.Controls.Add(this.btnList);
             this.PListProduct.Controls.Add(this.txtProductPrice);
             this.PListProduct.Controls.Add(this.txtProductName);
-            this.PListProduct.Controls.Add(this.btnMarket);
             this.PListProduct.Controls.Add(this.label1);
             this.PListProduct.Controls.Add(this.txtProductStock);
-            this.PListProduct.Controls.Add(this.label2);
             this.PListProduct.Controls.Add(this.picProduct);
+            this.PListProduct.Controls.Add(this.label2);
             this.PListProduct.Controls.Add(this.btnDelist);
             this.PListProduct.Controls.Add(this.label3);
-            this.PListProduct.Location = new System.Drawing.Point(169, 12);
+            this.PListProduct.Location = new System.Drawing.Point(207, 12);
             this.PListProduct.Name = "PListProduct";
-            this.PListProduct.Size = new System.Drawing.Size(287, 223);
+            this.PListProduct.Size = new System.Drawing.Size(407, 130);
             this.PListProduct.TabIndex = 22;
             // 
             // pMyProductList
             // 
             this.pMyProductList.Controls.Add(this.panel2);
-            this.pMyProductList.Location = new System.Drawing.Point(473, 127);
+            this.pMyProductList.Location = new System.Drawing.Point(620, 136);
             this.pMyProductList.Name = "pMyProductList";
             this.pMyProductList.Size = new System.Drawing.Size(315, 311);
             this.pMyProductList.TabIndex = 0;
-            this.pMyProductList.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.lblNotification);
             this.panel3.Controls.Add(this.flowLayoutPanel1);
-            this.panel3.Location = new System.Drawing.Point(476, 13);
+            this.panel3.Location = new System.Drawing.Point(624, 13);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(311, 108);
             this.panel3.TabIndex = 24;
@@ -348,7 +344,6 @@
             this.lblNotification.TabIndex = 1;
             this.lblNotification.Text = "Notifications";
             this.lblNotification.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblNotification.Click += new System.EventHandler(this.lblNotification_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -361,14 +356,14 @@
             // 
             this.flpMessage.AutoScroll = true;
             this.flpMessage.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.flpMessage.Location = new System.Drawing.Point(3, 3);
+            this.flpMessage.Location = new System.Drawing.Point(14, 3);
             this.flpMessage.Name = "flpMessage";
-            this.flpMessage.Size = new System.Drawing.Size(290, 178);
+            this.flpMessage.Size = new System.Drawing.Size(398, 289);
             this.flpMessage.TabIndex = 0;
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(225, 183);
+            this.btnSend.Location = new System.Drawing.Point(342, 298);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(70, 30);
             this.btnSend.TabIndex = 1;
@@ -377,7 +372,7 @@
             // 
             // rtbMessage
             // 
-            this.rtbMessage.Location = new System.Drawing.Point(0, 183);
+            this.rtbMessage.Location = new System.Drawing.Point(120, 298);
             this.rtbMessage.Name = "rtbMessage";
             this.rtbMessage.Size = new System.Drawing.Size(216, 30);
             this.rtbMessage.TabIndex = 0;
@@ -388,11 +383,10 @@
             this.pMessage.Controls.Add(this.flpMessage);
             this.pMessage.Controls.Add(this.btnSend);
             this.pMessage.Controls.Add(this.rtbMessage);
-            this.pMessage.Location = new System.Drawing.Point(169, 241);
+            this.pMessage.Location = new System.Drawing.Point(207, 148);
             this.pMessage.Name = "pMessage";
-            this.pMessage.Size = new System.Drawing.Size(296, 221);
+            this.pMessage.Size = new System.Drawing.Size(397, 341);
             this.pMessage.TabIndex = 25;
-            this.pMessage.Paint += new System.Windows.Forms.PaintEventHandler(this.pMessage_Paint_1);
             // 
             // SellerHub_Dashboard
             // 
@@ -400,12 +394,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(939, 501);
+            this.Controls.Add(this.btnMarket);
             this.Controls.Add(this.pMessage);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.pMyProductList);
             this.Controls.Add(this.PListProduct);
             this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SellerHub_Dashboard";
             this.Text = "DashBoard";

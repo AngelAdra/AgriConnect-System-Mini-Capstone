@@ -34,20 +34,12 @@ namespace AgriConnect
         private void LoadCatalogCards()
         {
             flpMarket.Controls.Clear();
-            string getMarket = C_Global_Variable.GetFilePath("MarketListing.Json");
-            if (!File.Exists(getMarket))
-            {
-                MessageBox.Show("Empty Market List", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            string readJson = File.ReadAllText(getMarket);
-            List<MarketplaceListings> list = new List<MarketplaceListings>();
-            list = JsonSerializer.Deserialize<List<MarketplaceListings>>(readJson);
+            List<MarketplaceListings> getDeserealizedMarket = SelfBuiltEngine.MarketDeserealizer(new List<MarketplaceListings>());
 
-            foreach (var get in list)
+            foreach (var get in getDeserealizedMarket)
             {
-                User receive = ActiveUserHelper.activeHelper(get.MarketSeller);
-                ActiveUserHelper.getUser(receive);
+                MarketplaceListings receive = new MarketplaceListings();
+                SelfBuiltEngine.SingleMarketListingGetter(receive);
 
                 ProductCard card = new ProductCard(
                     get.productName,

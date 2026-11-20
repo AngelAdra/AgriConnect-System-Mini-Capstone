@@ -5,6 +5,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Messaging;
+using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.Json;
@@ -53,7 +55,7 @@ namespace AgriConnect
         }
 
     }
-    internal static class ActiveUserHelper
+    internal static class SelfBuiltEngine
     {
         internal static User getUser(User target)
         {
@@ -506,7 +508,128 @@ namespace AgriConnect
             MessageBox.Show("List Updated", "Successs", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        internal static List<MarketplaceListings> MarketDeserealizer(List<MarketplaceListings> deserealize)
+        {
+            string get = C_Global_Variable.GetFilePath("MarketListing.Json");
 
+            if (!File.Exists(get))
+            {
+                MessageBox.Show("File not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+
+            string readJson = File.ReadAllText(get);
+
+            deserealize = JsonSerializer.Deserialize<List<MarketplaceListings>>(readJson);
+           
+            
+
+            return deserealize ;
+        }
+
+        internal static MarketplaceListings SingleMarketListingGetter(MarketplaceListings passThisObject)
+        {
+            
+            List<MarketplaceListings> receivedList = new List<MarketplaceListings>();
+            MarketDeserealizer(receivedList);
+            if(receivedList == null)
+            {
+                MessageBox.Show("Non-Existent Market error", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+
+            foreach(MarketplaceListings get in receivedList)
+            {
+                if(passThisObject.MarketSeller == get.MarketSeller)
+                {
+                    passThisObject = get;
+                    break;
+                }
+            }
+
+            return passThisObject;
+        }
+        internal static void reload(FlowLayoutPanel flpSearch)
+        {
+            if (flpSearch.Controls.Count == 0)
+                return;
+
+            while (flpSearch.Controls.Count > 0)
+            {
+                Control card = flpSearch.Controls[0];
+                flpSearch.Controls.Remove(card);
+                card.Dispose();
+
+            }
+        }
+
+        internal static void LoadSearch(FlowLayoutPanel flpSearch, User ActiveUser, Panel pMessage, FlowLayoutPanel flpMessage){
+
+            List<MarketplaceListings> getDeserealizedMarket = MarketDeserealizer(new List<MarketplaceListings>());
+
+            foreach (var display in getDeserealizedMarket)
+            {
+                MarketplaceListings receive = new MarketplaceListings();
+                SelfBuiltEngine.SingleMarketListingGetter(receive);
+
+                ProductCard card = new ProductCard(
+                    display.productName,
+                    display.productStock,
+                    display.productPrice,
+                    display.MarketSeller,
+                    display.MarketPhoneNumber,
+                    display.ImagePath,
+                    display.barangay,
+                    ActiveUser,
+                    pMessage,
+                    flpMessage,
+                    receive
+                    );
+                flpSearch.Controls.Add(card);
+
+            }
+            flpSearch.ResumeLayout();
+        }
+       
+        internal static void filterSearch(string product, FlowLayoutPanel flpSearch, User ActiveUser, Panel pMessage, FlowLayoutPanel flpMessage)
+        {
+            SelfBuiltEngine.reload(flpSearch);
+            List<MarketplaceListings> getDeserealizedMarket = SelfBuiltEngine.MarketDeserealizer(new List<MarketplaceListings>());
+
+
+            foreach (var prod in getDeserealizedMarket)
+            {
+                if (prod.productName.ToLower().Contains(product.ToLower()) ||
+                    (prod.MarketSeller.ToLower().Contains(product.ToLower())) ||
+                    (prod.barangay.ToLower().Contains(product.ToLower())) ||
+                    (prod.MarketPhoneNumber.ToLower().Contains(product.ToLower())))
+                {
+                    MarketplaceListings receive = new MarketplaceListings();
+                    SelfBuiltEngine.SingleMarketListingGetter(receive);
+
+
+                    ProductCard set = new ProductCard(
+                        prod.productName,
+                        prod.productStock,
+                        prod.productPrice,
+                        prod.MarketSeller,
+                        prod.MarketPhoneNumber,
+                        prod.ImagePath,
+                        prod.barangay,
+                        ActiveUser,
+                        pMessage,
+                        flpMessage,
+                        receive
+                        );
+                    flpSearch.Controls.Add(set);
+                }
+            }
+            if (flpSearch.Controls.Count == 0)
+            {
+                MessageBox.Show("Product Not Found ", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadSearch(flpSearch, ActiveUser, pMessage, flpMessage);
+            }
+        }
 
     }
 

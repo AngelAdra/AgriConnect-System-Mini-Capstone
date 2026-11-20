@@ -16,7 +16,7 @@ namespace AgriConnect
         private readonly FlowLayoutPanel _targeFLP;
         private readonly User getUser = null;
         private readonly string holdProduct;
-        private readonly User received = null;
+        private readonly MarketplaceListings received = null;
 
 
         public ProductCard(
@@ -30,7 +30,7 @@ namespace AgriConnect
             User block,
             Panel getPanel,
             FlowLayoutPanel getFLP,
-            User receive
+            MarketplaceListings receive
             )
         {
             InitializeComponent();

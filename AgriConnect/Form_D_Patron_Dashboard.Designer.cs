@@ -41,10 +41,10 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.pMessage = new System.Windows.Forms.Panel();
             this.flpMessage = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSend = new System.Windows.Forms.Button();
+            this.rtbMessage = new System.Windows.Forms.RichTextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblRefresh = new System.Windows.Forms.Button();
-            this.rtbMessage = new System.Windows.Forms.RichTextBox();
-            this.btnSend = new System.Windows.Forms.Button();
             this.lblNotification = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -63,7 +63,7 @@
             this.panel1.Controls.Add(this.txtUser);
             this.panel1.Location = new System.Drawing.Point(1, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(177, 448);
+            this.panel1.Size = new System.Drawing.Size(177, 488);
             this.panel1.TabIndex = 0;
             // 
             // btnLogout
@@ -93,7 +93,6 @@
             this.txtPhoneNumber.Name = "txtPhoneNumber";
             this.txtPhoneNumber.Size = new System.Drawing.Size(144, 24);
             this.txtPhoneNumber.TabIndex = 13;
-            this.txtPhoneNumber.Click += new System.EventHandler(this.txtPhoneNumber_Click);
             // 
             // txtFullName
             // 
@@ -137,9 +136,8 @@
             this.flpSearch.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flpSearch.Location = new System.Drawing.Point(8, 51);
             this.flpSearch.Name = "flpSearch";
-            this.flpSearch.Size = new System.Drawing.Size(270, 348);
+            this.flpSearch.Size = new System.Drawing.Size(270, 396);
             this.flpSearch.TabIndex = 0;
-            this.flpSearch.Paint += new System.Windows.Forms.PaintEventHandler(this.flpSearch_Paint);
             // 
             // btnSearch
             // 
@@ -156,21 +154,37 @@
             this.pMessage.Controls.Add(this.flpMessage);
             this.pMessage.Controls.Add(this.btnSend);
             this.pMessage.Controls.Add(this.rtbMessage);
-            this.pMessage.Location = new System.Drawing.Point(184, 130);
+            this.pMessage.Location = new System.Drawing.Point(344, 119);
             this.pMessage.Name = "pMessage";
-            this.pMessage.Size = new System.Drawing.Size(314, 319);
+            this.pMessage.Size = new System.Drawing.Size(301, 367);
             this.pMessage.TabIndex = 5;
-            this.pMessage.Paint += new System.Windows.Forms.PaintEventHandler(this.pMessage_Paint);
             // 
             // flpMessage
             // 
             this.flpMessage.AutoScroll = true;
             this.flpMessage.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.flpMessage.Location = new System.Drawing.Point(3, 3);
+            this.flpMessage.Location = new System.Drawing.Point(3, 16);
             this.flpMessage.Name = "flpMessage";
-            this.flpMessage.Size = new System.Drawing.Size(308, 269);
+            this.flpMessage.Size = new System.Drawing.Size(298, 307);
             this.flpMessage.TabIndex = 0;
-            this.flpMessage.Paint += new System.Windows.Forms.PaintEventHandler(this.flpMessage_Paint);
+            // 
+            // btnSend
+            // 
+            this.btnSend.Location = new System.Drawing.Point(231, 326);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(70, 30);
+            this.btnSend.TabIndex = 1;
+            this.btnSend.Text = "Send";
+            this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            // 
+            // rtbMessage
+            // 
+            this.rtbMessage.Location = new System.Drawing.Point(6, 329);
+            this.rtbMessage.Name = "rtbMessage";
+            this.rtbMessage.Size = new System.Drawing.Size(216, 30);
+            this.rtbMessage.TabIndex = 0;
+            this.rtbMessage.Text = "";
             // 
             // panel2
             // 
@@ -178,9 +192,9 @@
             this.panel2.Controls.Add(this.btnSearch);
             this.panel2.Controls.Add(this.lblRefresh);
             this.panel2.Controls.Add(this.txtSearchFilter);
-            this.panel2.Location = new System.Drawing.Point(504, 39);
+            this.panel2.Location = new System.Drawing.Point(643, 39);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(284, 407);
+            this.panel2.Size = new System.Drawing.Size(284, 450);
             this.panel2.TabIndex = 6;
             // 
             // lblRefresh
@@ -192,25 +206,6 @@
             this.lblRefresh.Text = "refresh";
             this.lblRefresh.UseVisualStyleBackColor = true;
             this.lblRefresh.Click += new System.EventHandler(this.lblRefresh_Click);
-            // 
-            // rtbMessage
-            // 
-            this.rtbMessage.Location = new System.Drawing.Point(6, 286);
-            this.rtbMessage.Name = "rtbMessage";
-            this.rtbMessage.Size = new System.Drawing.Size(216, 30);
-            this.rtbMessage.TabIndex = 0;
-            this.rtbMessage.Text = "";
-            this.rtbMessage.TextChanged += new System.EventHandler(this.rtbMessage_TextChanged);
-            // 
-            // btnSend
-            // 
-            this.btnSend.Location = new System.Drawing.Point(231, 286);
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(70, 30);
-            this.btnSend.TabIndex = 1;
-            this.btnSend.Text = "Send";
-            this.btnSend.UseVisualStyleBackColor = true;
-            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
             // lblNotification
             // 
@@ -225,16 +220,16 @@
             // 
             this.panel3.Controls.Add(this.lblNotification);
             this.panel3.Controls.Add(this.flowLayoutPanel1);
-            this.panel3.Location = new System.Drawing.Point(184, 16);
+            this.panel3.Location = new System.Drawing.Point(344, 12);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(301, 108);
+            this.panel3.Size = new System.Drawing.Size(301, 101);
             this.panel3.TabIndex = 23;
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 22);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(290, 86);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(295, 79);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // Patron_Dashboard
@@ -243,7 +238,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(939, 501);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.pMessage);

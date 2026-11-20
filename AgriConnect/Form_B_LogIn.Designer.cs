@@ -47,10 +47,9 @@
             this.txtUser.BackColor = System.Drawing.SystemColors.Window;
             this.txtUser.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUser.Location = new System.Drawing.Point(275, 169);
-            this.txtUser.Multiline = true;
+            this.txtUser.Location = new System.Drawing.Point(275, 256);
             this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(251, 34);
+            this.txtUser.Size = new System.Drawing.Size(390, 26);
             this.txtUser.TabIndex = 0;
             this.txtUser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtUser.TextChanged += new System.EventHandler(this.txtUser_TextChanged);
@@ -63,11 +62,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(275, 241);
-            this.txtPassword.Multiline = true;
+            this.txtPassword.Location = new System.Drawing.Point(275, 317);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(251, 35);
+            this.txtPassword.Size = new System.Drawing.Size(390, 26);
             this.txtPassword.TabIndex = 1;
             this.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
@@ -77,7 +75,7 @@
             // 
             this.btnLogin.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLogin.Location = new System.Drawing.Point(334, 339);
+            this.btnLogin.Location = new System.Drawing.Point(400, 387);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(120, 36);
             this.btnLogin.TabIndex = 2;
@@ -89,7 +87,7 @@
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(372, 140);
+            this.label1.Location = new System.Drawing.Point(427, 208);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 26);
             this.label1.TabIndex = 3;
@@ -102,7 +100,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(367, 218);
+            this.label2.Location = new System.Drawing.Point(413, 285);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 20);
             this.label2.TabIndex = 4;
@@ -116,7 +114,7 @@
             this.lblCreateAcc.BackColor = System.Drawing.Color.Transparent;
             this.lblCreateAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCreateAcc.ForeColor = System.Drawing.Color.Navy;
-            this.lblCreateAcc.Location = new System.Drawing.Point(293, 305);
+            this.lblCreateAcc.Location = new System.Drawing.Point(330, 356);
             this.lblCreateAcc.Name = "lblCreateAcc";
             this.lblCreateAcc.Size = new System.Drawing.Size(214, 13);
             this.lblCreateAcc.TabIndex = 5;
@@ -128,13 +126,13 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // E_LogIn
+            // LogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(939, 501);
             this.Controls.Add(this.lblCreateAcc);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -143,7 +141,7 @@
             this.Controls.Add(this.txtUser);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "E_LogIn";
+            this.Name = "LogIn";
             this.Text = "Log In Page";
             this.Load += new System.EventHandler(this.LogIn_Load);
             this.ResumeLayout(false);

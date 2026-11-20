@@ -21,130 +21,17 @@ namespace AgriConnect
         }
 
         private static market reOpen = new market();
-        private User ActiveUser = ActiveUserHelper.activeHelper(CurrentUser.currentUser);
+        private User ActiveUser = SelfBuiltEngine.activeHelper(CurrentUser.currentUser);
         
 
         private void G_Buyer_Dashboard_Load(object sender, EventArgs e)
         {
-            Collection active = ActiveUserHelper.activeHelper(CurrentUser.currentUser);
+            Collection active = SelfBuiltEngine.activeHelper(CurrentUser.currentUser);
             txtUser.Text = $"User: {active.Username}";
             txtFullName.Text = $"Name: {active.FullName}";
             txtPhoneNumber.Text = $"Phone Number: {active.PhoneNumber}";
             txtRole.Text = $"Role: {active.UserRole}";
-            loadSearch();
-        }
-
-        private void filterSearch(string product)
-        {
-
-
-            reload(); 
-
-            string get = C_Global_Variable.GetFilePath("MarketListing.Json");
-
-            if (!File.Exists(get))
-            {
-                MessageBox.Show("File not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            string readJson = File.ReadAllText(get);
-            List<MarketplaceListings> list = new List<MarketplaceListings>();
-            list = JsonSerializer.Deserialize<List<MarketplaceListings>>(readJson);
-
-                  
-
-            foreach (var prod in list)
-            {
-                if (prod.productName.ToLower().Contains(product.ToLower()) ||
-                    (prod.MarketSeller.ToLower().Contains(product.ToLower())) ||
-                    (prod.barangay.ToLower().Contains(product.ToLower())) ||
-                    (prod.MarketPhoneNumber.ToLower().Contains(product.ToLower())))
-                {
-                    User receive = ActiveUserHelper.activeHelper(prod.MarketSeller);
-                    ActiveUserHelper.getUser(receive);
-
-                    ProductCard set = new ProductCard(
-                        prod.productName,
-                        prod.productStock,
-                        prod.productPrice,
-                        prod.MarketSeller,
-                        prod.MarketPhoneNumber,
-                        prod.ImagePath,
-                        prod.barangay,
-                        ActiveUser,
-                        pMessage,
-                        flpMessage,
-                        receive
-                        );
-                    flpSearch.Controls.Add(set);
-                }
-            }
-            if (flpSearch.Controls.Count == 0)
-            {
-                MessageBox.Show("Product Not Found ", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                loadSearch();
-            }
-        }
-
-        private void reload() {
-
-            if (flpSearch.Controls.Count == 0)
-                return;
-
-            while (flpSearch.Controls.Count > 0)
-            {
-                Control card = flpSearch.Controls[0];
-                flpSearch.Controls.Remove(card);
-                card.Dispose();
-
-            }
-        }
-        private void loadSearch()
-        {
-            flpSearch.SuspendLayout();
-
-                string get = C_Global_Variable.GetFilePath("MarketListing.Json");
-
-                if (!File.Exists(get))
-                {
-                    MessageBox.Show("File not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-           
-                string readJson = File.ReadAllText(get);
-                List<MarketplaceListings> list = new List<MarketplaceListings>();
-                list = JsonSerializer.Deserialize<List<MarketplaceListings>>(readJson);
-                foreach (var display in list)
-                {
-                User receive = ActiveUserHelper.activeHelper(display.MarketSeller);
-                ActiveUserHelper.getUser(receive);
-
-
-                ProductCard card = new ProductCard(
-                        display.productName,
-                        display.productStock,
-                        display.productPrice,
-                        display.MarketSeller,
-                        display.MarketPhoneNumber,
-                        display.ImagePath,
-                        display.barangay,
-                        ActiveUser,
-                        pMessage,
-                        flpMessage,
-                        receive
-                        );
-                    flpSearch.Controls.Add(card);
-                }
-            flpSearch.ResumeLayout();
-
-        }
-
-
-
-
-        private void txtPhoneNumber_Click(object sender, EventArgs e)
-        {
+            SelfBuiltEngine.LoadSearch(flpSearch, ActiveUser, pMessage, flpMessage);
 
         }
 
@@ -194,7 +81,8 @@ namespace AgriConnect
                 return;
 
             string prod = txtSearchFilter.Text.Trim();
-            filterSearch(prod);
+
+            SelfBuiltEngine.filterSearch(prod, flpSearch, ActiveUser, pMessage, flpMessage);
         }
 
         private void txtSearchFilter_TextChanged(object sender, EventArgs e)
@@ -202,38 +90,21 @@ namespace AgriConnect
 
         }
 
-        private void flpSearch_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void lblRefresh_Click(object sender, EventArgs e)
         {
-            loadSearch();
+            SelfBuiltEngine.LoadSearch(flpSearch, ActiveUser, pMessage, flpMessage);
+
             txtSearchFilter.Clear();
         }
-
-        private void flpMessage_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
         //FixBUgTom
-
+        //CLEAN READY TO COMMIT
         private void btnSend_Click(object sender, EventArgs e)
         {
+            //User target = null;
+
             string getMessage = rtbMessage.Text.Trim();
-            Message display = new Message(getMessage, flpMessage);
             
-        }
-
-        private void pMessage_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void rtbMessage_TextChanged(object sender, EventArgs e)
-        {
-
+            
         }
     }
 }

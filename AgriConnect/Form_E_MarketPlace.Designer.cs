@@ -39,13 +39,13 @@
             this.flpMarket.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpMarket.Location = new System.Drawing.Point(12, 82);
             this.flpMarket.Name = "flpMarket";
-            this.flpMarket.Size = new System.Drawing.Size(753, 356);
+            this.flpMarket.Size = new System.Drawing.Size(915, 395);
             this.flpMarket.TabIndex = 4;
             this.flpMarket.Paint += new System.Windows.Forms.PaintEventHandler(this.flpMarket_Paint);
             // 
             // btnReturn
             // 
-            this.btnReturn.Location = new System.Drawing.Point(677, 12);
+            this.btnReturn.Location = new System.Drawing.Point(813, 12);
             this.btnReturn.Name = "btnReturn";
             this.btnReturn.Size = new System.Drawing.Size(88, 32);
             this.btnReturn.TabIndex = 5;
@@ -58,7 +58,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(777, 450);
+            this.ClientSize = new System.Drawing.Size(939, 501);
             this.Controls.Add(this.btnReturn);
             this.Controls.Add(this.flpMarket);
             this.Name = "market";

@@ -213,13 +213,13 @@
             this.label6.TabIndex = 14;
             this.label6.Text = "Password";
             // 
-            // D_Registration
+            // Registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(939, 501);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtFullName);
             this.Controls.Add(this.label5);
@@ -236,7 +236,7 @@
             this.Controls.Add(this.txtUser);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "D_Registration";
+            this.Name = "Registration";
             this.Text = "Registry";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
