@@ -14,9 +14,10 @@ namespace AgriConnect
     {
         private readonly Panel _targetPanel;
         private readonly FlowLayoutPanel _targeFLP;
-        private User getUser = null;
-        private string holdProduct;
-        private User received = null;
+        private readonly User getUser = null;
+        private readonly string holdProduct;
+        private readonly User received = null;
+
 
         public ProductCard(
             string productName,
@@ -50,9 +51,9 @@ namespace AgriConnect
             holdProduct = productName;
             received = receive;
         }
+        public ProductCard() { }
 
-
-
+        
         private void G_ProductCard_Load(object sender, EventArgs e)
         {
 
@@ -74,18 +75,20 @@ namespace AgriConnect
 
         private void btnContackSeller_Click(object sender, EventArgs e)
         {
-            clear();
+            
 
 
-            if (!IsPressed)
+            if (checkFLP == 0)
             {
+                clear();
+                ProductCard get = new ProductCard();
                 
                 IsPressed = true;
               
                 _targetPanel.Focus();
-                btnContackSeller.Enabled = false;
+                
 
-                Message send = new Message(getUser.FullName, holdProduct, received.FullName, this, _targeFLP);
+                Message send = new Message(getUser.FullName, holdProduct, received, get, _targeFLP);
                 _targeFLP.Controls.Add(send);
                 checkFLP = _targeFLP.Controls.Count;
                 
@@ -105,11 +108,16 @@ namespace AgriConnect
                 Control send = _targeFLP.Controls[0];
                 _targeFLP.Controls.Remove(send);
                 send.Dispose();
-                IsPressed = false;
+              
             }
         }
 
         private void lblBarangay_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSetOrder_Click(object sender, EventArgs e)
         {
 
         }

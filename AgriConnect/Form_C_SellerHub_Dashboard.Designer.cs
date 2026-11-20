@@ -52,19 +52,25 @@
             this.txtSearchFilter = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnMyProducts = new System.Windows.Forms.Button();
             this.lblQuickSearch = new System.Windows.Forms.Button();
-            this.flpMessage = new System.Windows.Forms.FlowLayoutPanel();
-            this.pMessage = new System.Windows.Forms.Panel();
+            this.btnMyProducts = new System.Windows.Forms.Button();
+            this.PListProduct = new System.Windows.Forms.Panel();
+            this.pMyProductList = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblNotification = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpMessage = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSend = new System.Windows.Forms.Button();
+            this.rtbMessage = new System.Windows.Forms.RichTextBox();
+            this.pMessage = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picProduct)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.listedProductBySeller)).BeginInit();
             this.panel2.SuspendLayout();
-            this.pMessage.SuspendLayout();
+            this.PListProduct.SuspendLayout();
+            this.pMyProductList.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.pMessage.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -78,8 +84,9 @@
             this.panel1.Controls.Add(this.Welcome);
             this.panel1.Location = new System.Drawing.Point(-1, -1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(212, 225);
+            this.panel1.Size = new System.Drawing.Size(164, 225);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // txtUser
             // 
@@ -139,9 +146,9 @@
             // 
             // btnList
             // 
-            this.btnList.Location = new System.Drawing.Point(17, 352);
+            this.btnList.Location = new System.Drawing.Point(3, 124);
             this.btnList.Name = "btnList";
-            this.btnList.Size = new System.Drawing.Size(195, 46);
+            this.btnList.Size = new System.Drawing.Size(151, 46);
             this.btnList.TabIndex = 2;
             this.btnList.Text = "List";
             this.btnList.UseVisualStyleBackColor = true;
@@ -149,7 +156,7 @@
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(18, 307);
+            this.label3.Location = new System.Drawing.Point(4, 79);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 16);
             this.label3.TabIndex = 9;
@@ -157,7 +164,7 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(18, 268);
+            this.label2.Location = new System.Drawing.Point(4, 40);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 8;
@@ -165,7 +172,7 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(18, 229);
+            this.label1.Location = new System.Drawing.Point(4, 1);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 2;
@@ -173,32 +180,32 @@
             // 
             // txtProductPrice
             // 
-            this.txtProductPrice.Location = new System.Drawing.Point(17, 326);
+            this.txtProductPrice.Location = new System.Drawing.Point(3, 98);
             this.txtProductPrice.Name = "txtProductPrice";
-            this.txtProductPrice.Size = new System.Drawing.Size(194, 20);
+            this.txtProductPrice.Size = new System.Drawing.Size(150, 20);
             this.txtProductPrice.TabIndex = 7;
             this.txtProductPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductPrice_KeyPress);
             // 
             // txtProductStock
             // 
-            this.txtProductStock.Location = new System.Drawing.Point(17, 284);
+            this.txtProductStock.Location = new System.Drawing.Point(3, 56);
             this.txtProductStock.Name = "txtProductStock";
-            this.txtProductStock.Size = new System.Drawing.Size(194, 20);
+            this.txtProductStock.Size = new System.Drawing.Size(150, 20);
             this.txtProductStock.TabIndex = 6;
             this.txtProductStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtProductStock_KeyPress);
             // 
             // txtProductName
             // 
-            this.txtProductName.Location = new System.Drawing.Point(17, 245);
+            this.txtProductName.Location = new System.Drawing.Point(3, 17);
             this.txtProductName.Name = "txtProductName";
-            this.txtProductName.Size = new System.Drawing.Size(194, 20);
+            this.txtProductName.Size = new System.Drawing.Size(150, 20);
             this.txtProductName.TabIndex = 2;
             // 
             // picProduct
             // 
-            this.picProduct.Location = new System.Drawing.Point(217, 333);
+            this.picProduct.Location = new System.Drawing.Point(160, 16);
             this.picProduct.Name = "picProduct";
-            this.picProduct.Size = new System.Drawing.Size(118, 113);
+            this.picProduct.Size = new System.Drawing.Size(118, 104);
             this.picProduct.TabIndex = 10;
             this.picProduct.TabStop = false;
             this.picProduct.Click += new System.EventHandler(this.picProduct_Click);
@@ -209,9 +216,9 @@
             // 
             // btnDelist
             // 
-            this.btnDelist.Location = new System.Drawing.Point(16, 404);
+            this.btnDelist.Location = new System.Drawing.Point(2, 176);
             this.btnDelist.Name = "btnDelist";
-            this.btnDelist.Size = new System.Drawing.Size(195, 42);
+            this.btnDelist.Size = new System.Drawing.Size(151, 42);
             this.btnDelist.TabIndex = 12;
             this.btnDelist.Text = "De-List";
             this.btnDelist.UseVisualStyleBackColor = true;
@@ -222,18 +229,18 @@
             this.listedProductBySeller.AllowUserToAddRows = false;
             this.listedProductBySeller.AllowUserToDeleteRows = false;
             this.listedProductBySeller.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.listedProductBySeller.Location = new System.Drawing.Point(3, 39);
+            this.listedProductBySeller.Location = new System.Drawing.Point(3, 68);
             this.listedProductBySeller.Name = "listedProductBySeller";
             this.listedProductBySeller.ReadOnly = true;
-            this.listedProductBySeller.Size = new System.Drawing.Size(311, 287);
+            this.listedProductBySeller.Size = new System.Drawing.Size(293, 331);
             this.listedProductBySeller.TabIndex = 14;
             this.listedProductBySeller.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.listedProductBySeller_CellContentClick);
             // 
             // btnMarket
             // 
-            this.btnMarket.Location = new System.Drawing.Point(341, 396);
+            this.btnMarket.Location = new System.Drawing.Point(157, 126);
             this.btnMarket.Name = "btnMarket";
-            this.btnMarket.Size = new System.Drawing.Size(148, 42);
+            this.btnMarket.Size = new System.Drawing.Size(121, 46);
             this.btnMarket.TabIndex = 15;
             this.btnMarket.Text = "Market";
             this.btnMarket.UseVisualStyleBackColor = true;
@@ -242,9 +249,9 @@
             // flpSearch
             // 
             this.flpSearch.AutoScroll = true;
-            this.flpSearch.Location = new System.Drawing.Point(3, 39);
+            this.flpSearch.Location = new System.Drawing.Point(0, 69);
             this.flpSearch.Name = "flpSearch";
-            this.flpSearch.Size = new System.Drawing.Size(308, 277);
+            this.flpSearch.Size = new System.Drawing.Size(308, 333);
             this.flpSearch.TabIndex = 16;
             // 
             // txtSearchFilter
@@ -267,59 +274,71 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.flpSearch);
-            this.panel2.Controls.Add(this.btnSearch);
             this.panel2.Controls.Add(this.listedProductBySeller);
+            this.panel2.Controls.Add(this.btnSearch);
             this.panel2.Controls.Add(this.txtSearchFilter);
-            this.panel2.Location = new System.Drawing.Point(217, 9);
+            this.panel2.Controls.Add(this.lblQuickSearch);
+            this.panel2.Controls.Add(this.btnMyProducts);
+            this.panel2.Location = new System.Drawing.Point(0, 14);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(314, 318);
+            this.panel2.Size = new System.Drawing.Size(314, 402);
             this.panel2.TabIndex = 19;
-            // 
-            // btnMyProducts
-            // 
-            this.btnMyProducts.Location = new System.Drawing.Point(341, 369);
-            this.btnMyProducts.Name = "btnMyProducts";
-            this.btnMyProducts.Size = new System.Drawing.Size(148, 21);
-            this.btnMyProducts.TabIndex = 19;
-            this.btnMyProducts.Text = "My Products";
-            this.btnMyProducts.UseVisualStyleBackColor = true;
-            this.btnMyProducts.Click += new System.EventHandler(this.btnMyProducts_Click);
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // lblQuickSearch
             // 
-            this.lblQuickSearch.Location = new System.Drawing.Point(341, 342);
+            this.lblQuickSearch.Location = new System.Drawing.Point(151, 39);
             this.lblQuickSearch.Name = "lblQuickSearch";
-            this.lblQuickSearch.Size = new System.Drawing.Size(148, 21);
+            this.lblQuickSearch.Size = new System.Drawing.Size(134, 21);
             this.lblQuickSearch.TabIndex = 20;
             this.lblQuickSearch.Text = "Quick search";
             this.lblQuickSearch.UseVisualStyleBackColor = true;
             this.lblQuickSearch.Click += new System.EventHandler(this.lblQuickSearch_Click);
             // 
-            // flpMessage
+            // btnMyProducts
             // 
-            this.flpMessage.AutoScroll = true;
-            this.flpMessage.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flpMessage.Location = new System.Drawing.Point(3, 42);
-            this.flpMessage.Name = "flpMessage";
-            this.flpMessage.Size = new System.Drawing.Size(256, 273);
-            this.flpMessage.TabIndex = 0;
+            this.btnMyProducts.Location = new System.Drawing.Point(12, 38);
+            this.btnMyProducts.Name = "btnMyProducts";
+            this.btnMyProducts.Size = new System.Drawing.Size(133, 21);
+            this.btnMyProducts.TabIndex = 19;
+            this.btnMyProducts.Text = "My Products";
+            this.btnMyProducts.UseVisualStyleBackColor = true;
+            this.btnMyProducts.Click += new System.EventHandler(this.btnMyProducts_Click);
             // 
-            // pMessage
+            // PListProduct
             // 
-            this.pMessage.Controls.Add(this.flpMessage);
-            this.pMessage.Location = new System.Drawing.Point(537, 9);
-            this.pMessage.Name = "pMessage";
-            this.pMessage.Size = new System.Drawing.Size(262, 318);
-            this.pMessage.TabIndex = 21;
+            this.PListProduct.Controls.Add(this.btnList);
+            this.PListProduct.Controls.Add(this.txtProductPrice);
+            this.PListProduct.Controls.Add(this.txtProductName);
+            this.PListProduct.Controls.Add(this.btnMarket);
+            this.PListProduct.Controls.Add(this.label1);
+            this.PListProduct.Controls.Add(this.txtProductStock);
+            this.PListProduct.Controls.Add(this.label2);
+            this.PListProduct.Controls.Add(this.picProduct);
+            this.PListProduct.Controls.Add(this.btnDelist);
+            this.PListProduct.Controls.Add(this.label3);
+            this.PListProduct.Location = new System.Drawing.Point(169, 12);
+            this.PListProduct.Name = "PListProduct";
+            this.PListProduct.Size = new System.Drawing.Size(287, 223);
+            this.PListProduct.TabIndex = 22;
+            // 
+            // pMyProductList
+            // 
+            this.pMyProductList.Controls.Add(this.panel2);
+            this.pMyProductList.Location = new System.Drawing.Point(473, 127);
+            this.pMyProductList.Name = "pMyProductList";
+            this.pMyProductList.Size = new System.Drawing.Size(315, 311);
+            this.pMyProductList.TabIndex = 0;
+            this.pMyProductList.Paint += new System.Windows.Forms.PaintEventHandler(this.panel4_Paint);
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.lblNotification);
             this.panel3.Controls.Add(this.flowLayoutPanel1);
-            this.panel3.Location = new System.Drawing.Point(495, 338);
+            this.panel3.Location = new System.Drawing.Point(476, 13);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(301, 108);
-            this.panel3.TabIndex = 22;
+            this.panel3.Size = new System.Drawing.Size(311, 108);
+            this.panel3.TabIndex = 24;
             // 
             // lblNotification
             // 
@@ -329,39 +348,66 @@
             this.lblNotification.TabIndex = 1;
             this.lblNotification.Text = "Notifications";
             this.lblNotification.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNotification.Click += new System.EventHandler(this.lblNotification_Click);
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 22);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(290, 86);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(302, 86);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
-            // F_Seller_Dual_Dashboard
+            // flpMessage
+            // 
+            this.flpMessage.AutoScroll = true;
+            this.flpMessage.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.flpMessage.Location = new System.Drawing.Point(3, 3);
+            this.flpMessage.Name = "flpMessage";
+            this.flpMessage.Size = new System.Drawing.Size(290, 178);
+            this.flpMessage.TabIndex = 0;
+            // 
+            // btnSend
+            // 
+            this.btnSend.Location = new System.Drawing.Point(225, 183);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(70, 30);
+            this.btnSend.TabIndex = 1;
+            this.btnSend.Text = "Send";
+            this.btnSend.UseVisualStyleBackColor = true;
+            // 
+            // rtbMessage
+            // 
+            this.rtbMessage.Location = new System.Drawing.Point(0, 183);
+            this.rtbMessage.Name = "rtbMessage";
+            this.rtbMessage.Size = new System.Drawing.Size(216, 30);
+            this.rtbMessage.TabIndex = 0;
+            this.rtbMessage.Text = "";
+            // 
+            // pMessage
+            // 
+            this.pMessage.Controls.Add(this.flpMessage);
+            this.pMessage.Controls.Add(this.btnSend);
+            this.pMessage.Controls.Add(this.rtbMessage);
+            this.pMessage.Location = new System.Drawing.Point(169, 241);
+            this.pMessage.Name = "pMessage";
+            this.pMessage.Size = new System.Drawing.Size(296, 221);
+            this.pMessage.TabIndex = 25;
+            this.pMessage.Paint += new System.Windows.Forms.PaintEventHandler(this.pMessage_Paint_1);
+            // 
+            // SellerHub_Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panel3);
             this.Controls.Add(this.pMessage);
-            this.Controls.Add(this.lblQuickSearch);
-            this.Controls.Add(this.btnMyProducts);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.btnMarket);
-            this.Controls.Add(this.btnDelist);
-            this.Controls.Add(this.picProduct);
-            this.Controls.Add(this.btnList);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.pMyProductList);
+            this.Controls.Add(this.PListProduct);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtProductStock);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtProductName);
-            this.Controls.Add(this.txtProductPrice);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "F_Seller_Dual_Dashboard";
+            this.Name = "SellerHub_Dashboard";
             this.Text = "DashBoard";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.F_Seller_Dual_Dashboard_FormClosing);
             this.Load += new System.EventHandler(this.Dashboard_Load);
@@ -370,10 +416,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.listedProductBySeller)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.pMessage.ResumeLayout(false);
+            this.PListProduct.ResumeLayout(false);
+            this.PListProduct.PerformLayout();
+            this.pMyProductList.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.pMessage.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -404,10 +452,14 @@
         private System.Windows.Forms.Button btnMyProducts;
         private System.Windows.Forms.Button lblQuickSearch;
         internal System.Windows.Forms.DataGridView listedProductBySeller;
-        private System.Windows.Forms.FlowLayoutPanel flpMessage;
-        private System.Windows.Forms.Panel pMessage;
+        private System.Windows.Forms.Panel PListProduct;
+        private System.Windows.Forms.Panel pMyProductList;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label lblNotification;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flpMessage;
+        private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.RichTextBox rtbMessage;
+        private System.Windows.Forms.Panel pMessage;
     }
 }

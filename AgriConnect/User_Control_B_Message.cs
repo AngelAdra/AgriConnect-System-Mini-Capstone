@@ -14,15 +14,15 @@ namespace AgriConnect
     {
 
         bool isUsed = false;
-        private static string getreceiver;
+        private static User getreceiver;
         private static string getsender;
-        public Message(string name, string message, string receiver, ProductCard show, FlowLayoutPanel use)
+        public Message(string name, string message, User receiver, ProductCard show, FlowLayoutPanel use)
         {
             InitializeComponent();
             if (!isUsed)
             {
                 lblSender.Text = name;
-                rtbMessage.Text = $"Hello Mr/Ms {receiver}, i'd Like to buy your Product {message}"; 
+                rtbMessage.Text = $"Hello Mr/Ms {receiver.FullName}, i'd Like to inquire about your Product {message} Before setting an Order"; 
                 use.Controls.Add(show);
                 
                 isUsed = true;

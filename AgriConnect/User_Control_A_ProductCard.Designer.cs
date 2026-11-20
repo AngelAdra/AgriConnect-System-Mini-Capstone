@@ -154,8 +154,9 @@
             this.btnSetOrder.TabIndex = 14;
             this.btnSetOrder.Text = "SetOrder";
             this.btnSetOrder.UseVisualStyleBackColor = true;
+            this.btnSetOrder.Click += new System.EventHandler(this.btnSetOrder_Click);
             // 
-            // G_ProductCard
+            // ProductCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -174,7 +175,7 @@
             this.Controls.Add(this.lblPrice);
             this.Controls.Add(this.lblProductName);
             this.Controls.Add(this.picProduct);
-            this.Name = "G_ProductCard";
+            this.Name = "ProductCard";
             this.Size = new System.Drawing.Size(284, 267);
             this.Load += new System.EventHandler(this.G_ProductCard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picProduct)).EndInit();

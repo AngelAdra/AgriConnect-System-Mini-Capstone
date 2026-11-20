@@ -30,5 +30,21 @@
     "PhoneNumber": "46732164253",
     "FullName": "buyer",
     "Barangay": "Macalidong"
+  },
+  {
+    "Username": "pitipiwpiw",
+    "UserPassword": "kiwkiw11",
+    "UserRole": "Seller",
+    "PhoneNumber": "09556686585",
+    "FullName": "Marc Gra",
+    "Barangay": "Allang"
+  },
+  {
+    "Username": "gragrakiw",
+    "UserPassword": "kiwkiw11",
+    "UserRole": "Buyer",
+    "PhoneNumber": "09555555555",
+    "FullName": "Markkk",
+    "Barangay": "Oma-Oma"
   }
 ]

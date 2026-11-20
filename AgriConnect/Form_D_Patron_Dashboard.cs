@@ -225,5 +225,15 @@ namespace AgriConnect
             Message display = new Message(getMessage, flpMessage);
             
         }
+
+        private void pMessage_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void rtbMessage_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

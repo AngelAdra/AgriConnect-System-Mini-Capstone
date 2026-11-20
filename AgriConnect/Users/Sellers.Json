@@ -27,7 +27,7 @@
         "productPrice": 42
       }
     ],
-    "myHistory": [],
+    "SyncMessages": [],
     "Username": "u1",
     "UserPassword": "s1",
     "UserRole": "Seller",
@@ -43,12 +43,22 @@
         "productPrice": 9
       }
     ],
-    "myHistory": [],
+    "SyncMessages": [],
     "Username": "rojune",
     "UserPassword": "rojune123",
     "UserRole": "Seller",
     "PhoneNumber": "12345678910",
     "FullName": "reforsado",
+    "Barangay": "Allang"
+  },
+  {
+    "MyProducts": [],
+    "SyncMessages": [],
+    "Username": "pitipiwpiw",
+    "UserPassword": "kiwkiw11",
+    "UserRole": "Seller",
+    "PhoneNumber": "09556686585",
+    "FullName": "Marc Gra",
     "Barangay": "Allang"
   }
 ]

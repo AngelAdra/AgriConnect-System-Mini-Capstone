@@ -135,9 +135,9 @@
             // 
             this.flpSearch.AutoScroll = true;
             this.flpSearch.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flpSearch.Location = new System.Drawing.Point(0, 47);
+            this.flpSearch.Location = new System.Drawing.Point(8, 51);
             this.flpSearch.Name = "flpSearch";
-            this.flpSearch.Size = new System.Drawing.Size(284, 313);
+            this.flpSearch.Size = new System.Drawing.Size(270, 348);
             this.flpSearch.TabIndex = 0;
             this.flpSearch.Paint += new System.Windows.Forms.PaintEventHandler(this.flpSearch_Paint);
             // 
@@ -154,10 +154,13 @@
             // pMessage
             // 
             this.pMessage.Controls.Add(this.flpMessage);
+            this.pMessage.Controls.Add(this.btnSend);
+            this.pMessage.Controls.Add(this.rtbMessage);
             this.pMessage.Location = new System.Drawing.Point(184, 130);
             this.pMessage.Name = "pMessage";
-            this.pMessage.Size = new System.Drawing.Size(314, 272);
+            this.pMessage.Size = new System.Drawing.Size(314, 319);
             this.pMessage.TabIndex = 5;
+            this.pMessage.Paint += new System.Windows.Forms.PaintEventHandler(this.pMessage_Paint);
             // 
             // flpMessage
             // 
@@ -177,7 +180,7 @@
             this.panel2.Controls.Add(this.txtSearchFilter);
             this.panel2.Location = new System.Drawing.Point(504, 39);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(284, 363);
+            this.panel2.Size = new System.Drawing.Size(284, 407);
             this.panel2.TabIndex = 6;
             // 
             // lblRefresh
@@ -192,17 +195,18 @@
             // 
             // rtbMessage
             // 
-            this.rtbMessage.Location = new System.Drawing.Point(187, 408);
+            this.rtbMessage.Location = new System.Drawing.Point(6, 286);
             this.rtbMessage.Name = "rtbMessage";
-            this.rtbMessage.Size = new System.Drawing.Size(230, 30);
+            this.rtbMessage.Size = new System.Drawing.Size(216, 30);
             this.rtbMessage.TabIndex = 0;
             this.rtbMessage.Text = "";
+            this.rtbMessage.TextChanged += new System.EventHandler(this.rtbMessage_TextChanged);
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(423, 405);
+            this.btnSend.Location = new System.Drawing.Point(231, 286);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(75, 33);
+            this.btnSend.Size = new System.Drawing.Size(70, 30);
             this.btnSend.TabIndex = 1;
             this.btnSend.Text = "Send";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -233,7 +237,7 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(290, 86);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
-            // G_Buyer_Dashboard
+            // Patron_Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -241,13 +245,11 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.btnSend);
-            this.Controls.Add(this.rtbMessage);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.pMessage);
             this.Controls.Add(this.btnMarket);
             this.Controls.Add(this.panel1);
-            this.Name = "G_Buyer_Dashboard";
+            this.Name = "Patron_Dashboard";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.G_Buyer_Dashboard_FormClosing);
             this.Load += new System.EventHandler(this.G_Buyer_Dashboard_Load);
