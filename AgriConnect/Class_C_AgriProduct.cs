@@ -17,7 +17,7 @@ namespace AgriConnect
         private string _productName;
         private int _productStock;
         private double _productPrice;
-        private string _role;
+        
 
         //full properties validates  the input before storing it in the backing fields
         public string productName
@@ -93,8 +93,22 @@ namespace AgriConnect
         //this stores the image the seller set for the products
         public string ImagePath { get; set; }
         public string barangay { get; set; }
-        public MarketplaceListings() { }
-        public MarketplaceListings(string MarketSeller, string marketProduct, int marketStock, double MarketPrice,string marketPN, string imgPath, string barangay)
+
+        public string role { get; set; }
+
+        public MarketplaceListings()
+        {
+        }
+
+        public MarketplaceListings(
+            string MarketSeller,
+            string marketProduct,
+            int marketStock,
+            double MarketPrice,
+            string marketPN,
+            string imgPath,
+            string barangay,
+            string productRole)
         {
             this.MarketSeller = MarketSeller;
             productName = marketProduct;
@@ -103,6 +117,7 @@ namespace AgriConnect
             MarketPhoneNumber = marketPN;
             ImagePath = imgPath;
             this.barangay = barangay;
+            role = productRole;
         }
 
 

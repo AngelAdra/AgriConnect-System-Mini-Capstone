@@ -348,7 +348,17 @@ namespace AgriConnect
                     }
                 }
                 SellerProducts savethis = new SellerProducts(productName, stock, price);
-                MarketplaceListings saveMarket = new MarketplaceListings(saveHere.Username, productName, stock, price, PN, imgPath, saveHere.Barangay);
+
+                MarketplaceListings saveMarket = new MarketplaceListings(
+                    saveHere.Username,
+                    productName,
+                    stock,
+                    price,
+                    PN,
+                    imgPath,
+                    saveHere.Barangay,
+                    saveHere.UserRole);
+
 
                 saveHere.MyProducts.Add(savethis);
                 productList.Add(saveMarket);
@@ -410,7 +420,7 @@ namespace AgriConnect
 
 
                 SellerProducts saveThis = new SellerProducts(productName, stock, price);
-                MarketplaceListings saveMarket = new MarketplaceListings(saveHere.Username, productName, stock, price, PN, imgPath, saveHere.Barangay);
+                MarketplaceListings saveMarket = new MarketplaceListings(saveHere.Username, productName, stock, price, PN, imgPath, saveHere.Barangay, saveHere.UserRole);
 
 
                 saveHere.MyProducts.Add(saveThis);
@@ -697,7 +707,7 @@ namespace AgriConnect
             return null;
         }
 
-        internal static MarketUserGetter()
+     //   internal static MarketUserGetter() { }
 
     }
 

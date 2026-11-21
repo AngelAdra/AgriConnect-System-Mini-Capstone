@@ -32,7 +32,7 @@ namespace AgriConnect
                 {
                     Buyer sender = SelfBuiltEngine.getBuyer(name);
 
-                    sender.SendTo();
+                    //sender.SendTo();
                 }
 
             }
