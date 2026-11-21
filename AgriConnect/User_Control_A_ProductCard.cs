@@ -88,8 +88,9 @@ namespace AgriConnect
                 _targetPanel.Focus();
                 
 
-                Message send = new Message(getUser.FullName, holdProduct, received, get, _targeFLP);
+                Message send = new Message(getUser, holdProduct, received, get, _targeFLP);
                 _targeFLP.Controls.Add(send);
+
                 checkFLP = _targeFLP.Controls.Count;
                 
             } else

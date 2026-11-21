@@ -186,7 +186,7 @@ namespace AgriConnect
 
         public void SendTo(Seller target, string message)
         {
-            string path = C_Global_Variable.GetFilePath("Sellers.json");
+            string path = FileGetter.GetFilePath("Sellers.json");
             if (!File.Exists(path))
                 return;
 

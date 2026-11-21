@@ -15,29 +15,36 @@ namespace AgriConnect
 
         bool isUsed = false;
         private static MarketplaceListings getreceiver;
-        private static string getsender;
-        public Message(string name, string message, MarketplaceListings receiver, ProductCard show, FlowLayoutPanel use)
+        private static User getsender;
+        public Message(User name, string message, MarketplaceListings receiver, ProductCard show, FlowLayoutPanel use)
         {
             InitializeComponent();
             if (!isUsed)
             {
-                lblSender.Text = name;
+                lblSender.Text = name.FullName;
                 rtbMessage.Text = $"Hello Mr/Ms {receiver.MarketSeller}, i'd Like to inquire about your Product {message} Before setting an Order"; 
                 use.Controls.Add(show);
                 
                 isUsed = true;
                 getreceiver = receiver;
                 getsender = name;
+                if(name.UserRole == "Buyer")
+                {
+                    Buyer sender = SelfBuiltEngine.getBuyer(name);
+
+                    sender.SendTo();
+                }
+
             }
             else {
-                lblSender.Text = name;
+                lblSender.Text = name.FullName;
                 rtbMessage.Text = message;
         } }
 
         public Message( string message, FlowLayoutPanel use) :
             this(getsender, message, getreceiver , null, use)
         {
-            lblSender.Text = getsender;
+            lblSender.Text = getsender.FullName;
             rtbMessage.Text = message;
             use.Controls.Add(this);
         }

@@ -244,6 +244,7 @@
             this.Controls.Add(this.pMessage);
             this.Controls.Add(this.btnMarket);
             this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Name = "Patron_Dashboard";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.G_Buyer_Dashboard_FormClosing);

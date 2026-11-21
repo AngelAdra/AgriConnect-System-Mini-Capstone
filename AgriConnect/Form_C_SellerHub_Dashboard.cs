@@ -59,7 +59,7 @@ namespace AgriConnect
             {
 
                 List<Seller> seller = new List<Seller>();
-                string getJson = C_Global_Variable.GetFilePath("Sellers.Json");
+                string getJson = FileGetter.GetFilePath("Sellers.Json");
                 if (!File.Exists(getJson))
                     return;
 
@@ -81,7 +81,7 @@ namespace AgriConnect
             {
 
                 List<Dual> dual = new List<Dual>();
-                string getJson = C_Global_Variable.GetFilePath("Dual.Json");
+                string getJson = FileGetter.GetFilePath("Dual.Json");
                 if (!File.Exists(getJson))
                 {
                     MessageBox.Show("file not Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -100,9 +100,10 @@ namespace AgriConnect
         //CLEAN READY TO COMMIT
         private void btnSend_Click(object sender, EventArgs e)
         {
-            //User target = null;
+
 
             string getMessage = rtbMessage.Text.Trim();
+
             
             
         }

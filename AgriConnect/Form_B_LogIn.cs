@@ -57,7 +57,7 @@ namespace AgriConnect
 
 
             List<Collection> Collected = new List<Collection>();
-            string getFile = C_Global_Variable.GetFilePath("Collection.Json");
+            string getFile = FileGetter.GetFilePath("Collection.Json");
             if (!File.Exists(getFile))
             {
                 MessageBox.Show("No such account please create one to continue", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

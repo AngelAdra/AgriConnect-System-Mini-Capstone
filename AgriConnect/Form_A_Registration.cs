@@ -62,7 +62,7 @@ namespace AgriConnect
             {
                 case "Seller":
                     
-                    string SellerFilePath = C_Global_Variable.GetFilePath("Sellers.Json");
+                    string SellerFilePath = FileGetter.GetFilePath("Sellers.Json");
                     List<Seller> sellerList = new List<Seller>();
 
                     if (File.Exists(SellerFilePath))
@@ -86,7 +86,7 @@ namespace AgriConnect
 
                 case "Buyer":
                     
-                    string BuyerFilePath = C_Global_Variable.GetFilePath("Buyer.Json");
+                    string BuyerFilePath = FileGetter.GetFilePath("Buyer.Json");
 
                     List<Buyer> BuyerList = new List<Buyer>();
 
@@ -108,7 +108,7 @@ namespace AgriConnect
 
                 case "Dual":
                     
-                    string DualFilePath = C_Global_Variable.GetFilePath("Dual.Json");
+                    string DualFilePath = FileGetter.GetFilePath("Dual.Json");
 
                     List<Dual> DualList = new List<Dual>();
 
@@ -128,8 +128,8 @@ namespace AgriConnect
                     break;
             }
 
-            string ProjectRoot = C_Global_Variable.ProjectRoot;
-            string CollectionFilePath = C_Global_Variable.GetFilePath("Collection.Json");
+            string ProjectRoot = FileGetter.ProjectRoot;
+            string CollectionFilePath = FileGetter.GetFilePath("Collection.Json");
             List<Collection> CollectionList = new List<Collection>();
 
             if (File.Exists(CollectionFilePath))

@@ -22,7 +22,7 @@ namespace AgriConnect
         public static string UserRole { get; set; }
 
     }
-    internal class C_Global_Variable
+    internal class FileGetter
     {
         //this method backs two parens and into the project name folder
         //instead of our json going inside Bin>Debug its goes to a specific pparent folder
@@ -65,7 +65,7 @@ namespace AgriConnect
             {
 
                 List<Seller> seller = new List<Seller>();
-                string getJson = C_Global_Variable.GetFilePath("Sellers.Json");
+                string getJson = FileGetter.GetFilePath("Sellers.Json");
                 if (!File.Exists(getJson))
                 {
                     MessageBox.Show("file not Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -87,7 +87,7 @@ namespace AgriConnect
             {
 
                 List<Dual> dual = new List<Dual>();
-                string getJson = C_Global_Variable.GetFilePath("Dual.Json");
+                string getJson = FileGetter.GetFilePath("Dual.Json");
                 if (!File.Exists(getJson))
                 {
                     MessageBox.Show("file not Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -108,7 +108,7 @@ namespace AgriConnect
             {
 
                 List<Buyer> buyer = new List<Buyer>();
-                string getJson = C_Global_Variable.GetFilePath("Buyer.Json");
+                string getJson = FileGetter.GetFilePath("Buyer.Json");
                 if (!File.Exists(getJson))
                 {
                     MessageBox.Show("file not Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -131,8 +131,8 @@ namespace AgriConnect
         {
             if (target.UserRole == "Seller")
             {
-                string sellerfilePath = C_Global_Variable.GetFilePath("Sellers.Json");
-                string marketfilePath = C_Global_Variable.GetFilePath("MarketListing.Json");
+                string sellerfilePath = FileGetter.GetFilePath("Sellers.Json");
+                string marketfilePath = FileGetter.GetFilePath("MarketListing.Json");
                 Seller tempUser = new Seller();
                 SellerProducts list = new SellerProducts();
                 MarketplaceListings marketProduct = new MarketplaceListings();
@@ -201,8 +201,8 @@ namespace AgriConnect
             }
             else if (target.UserRole == "Dual")
             {
-                string dualFilePath = C_Global_Variable.GetFilePath("Dual.Json");
-                string marketFilePath = C_Global_Variable.GetFilePath("MarketListing.Json");
+                string dualFilePath = FileGetter.GetFilePath("Dual.Json");
+                string marketFilePath = FileGetter.GetFilePath("MarketListing.Json");
                 Dual tempUser = new Dual();
                 SellerProducts list = new SellerProducts();
                 MarketplaceListings marketProduct = new MarketplaceListings();
@@ -269,7 +269,7 @@ namespace AgriConnect
 
         internal static Collection activeHelper(string activeUser)
         {
-            string filePath = C_Global_Variable.GetFilePath("Collection.Json");
+            string filePath = FileGetter.GetFilePath("Collection.Json");
             if (!File.Exists(filePath))
                 return null;
 
@@ -307,13 +307,13 @@ namespace AgriConnect
             if (Target.UserRole == "Seller")
             {
 
-                string filePath = C_Global_Variable.GetFilePath("Sellers.Json");
+                string filePath = FileGetter.GetFilePath("Sellers.Json");
                 string getSellersJson = File.ReadAllText(filePath);
                 List<Seller> SellerList = new List<Seller>();
                 SellerList = JsonSerializer.Deserialize<List<Seller>>(getSellersJson);
 
 
-                string marketFilePath = C_Global_Variable.GetFilePath("MarketListing.Json");
+                string marketFilePath = FileGetter.GetFilePath("MarketListing.Json");
                 List<MarketplaceListings> productList = new List<MarketplaceListings>();
                 if (File.Exists(marketFilePath))
                 {
@@ -367,13 +367,13 @@ namespace AgriConnect
             {
 
 
-                string filePath = C_Global_Variable.GetFilePath("Dual.Json");
+                string filePath = FileGetter.GetFilePath("Dual.Json");
                 string getJson = File.ReadAllText(filePath);
                 List<Dual> dualList = new List<Dual>();
                 dualList = JsonSerializer.Deserialize<List<Dual>>(getJson);
 
 
-                string marketFilePath = C_Global_Variable.GetFilePath("MarketListing.Json");
+                string marketFilePath = FileGetter.GetFilePath("MarketListing.Json");
                 List<MarketplaceListings> productList = new List<MarketplaceListings>();
                 if (File.Exists(marketFilePath))
                 {
@@ -510,7 +510,7 @@ namespace AgriConnect
 
         internal static List<MarketplaceListings> MarketDeserealizer(List<MarketplaceListings> deserealize)
         {
-            string get = C_Global_Variable.GetFilePath("MarketListing.Json");
+            string get = FileGetter.GetFilePath("MarketListing.Json");
 
             if (!File.Exists(get))
             {
@@ -630,6 +630,74 @@ namespace AgriConnect
                 LoadSearch(flpSearch, ActiveUser, pMessage, flpMessage);
             }
         }
+
+        internal static Buyer getBuyer(User target)
+        {
+            string path = FileGetter.GetFilePath("Buyers.Json");
+            if (!File.Exists(path))
+                return null;
+
+            string read = File.ReadAllText(path);
+            List<Buyer> getBuyers = JsonSerializer.Deserialize <List<Buyer>>(read) ?? new List<Buyer>();
+            foreach(Buyer get in getBuyers)
+            {
+                if (target.FullName == get.FullName)
+                    return get;
+            }
+
+            return null;
+
+        }
+
+        internal static Seller getSeller(User target)
+        {
+            string getJson = FileGetter.GetFilePath("Sellers.Json");
+
+            if (!File.Exists(getJson))
+            {
+                MessageBox.Show("file not Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+
+            string readFile = File.ReadAllText(getJson);
+            List<Seller> seller = JsonSerializer.Deserialize<List<Seller>>(readFile);
+
+            foreach (Seller get in seller)
+            {
+                if (get.Username == target.Username)
+                {
+                    return get;
+                }
+            }
+
+            return null;
+        }
+
+        internal static Dual GetDual(User target)
+        {
+            string getJson = FileGetter.GetFilePath("Dual.Json");
+
+            if (!File.Exists(getJson))
+            {
+                MessageBox.Show("file not Found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+
+            string readFile = File.ReadAllText(getJson);
+            List<Dual> dual = JsonSerializer.Deserialize<List<Dual>>(readFile);
+
+            foreach (Dual get in dual)
+            {
+                if (get.Username == target.Username)
+                {
+                    return get;
+                }
+            }
+
+            return null;
+        }
+
+        internal static MarketUserGetter()
 
     }
 
