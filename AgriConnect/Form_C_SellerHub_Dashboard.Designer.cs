@@ -1,4 +1,4 @@
-﻿namespace AgriConnect
+namespace AgriConnect
 {
     partial class SellerHub_Dashboard
     {
@@ -58,7 +58,7 @@
             this.pMyProductList = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblNotification = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flpNotification = new System.Windows.Forms.FlowLayoutPanel();
             this.flpMessage = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSend = new System.Windows.Forms.Button();
             this.rtbMessage = new System.Windows.Forms.RichTextBox();
@@ -329,12 +329,14 @@
             // 
             // panel3
             // 
+            this.panel3.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel3.Controls.Add(this.lblNotification);
-            this.panel3.Controls.Add(this.flowLayoutPanel1);
+            this.panel3.Controls.Add(this.flpNotification);
             this.panel3.Location = new System.Drawing.Point(624, 13);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(311, 108);
             this.panel3.TabIndex = 24;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // lblNotification
             // 
@@ -345,12 +347,14 @@
             this.lblNotification.Text = "Notifications";
             this.lblNotification.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // flowLayoutPanel1
+            // flpNotification
             // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 22);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(302, 86);
-            this.flowLayoutPanel1.TabIndex = 0;
+            this.flpNotification.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.flpNotification.Location = new System.Drawing.Point(3, 22);
+            this.flpNotification.Name = "flpNotification";
+            this.flpNotification.Size = new System.Drawing.Size(302, 86);
+            this.flpNotification.TabIndex = 0;
+            this.flpNotification.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
             // 
             // flpMessage
             // 
@@ -452,7 +456,7 @@
         private System.Windows.Forms.Panel pMyProductList;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lblNotification;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flpNotification;
         private System.Windows.Forms.FlowLayoutPanel flpMessage;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.RichTextBox rtbMessage;

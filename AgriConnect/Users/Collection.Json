@@ -1,0 +1,34 @@
+[
+  {
+    "Username": "s1",
+    "UserPassword": "s1",
+    "UserRole": "Seller",
+    "PhoneNumber": "23647236426",
+    "FullName": "ahvscuhg",
+    "Barangay": "Malama"
+  },
+  {
+    "Username": "s1",
+    "UserPassword": "s1",
+    "UserRole": "Seller",
+    "PhoneNumber": "12846312541",
+    "FullName": "isdcqs",
+    "Barangay": "Malama"
+  },
+  {
+    "Username": "b1",
+    "UserPassword": "b1",
+    "UserRole": "Buyer",
+    "PhoneNumber": "23123615236",
+    "FullName": "b1",
+    "Barangay": "Tastas"
+  },
+  {
+    "Username": "d1",
+    "UserPassword": "d1",
+    "UserRole": "Dual",
+    "PhoneNumber": "31278638712",
+    "FullName": "d1",
+    "Barangay": "Paulba"
+  }
+]

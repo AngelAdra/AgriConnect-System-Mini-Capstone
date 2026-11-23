@@ -1,0 +1,39 @@
+[
+  {
+    "MyProducts": [
+      {
+        "productName": "wsadqw",
+        "productStock": 2134,
+        "productPrice": 423
+      },
+      {
+        "productName": "43",
+        "productStock": 3124132,
+        "productPrice": 342
+      }
+    ],
+    "SyncMessages": [
+      {
+        "Sender": "b1",
+        "Receiver": "d1",
+        "MessageText": "Hello Mr/Ms d1, i\u0027d Like to inquire about your Product 43 Before setting an Order"
+      },
+      {
+        "Sender": "b1",
+        "Receiver": "d1",
+        "MessageText": "wazz"
+      },
+      {
+        "Sender": "d1",
+        "Receiver": "b1",
+        "MessageText": "asdvvcw"
+      }
+    ],
+    "Username": "d1",
+    "UserPassword": "d1",
+    "UserRole": "Dual",
+    "PhoneNumber": "31278638712",
+    "FullName": "d1",
+    "Barangay": "Paulba"
+  }
+]

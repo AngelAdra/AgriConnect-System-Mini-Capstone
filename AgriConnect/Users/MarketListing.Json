@@ -1,0 +1,52 @@
+[
+  {
+    "MarketSeller": "s1",
+    "MarketPhoneNumber": "23647236426",
+    "ImagePath": "E:\\Downloads\\frontikels.png",
+    "barangay": "Malama",
+    "role": "Seller",
+    "productName": "tret",
+    "productStock": 43,
+    "productPrice": 54
+  },
+  {
+    "MarketSeller": "s1",
+    "MarketPhoneNumber": "23647236426",
+    "ImagePath": "E:\\Downloads\\Group 1 (2).png",
+    "barangay": "Malama",
+    "role": "Seller",
+    "productName": "hgcfc",
+    "productStock": 65,
+    "productPrice": 454
+  },
+  {
+    "MarketSeller": "ahvscuhg",
+    "MarketPhoneNumber": "23647236426",
+    "ImagePath": "E:\\Downloads\\frontikels.png",
+    "barangay": "Malama",
+    "role": "Seller",
+    "productName": "asxe",
+    "productStock": 324,
+    "productPrice": 3242
+  },
+  {
+    "MarketSeller": "d1",
+    "MarketPhoneNumber": "31278638712",
+    "ImagePath": "E:\\Downloads\\Group 1 (3).png",
+    "barangay": "Paulba",
+    "role": "Dual",
+    "productName": "wsadqw",
+    "productStock": 2134,
+    "productPrice": 423
+  },
+  {
+    "MarketSeller": "d1",
+    "MarketPhoneNumber": "31278638712",
+    "ImagePath": "E:\\Downloads\\Group 1 (1).png",
+    "barangay": "Paulba",
+    "role": "Dual",
+    "productName": "43",
+    "productStock": 3124132,
+    "productPrice": 342
+  }
+]

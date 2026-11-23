@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -184,31 +184,123 @@ namespace AgriConnect
             Barangay = BuyerBarangay;
         }
 
-        public void SendTo(Seller target, string message)
+        public bool SendTo(string target, string message)
         {
-            string path = FileGetter.GetFilePath("Sellers.json");
-            if (!File.Exists(path))
-                return;
+            return SendTo(target, message, "Seller");
+        }
 
-            string read = File.ReadAllText(path);
-            List<Seller> seller = new List<Seller>();
-            seller = JsonSerializer.Deserialize<List<Seller>>(read);
-            Seller getAccess = new Seller();
-            foreach(var get in seller)
+        public bool SendTo(string target, string message, string receiverRole)
+        {
+            if (string.IsNullOrWhiteSpace(target) ||
+                string.IsNullOrWhiteSpace(message))
             {
-                if(get.Username == target.Username)
-                {
-                    getAccess = get;
-                    break;
-                }
+                return false;
             }
-            
-            SyncMessage sync = new SyncMessage(this.FullName, target.FullName, message);
-            getAccess.SyncMessages.Add(sync);
-            string serealize = JsonSerializer.Serialize(seller, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(path, serealize);
 
+            string buyerPath = FileGetter.GetFilePath("Buyer.Json");
 
+            if (!File.Exists(buyerPath))
+                return false;
+
+            List<Buyer> buyers =
+                JsonSerializer.Deserialize<List<Buyer>>(File.ReadAllText(buyerPath))
+                ?? new List<Buyer>();
+
+            Buyer buyerRecord = buyers.FirstOrDefault(buyer =>
+                string.Equals(buyer.Username, Username, StringComparison.OrdinalIgnoreCase));
+
+            if (buyerRecord == null)
+                return false;
+
+            if (buyerRecord.SyncMessages == null)
+                buyerRecord.SyncMessages = new List<SyncMessage>();
+
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+
+            if (receiverRole == "Seller")
+            {
+                string sellerPath = FileGetter.GetFilePath("Sellers.Json");
+
+                if (!File.Exists(sellerPath))
+                    return false;
+
+                List<Seller> sellers =
+                    JsonSerializer.Deserialize<List<Seller>>(File.ReadAllText(sellerPath))
+                    ?? new List<Seller>();
+
+                Seller seller = sellers.FirstOrDefault(user =>
+                    string.Equals(user.Username, target, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(user.FullName, target, StringComparison.OrdinalIgnoreCase));
+
+                if (seller == null)
+                    return false;
+
+                if (seller.SyncMessages == null)
+                    seller.SyncMessages = new List<SyncMessage>();
+
+                SyncMessage newMessage = new SyncMessage(
+                    buyerRecord.FullName,
+                    seller.Username,
+                    message.Trim());
+
+                buyerRecord.SyncMessages.Add(newMessage);
+                seller.SyncMessages.Add(newMessage);
+
+                File.WriteAllText(
+                    sellerPath,
+                    JsonSerializer.Serialize(sellers, options));
+            }
+            else if (receiverRole == "Dual")
+            {
+                string dualPath = FileGetter.GetFilePath("Dual.Json");
+
+                if (!File.Exists(dualPath))
+                    return false;
+
+                List<Dual> dualUsers =
+                    JsonSerializer.Deserialize<List<Dual>>(File.ReadAllText(dualPath))
+                    ?? new List<Dual>();
+
+                Dual dual = dualUsers.FirstOrDefault(user =>
+                    string.Equals(user.Username, target, StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(user.FullName, target, StringComparison.OrdinalIgnoreCase));
+
+                if (dual == null)
+                    return false;
+
+                if (dual.SyncMessages == null)
+                    dual.SyncMessages = new List<SyncMessage>();
+
+                SyncMessage newMessage = new SyncMessage(
+                    buyerRecord.FullName,
+                    dual.Username,
+                    message.Trim());
+
+                buyerRecord.SyncMessages.Add(newMessage);
+                dual.SyncMessages.Add(newMessage);
+
+                File.WriteAllText(
+                    dualPath,
+                    JsonSerializer.Serialize(dualUsers, options));
+            }
+            else
+            {
+                return false;
+            }
+
+            File.WriteAllText(
+                buyerPath,
+                JsonSerializer.Serialize(buyers, options));
+
+            return true;
+        }
+
+        public bool SendToDual(string target, string message)
+        {
+            return SendTo(target, message, "Dual");
         }
 
     }

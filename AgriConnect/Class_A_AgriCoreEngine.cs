@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -350,7 +350,7 @@ namespace AgriConnect
                 SellerProducts savethis = new SellerProducts(productName, stock, price);
 
                 MarketplaceListings saveMarket = new MarketplaceListings(
-                    saveHere.Username,
+                    saveHere.FullName,
                     productName,
                     stock,
                     price,
@@ -420,7 +420,7 @@ namespace AgriConnect
 
 
                 SellerProducts saveThis = new SellerProducts(productName, stock, price);
-                MarketplaceListings saveMarket = new MarketplaceListings(saveHere.Username, productName, stock, price, PN, imgPath, saveHere.Barangay, saveHere.UserRole);
+                MarketplaceListings saveMarket = new MarketplaceListings(saveHere.FullName, productName, stock, price, PN, imgPath, saveHere.Barangay, saveHere.UserRole);
 
 
                 saveHere.MyProducts.Add(saveThis);
@@ -448,7 +448,8 @@ namespace AgriConnect
                 foreach (MarketplaceListings get in productList)
                 {
 
-                    if (get.productName == productName && get.MarketSeller == target.Username)
+                    if (get.productName == productName &&
+                        (get.MarketSeller == target.FullName || get.MarketSeller == target.Username))
                     {
                         getProduct = get;
 
@@ -475,7 +476,8 @@ namespace AgriConnect
                 foreach (MarketplaceListings get in productList)
                 {
 
-                    if (get.productName == productName && get.MarketSeller == target.Username)
+                    if (get.productName == productName &&
+                        (get.MarketSeller == target.FullName || get.MarketSeller == target.Username))
                     {
                         getProduct = get;
 
@@ -573,15 +575,12 @@ namespace AgriConnect
             }
         }
 
-        internal static void LoadSearch(FlowLayoutPanel flpSearch, User ActiveUser, Panel pMessage, FlowLayoutPanel flpMessage){
-
+        internal static void LoadSearch(FlowLayoutPanel flpSearch, User ActiveUser, Panel pMessage, FlowLayoutPanel flpMessage)
+        {
             List<MarketplaceListings> getDeserealizedMarket = MarketDeserealizer(new List<MarketplaceListings>());
 
             foreach (var display in getDeserealizedMarket)
             {
-                MarketplaceListings receive = new MarketplaceListings();
-                SelfBuiltEngine.SingleMarketListingGetter(receive);
-
                 ProductCard card = new ProductCard(
                     display.productName,
                     display.productStock,
@@ -593,32 +592,27 @@ namespace AgriConnect
                     ActiveUser,
                     pMessage,
                     flpMessage,
-                    receive
-                    );
-                flpSearch.Controls.Add(card);
+                    display);
 
+                flpSearch.Controls.Add(card);
             }
+
             flpSearch.ResumeLayout();
         }
        
-        internal static void filterSearch(string product, FlowLayoutPanel flpSearch, User ActiveUser, Panel pMessage, FlowLayoutPanel flpMessage)
+        internal static void filterSearch(String product, FlowLayoutPanel flpSearch, User ActiveUser, Panel pMessage, FlowLayoutPanel flpMessage)
         {
             SelfBuiltEngine.reload(flpSearch);
             List<MarketplaceListings> getDeserealizedMarket = SelfBuiltEngine.MarketDeserealizer(new List<MarketplaceListings>());
 
-
             foreach (var prod in getDeserealizedMarket)
             {
                 if (prod.productName.ToLower().Contains(product.ToLower()) ||
-                    (prod.MarketSeller.ToLower().Contains(product.ToLower())) ||
-                    (prod.barangay.ToLower().Contains(product.ToLower())) ||
-                    (prod.MarketPhoneNumber.ToLower().Contains(product.ToLower())))
+                    prod.MarketSeller.ToLower().Contains(product.ToLower()) ||
+                    prod.barangay.ToLower().Contains(product.ToLower()) ||
+                    prod.MarketPhoneNumber.ToLower().Contains(product.ToLower()))
                 {
-                    MarketplaceListings receive = new MarketplaceListings();
-                    SelfBuiltEngine.SingleMarketListingGetter(receive);
-
-
-                    ProductCard set = new ProductCard(
+                    ProductCard card = new ProductCard(
                         prod.productName,
                         prod.productStock,
                         prod.productPrice,
@@ -629,11 +623,12 @@ namespace AgriConnect
                         ActiveUser,
                         pMessage,
                         flpMessage,
-                        receive
-                        );
-                    flpSearch.Controls.Add(set);
+                        prod);
+
+                    flpSearch.Controls.Add(card);
                 }
             }
+
             if (flpSearch.Controls.Count == 0)
             {
                 MessageBox.Show("Product Not Found ", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -643,20 +638,24 @@ namespace AgriConnect
 
         internal static Buyer getBuyer(User target)
         {
-            string path = FileGetter.GetFilePath("Buyers.Json");
+            if (target == null)
+                return null;
+
+            string path = FileGetter.GetFilePath("Buyer.Json");
             if (!File.Exists(path))
                 return null;
 
-            string read = File.ReadAllText(path);
-            List<Buyer> getBuyers = JsonSerializer.Deserialize <List<Buyer>>(read) ?? new List<Buyer>();
-            foreach(Buyer get in getBuyers)
+            List<Buyer> buyers =
+                JsonSerializer.Deserialize<List<Buyer>>(File.ReadAllText(path))
+                ?? new List<Buyer>();
+
+            foreach (Buyer buyer in buyers)
             {
-                if (target.FullName == get.FullName)
-                    return get;
+                if (buyer.Username == target.Username)
+                    return buyer;
             }
 
             return null;
-
         }
 
         internal static Seller getSeller(User target)

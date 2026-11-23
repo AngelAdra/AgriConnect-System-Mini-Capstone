@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,35 +16,49 @@ namespace AgriConnect
         bool isUsed = false;
         private static MarketplaceListings getreceiver;
         private static User getsender;
-        public Message(User name, string message, MarketplaceListings receiver, ProductCard show, FlowLayoutPanel use)
+        public Message(User senderName, string message, MarketplaceListings receiver, ProductCard show, FlowLayoutPanel use)
         {
             InitializeComponent();
             if (!isUsed)
             {
-                lblSender.Text = name.FullName;
+                lblSender.Text = senderName.FullName;
                 rtbMessage.Text = $"Hello Mr/Ms {receiver.MarketSeller}, i'd Like to inquire about your Product {message} Before setting an Order"; 
                 use.Controls.Add(show);
                 
                 isUsed = true;
                 getreceiver = receiver;
-                getsender = name;
-                if(name.UserRole == "Buyer")
-                {
-                    Buyer sender = SelfBuiltEngine.getBuyer(name);
+                getsender = senderName;
+                
 
-                    //sender.SendTo();
+                if(senderName.UserRole == "Buyer")
+                {
+                    Buyer buyerSender = SelfBuiltEngine.getBuyer(senderName);
+
+                    if (buyerSender == null ||
+                        !buyerSender.SendTo(
+                            receiver.MarketSeller,
+                            rtbMessage.Text,
+                            receiver.role))
+                    {
+                        MessageBox.Show(
+                            "The message could not be saved. Check that the buyer and receiver exist.",
+                            "Message Not Sent",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                    }
                 }
 
             }
             else {
-                lblSender.Text = name.FullName;
+                lblSender.Text = senderName.FullName;
                 rtbMessage.Text = message;
         } }
 
-        public Message( string message, FlowLayoutPanel use) :
-            this(getsender, message, getreceiver , null, use)
+        public Message( User senderName, string message, FlowLayoutPanel use)
         {
-            lblSender.Text = getsender.FullName;
+            InitializeComponent();
+
+            lblSender.Text = senderName.FullName;
             rtbMessage.Text = message;
             use.Controls.Add(this);
         }
@@ -81,6 +95,27 @@ namespace AgriConnect
         private void rtbMessage_TextChanged(object sender, EventArgs e)
         {
             adjustBubbleHeight();
+        }
+
+        public static bool SaveToSync(User senderName, string message)
+        {
+            if (senderName == null ||
+                getreceiver == null ||
+                string.IsNullOrWhiteSpace(message) ||
+                senderName.UserRole != "Buyer")
+            {
+                return false;
+            }
+
+            Buyer buyerSender = SelfBuiltEngine.getBuyer(senderName);
+
+            if (buyerSender == null)
+                return false;
+
+            return buyerSender.SendTo(
+                getreceiver.MarketSeller,
+                message,
+                getreceiver.role);
         }
     }
 }

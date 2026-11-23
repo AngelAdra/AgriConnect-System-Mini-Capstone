@@ -1,0 +1,38 @@
+[
+  {
+    "MyProducts": [
+      {
+        "productName": "tret",
+        "productStock": 43,
+        "productPrice": 54
+      },
+      {
+        "productName": "hgcfc",
+        "productStock": 65,
+        "productPrice": 454
+      },
+      {
+        "productName": "asxe",
+        "productStock": 324,
+        "productPrice": 3242
+      }
+    ],
+    "SyncMessages": [],
+    "Username": "s1",
+    "UserPassword": "s1",
+    "UserRole": "Seller",
+    "PhoneNumber": "23647236426",
+    "FullName": "ahvscuhg",
+    "Barangay": "Malama"
+  },
+  {
+    "MyProducts": [],
+    "SyncMessages": [],
+    "Username": "s1",
+    "UserPassword": "s1",
+    "UserRole": "Seller",
+    "PhoneNumber": "12846312541",
+    "FullName": "isdcqs",
+    "Barangay": "Malama"
+  }
+]

@@ -1,4 +1,4 @@
-﻿namespace AgriConnect
+namespace AgriConnect
 {
     partial class Notification
     {
@@ -35,6 +35,7 @@
             // 
             // lblNotif
             // 
+            this.lblNotif.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.lblNotif.Location = new System.Drawing.Point(3, 0);
             this.lblNotif.Name = "lblNotif";
             this.lblNotif.Size = new System.Drawing.Size(189, 56);
@@ -60,15 +61,17 @@
             this.btnOption.Text = "Done/Discard";
             this.btnOption.UseVisualStyleBackColor = true;
             // 
-            // K_Notification
+            // Notification
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.GreenYellow;
             this.Controls.Add(this.btnOption);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.lblNotif);
-            this.Name = "K_Notification";
+            this.Name = "Notification";
             this.Size = new System.Drawing.Size(290, 57);
+            this.Load += new System.EventHandler(this.Notification_Load);
             this.ResumeLayout(false);
 
         }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,13 +34,11 @@ namespace AgriConnect
         private void LoadCatalogCards()
         {
             flpMarket.Controls.Clear();
-            List<MarketplaceListings> getDeserealizedMarket = SelfBuiltEngine.MarketDeserealizer(new List<MarketplaceListings>());
+            List<MarketplaceListings> getDeserealizedMarket =
+                SelfBuiltEngine.MarketDeserealizer(new List<MarketplaceListings>());
 
             foreach (var get in getDeserealizedMarket)
             {
-                MarketplaceListings receive = new MarketplaceListings();
-                SelfBuiltEngine.SingleMarketListingGetter(receive);
-
                 ProductCard card = new ProductCard(
                     get.productName,
                     get.productStock,
@@ -52,7 +50,8 @@ namespace AgriConnect
                     this.get,
                     _targetPanel,
                     _targetFLP,
-                    receive);
+                    get);
+
                 flpMarket.Controls.Add(card);
             }
         }
