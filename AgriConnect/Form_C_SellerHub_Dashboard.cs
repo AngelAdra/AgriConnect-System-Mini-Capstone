@@ -17,6 +17,7 @@ namespace AgriConnect
     public partial class SellerHub_Dashboard : Form
     {
         private Buyer currentConversationBuyer;
+        private Dual currentConversationDual;
 
         public SellerHub_Dashboard()
         {
@@ -50,6 +51,64 @@ namespace AgriConnect
             SelfBuiltEngine.LoadSearch(flpSearch, ActiveUser, pMessage, flpMessage);
             LoadNotifications();
             listedProductBySeller.Visible = false;
+        }
+
+        private void LoadNotifications()
+        {
+            flpNotification.Controls.Clear();
+
+            List<SyncMessage> messages = null;
+
+            if (ActiveUser.UserRole == "Seller")
+            {
+                string path = FileGetter.GetFilePath("Sellers.Json");
+                if (!File.Exists(path))
+                    return;
+
+                List<Seller> sellers =
+                    JsonSerializer.Deserialize<List<Seller>>(File.ReadAllText(path))
+                    ?? new List<Seller>();
+
+                Seller seller = sellers.FirstOrDefault(user =>
+                    user.Username == ActiveUser.Username);
+                messages = seller == null ? null : seller.SyncMessages;
+            }
+            else if (ActiveUser.UserRole == "Dual")
+            {
+                string path = FileGetter.GetFilePath("Dual.Json");
+                if (!File.Exists(path))
+                    return;
+
+                List<Dual> dualUsers =
+                    JsonSerializer.Deserialize<List<Dual>>(File.ReadAllText(path))
+                    ?? new List<Dual>();
+
+                Dual dual = dualUsers.FirstOrDefault(user =>
+                    user.Username == ActiveUser.Username);
+                messages = dual == null ? null : dual.SyncMessages;
+            }
+
+            if (messages == null)
+                return;
+
+            List<string> shownSenders = new List<string>();
+
+            foreach (SyncMessage message in messages)
+            {
+                if (message == null ||
+                    message.Receiver != ActiveUser.Username ||
+                    shownSenders.Contains(message.Sender))
+                {
+                    continue;
+                }
+
+                shownSenders.Add(message.Sender);
+
+                Notification notification = new Notification();
+                notification.SetMessage(message);
+                notification.OpenRequested += Notification_OpenRequested;
+                flpNotification.Controls.Add(notification);
+            }
         }
 
 
@@ -309,7 +368,7 @@ namespace AgriConnect
 
             if (notification != null)
                 OpenConversation(notification.LinkedMessage);
-        }
+        }   
 
         private void OpenConversation(SyncMessage notificationMessage)
         {
@@ -318,40 +377,76 @@ namespace AgriConnect
 
             string buyerPath = FileGetter.GetFilePath("Buyer.Json");
 
-            if (!File.Exists(buyerPath))
+            if (File.Exists(buyerPath))
+            {
+                List<Buyer> buyers =
+                    JsonSerializer.Deserialize<List<Buyer>>(File.ReadAllText(buyerPath))
+                    ?? new List<Buyer>();
+
+                Buyer buyer = buyers.FirstOrDefault(user =>
+                    user.FullName == notificationMessage.Sender);
+
+                if (buyer != null)
+                {
+                    currentConversationBuyer = buyer;
+                    currentConversationDual = null;
+                    flpMessage.Controls.Clear();
+
+                    foreach (SyncMessage message in buyer.SyncMessages)
+                    {
+                        if (message == null)
+                            continue;
+
+                        if (message.Sender == buyer.FullName &&
+                            message.Receiver == ActiveUser.Username)
+                        {
+                            new Message(buyer, message.MessageText, flpMessage);
+                        }
+                        else if (message.Sender == ActiveUser.FullName &&
+                                 message.Receiver == buyer.Username)
+                        {
+                            new Message(ActiveUser, message.MessageText, flpMessage);
+                        }
+                    }
+
+                    return;
+                }
+            }
+
+            string dualPath = FileGetter.GetFilePath("Dual.Json");
+
+            if (!File.Exists(dualPath))
                 return;
 
-            List<Buyer> buyers =
-                JsonSerializer.Deserialize<List<Buyer>>(File.ReadAllText(buyerPath))
-                ?? new List<Buyer>();
+            List<Dual> dualUsers =
+                JsonSerializer.Deserialize<List<Dual>>(File.ReadAllText(dualPath))
+                ?? new List<Dual>();
 
-            Buyer buyer = buyers.FirstOrDefault(user =>
+            Dual dual = dualUsers.FirstOrDefault(user =>
                 user.FullName == notificationMessage.Sender);
 
-            if (buyer == null)
+            if (dual == null)
                 return;
 
-            currentConversationBuyer = buyer;
+            currentConversationBuyer = null;
+            currentConversationDual = dual;
             flpMessage.Controls.Clear();
 
-            if (buyer.SyncMessages == null)
-                return;
-
-            foreach (SyncMessage message in buyer.SyncMessages)
+            foreach (SyncMessage message in dual.SyncMessages)
             {
                 if (message == null)
                     continue;
 
-                bool buyerSent = message.Sender == buyer.FullName &&
-                                 message.Receiver == ActiveUser.Username;
-
-                bool sellerSent = message.Sender == ActiveUser.FullName &&
-                                  message.Receiver == buyer.Username;
-
-                if (buyerSent)
-                    new Message(buyer, message.MessageText, flpMessage);
-                else if (sellerSent)
+                if (message.Sender == dual.FullName &&
+                    message.Receiver == ActiveUser.Username)
+                {
+                    new Message(dual, message.MessageText, flpMessage);
+                }
+                else if (message.Sender == ActiveUser.FullName &&
+                         message.Receiver == dual.Username)
+                {
                     new Message(ActiveUser, message.MessageText, flpMessage);
+                }
             }
         }
 
@@ -359,12 +454,33 @@ namespace AgriConnect
         {
             string text = rtbMessage.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(text) || currentConversationBuyer == null)
+            if (string.IsNullOrWhiteSpace(text))
                 return;
 
-            if (!SaveSellerReply(text))
+            if (currentConversationDual != null)
             {
-                MessageBox.Show("The reply could not be saved.");
+                if (!SaveDualReply(text))
+                {
+                    MessageBox.Show("The reply could not be saved.");
+                    return;
+                }
+            }
+            else if (currentConversationBuyer != null)
+            {
+                if (!SaveSellerReply(text))
+                {
+                    MessageBox.Show("The reply could not be saved.");
+                    return;
+                }
+            }
+            else if (ActiveUser.UserRole == "Dual" &&
+                     Message.SaveToSync(ActiveUser, text))
+            {
+                // Continues the Dual-initiated Seller conversation.
+            }
+            else
+            {
+                MessageBox.Show("Open a conversation before sending a reply.");
                 return;
             }
 
@@ -463,189 +579,57 @@ namespace AgriConnect
             return true;
         }
 
-        private void Notification_DiscardRequested(object sender, EventArgs e)
+        private bool SaveDualReply(string text)
         {
-            Notification notification = sender as Notification;
-
-            if (notification == null)
-                return;
-
-            DialogResult result = MessageBox.Show(
-                "Delete this conversation from both accounts?",
-                "Discard Conversation",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-
-            if (result != DialogResult.Yes)
-                return;
-
-            if (DeleteConversation(notification.LinkedMessage))
-            {
-                currentConversationBuyer = null;
-                flpMessage.Controls.Clear();
-                LoadNotifications();
-            }
-        }
-
-        private bool DeleteConversation(SyncMessage notificationMessage)
-        {
-            if (notificationMessage == null)
+            if (ActiveUser.UserRole != "Seller" || currentConversationDual == null)
                 return false;
 
-            string buyerPath = FileGetter.GetFilePath("Buyer.Json");
+            string dualPath = FileGetter.GetFilePath("Dual.Json");
+            string sellerPath = FileGetter.GetFilePath("Sellers.Json");
 
-            if (!File.Exists(buyerPath))
+            if (!File.Exists(dualPath) || !File.Exists(sellerPath))
                 return false;
 
-            List<Buyer> buyers =
-                JsonSerializer.Deserialize<List<Buyer>>(File.ReadAllText(buyerPath))
-                ?? new List<Buyer>();
+            List<Dual> dualUsers =
+                JsonSerializer.Deserialize<List<Dual>>(File.ReadAllText(dualPath))
+                ?? new List<Dual>();
 
-            Buyer buyer = buyers.FirstOrDefault(user =>
-                user.FullName == notificationMessage.Sender);
+            List<Seller> sellers =
+                JsonSerializer.Deserialize<List<Seller>>(File.ReadAllText(sellerPath))
+                ?? new List<Seller>();
 
-            if (buyer == null || buyer.SyncMessages == null)
+            Dual dual = dualUsers.FirstOrDefault(user =>
+                user.Username == currentConversationDual.Username);
+
+            Seller seller = sellers.FirstOrDefault(user =>
+                user.Username == ActiveUser.Username);
+
+            if (dual == null || seller == null)
                 return false;
 
-            if (ActiveUser.UserRole == "Seller")
+            if (dual.SyncMessages == null)
+                dual.SyncMessages = new List<SyncMessage>();
+
+            if (seller.SyncMessages == null)
+                seller.SyncMessages = new List<SyncMessage>();
+
+            SyncMessage reply = new SyncMessage(
+                seller.FullName,
+                dual.Username,
+                text.Trim());
+
+            dual.SyncMessages.Add(reply);
+            seller.SyncMessages.Add(reply);
+
+            JsonSerializerOptions options = new JsonSerializerOptions
             {
-                string sellerPath = FileGetter.GetFilePath("Sellers.Json");
+                WriteIndented = true
+            };
 
-                if (!File.Exists(sellerPath))
-                    return false;
-
-                List<Seller> sellers =
-                    JsonSerializer.Deserialize<List<Seller>>(File.ReadAllText(sellerPath))
-                    ?? new List<Seller>();
-
-                Seller seller = sellers.FirstOrDefault(user =>
-                    user.Username == ActiveUser.Username);
-
-                if (seller == null || seller.SyncMessages == null)
-                    return false;
-
-                seller.SyncMessages.RemoveAll(message => IsConversationMessage(message, buyer));
-
-                File.WriteAllText(
-                    sellerPath,
-                    JsonSerializer.Serialize(sellers, new JsonSerializerOptions { WriteIndented = true }));
-            }
-            else if (ActiveUser.UserRole == "Dual")
-            {
-                string dualPath = FileGetter.GetFilePath("Dual.Json");
-
-                if (!File.Exists(dualPath))
-                    return false;
-
-                List<Dual> dualUsers =
-                    JsonSerializer.Deserialize<List<Dual>>(File.ReadAllText(dualPath))
-                    ?? new List<Dual>();
-
-                Dual dual = dualUsers.FirstOrDefault(user =>
-                    user.Username == ActiveUser.Username);
-
-                if (dual == null || dual.SyncMessages == null)
-                    return false;
-
-                dual.SyncMessages.RemoveAll(message => IsConversationMessage(message, buyer));
-
-                File.WriteAllText(
-                    dualPath,
-                    JsonSerializer.Serialize(dualUsers, new JsonSerializerOptions { WriteIndented = true }));
-            }
-            else
-            {
-                return false;
-            }
-
-            buyer.SyncMessages.RemoveAll(message => IsConversationMessage(message, buyer));
-
-            File.WriteAllText(
-                buyerPath,
-                JsonSerializer.Serialize(buyers, new JsonSerializerOptions { WriteIndented = true }));
+            File.WriteAllText(dualPath, JsonSerializer.Serialize(dualUsers, options));
+            File.WriteAllText(sellerPath, JsonSerializer.Serialize(sellers, options));
 
             return true;
         }
-
-        private bool IsConversationMessage(SyncMessage message, Buyer buyer)
-        {
-            if (message == null)
-                return false;
-
-            bool buyerSent = message.Sender == buyer.FullName &&
-                             message.Receiver == ActiveUser.Username;
-
-            bool sellerSent = message.Sender == ActiveUser.FullName &&
-                              message.Receiver == buyer.Username;
-
-            return buyerSent || sellerSent;
-        }
-
-        private void LoadNotifications()
-        {
-            flpNotification.Controls.Clear();
-
-            if (ActiveUser == null)
-                return;
-
-            List<SyncMessage> messages = new List<SyncMessage>();
-
-            if (ActiveUser.UserRole == "Seller")
-            {
-                string path = FileGetter.GetFilePath("Sellers.Json");
-
-                if (!File.Exists(path))
-                    return;
-
-                List<Seller> sellers =
-                    JsonSerializer.Deserialize<List<Seller>>(File.ReadAllText(path))
-                    ?? new List<Seller>();
-
-                Seller seller = sellers.FirstOrDefault(user =>
-                    user.Username == ActiveUser.Username);
-
-                if (seller != null && seller.SyncMessages != null)
-                    messages = seller.SyncMessages;
-            }
-            else if (ActiveUser.UserRole == "Dual")
-            {
-                string path = FileGetter.GetFilePath("Dual.Json");
-
-                if (!File.Exists(path))
-                    return;
-
-                List<Dual> dualUsers =
-                    JsonSerializer.Deserialize<List<Dual>>(File.ReadAllText(path))
-                    ?? new List<Dual>();
-
-                Dual dual = dualUsers.FirstOrDefault(user =>
-                    user.Username == ActiveUser.Username);
-
-                if (dual != null && dual.SyncMessages != null)
-                    messages = dual.SyncMessages;
-            }
-
-            List<string> notifiedBuyers = new List<string>();
-
-            foreach (SyncMessage message in messages)
-            {
-                if (message == null ||
-                    message.Receiver != ActiveUser.Username ||
-                    notifiedBuyers.Contains(message.Sender))
-                {
-                    continue;
-                }
-
-                notifiedBuyers.Add(message.Sender);
-
-                Notification notification = new Notification();
-                notification.SetMessage(message);
-                notification.OpenRequested += Notification_OpenRequested;
-                notification.DiscardRequested += Notification_DiscardRequested;
-                flpNotification.Controls.Add(notification);
-            }
-        }
     }
-
-
 }

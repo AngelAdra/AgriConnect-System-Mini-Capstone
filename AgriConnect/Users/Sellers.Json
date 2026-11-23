@@ -17,7 +17,18 @@
         "productPrice": 3242
       }
     ],
-    "SyncMessages": [],
+    "SyncMessages": [
+      {
+        "Sender": "d1",
+        "Receiver": "s1",
+        "MessageText": "Hello Mr/Ms s1, i\u0027d Like to inquire about your Product tret Before setting an Order"
+      },
+      {
+        "Sender": "ahvscuhg",
+        "Receiver": "d1",
+        "MessageText": "negatron"
+      }
+    ],
     "Username": "s1",
     "UserPassword": "s1",
     "UserRole": "Seller",

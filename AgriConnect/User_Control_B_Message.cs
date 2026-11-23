@@ -41,7 +41,24 @@ namespace AgriConnect
                             receiver.role))
                     {
                         MessageBox.Show(
-                            "The message could not be saved. Check that the buyer and receiver exist.",
+                            "The message could not be saved.",
+                            "Message Not Sent",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                    }
+                }
+                else if (senderName.UserRole == "Dual")
+                {
+                    Dual dualSender = SelfBuiltEngine.getUser(senderName) as Dual;
+
+                    if (receiver.role != "Seller" ||
+                        dualSender == null ||
+                        !dualSender.SendToSeller(
+                            receiver.MarketSeller,
+                            rtbMessage.Text))
+                    {
+                        MessageBox.Show(
+                            "A Dual account can only start a conversation with a Seller.",
                             "Message Not Sent",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
@@ -101,21 +118,36 @@ namespace AgriConnect
         {
             if (senderName == null ||
                 getreceiver == null ||
-                string.IsNullOrWhiteSpace(message) ||
-                senderName.UserRole != "Buyer")
+                string.IsNullOrWhiteSpace(message))
             {
                 return false;
             }
 
-            Buyer buyerSender = SelfBuiltEngine.getBuyer(senderName);
+            if (senderName.UserRole == "Buyer")
+            {
+                Buyer buyerSender = SelfBuiltEngine.getBuyer(senderName);
 
-            if (buyerSender == null)
-                return false;
+                return buyerSender != null &&
+                       buyerSender.SendTo(
+                           getreceiver.MarketSeller,
+                           message,
+                           getreceiver.role);
+            }
 
-            return buyerSender.SendTo(
-                getreceiver.MarketSeller,
-                message,
-                getreceiver.role);
+            if (senderName.UserRole == "Dual")
+            {
+                if (getreceiver.role != "Seller")
+                    return false;
+
+                Dual dualSender = SelfBuiltEngine.getUser(senderName) as Dual;
+
+                return dualSender != null &&
+                       dualSender.SendToSeller(
+                           getreceiver.MarketSeller,
+                           message);
+            }
+
+            return false;
         }
     }
 }
