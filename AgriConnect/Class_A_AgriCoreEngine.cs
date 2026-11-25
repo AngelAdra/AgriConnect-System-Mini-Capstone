@@ -439,6 +439,106 @@ namespace AgriConnect
         }
 
 
+        internal static bool PlaceOrder(MarketplaceListings listing, int quantity, out int remainingStock)
+        {
+            remainingStock = 0;
+
+            if (listing == null || quantity <= 0)
+                return false;
+
+            try
+            {
+                string marketPath = FileGetter.GetFilePath("MarketListing.Json");
+                if (!File.Exists(marketPath))
+                    return false;
+
+                List<MarketplaceListings> marketListings =
+                    JsonSerializer.Deserialize<List<MarketplaceListings>>(File.ReadAllText(marketPath))
+                    ?? new List<MarketplaceListings>();
+
+                MarketplaceListings savedListing = marketListings.FirstOrDefault(item =>
+                    string.Equals(item.productName, listing.productName, StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals(item.MarketSeller, listing.MarketSeller, StringComparison.OrdinalIgnoreCase) &&
+                    string.Equals(item.role, listing.role, StringComparison.OrdinalIgnoreCase));
+
+                if (savedListing == null || savedListing.productStock < quantity)
+                    return false;
+
+                SellerProducts sellerProduct;
+                string inventoryPath;
+                string inventoryJson;
+
+                if (string.Equals(listing.role, "Seller", StringComparison.OrdinalIgnoreCase))
+                {
+                    inventoryPath = FileGetter.GetFilePath("Sellers.Json");
+                    if (!File.Exists(inventoryPath))
+                        return false;
+
+                    List<Seller> sellers =
+                        JsonSerializer.Deserialize<List<Seller>>(File.ReadAllText(inventoryPath))
+                        ?? new List<Seller>();
+
+                    Seller seller = sellers.FirstOrDefault(user =>
+                        string.Equals(user.FullName, listing.MarketSeller, StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(user.Username, listing.MarketSeller, StringComparison.OrdinalIgnoreCase));
+
+                    sellerProduct = seller == null || seller.MyProducts == null
+                        ? null
+                        : seller.MyProducts.FirstOrDefault(product =>
+                            string.Equals(product.productName, listing.productName, StringComparison.OrdinalIgnoreCase));
+
+                    if (sellerProduct == null || sellerProduct.productStock < quantity)
+                        return false;
+
+                    remainingStock = sellerProduct.productStock - quantity;
+                    sellerProduct.productStock = remainingStock;
+                    inventoryJson = JsonSerializer.Serialize(sellers, new JsonSerializerOptions { WriteIndented = true });
+                }
+                else if (string.Equals(listing.role, "Dual", StringComparison.OrdinalIgnoreCase))
+                {
+                    inventoryPath = FileGetter.GetFilePath("Dual.Json");
+                    if (!File.Exists(inventoryPath))
+                        return false;
+
+                    List<Dual> dualUsers =
+                        JsonSerializer.Deserialize<List<Dual>>(File.ReadAllText(inventoryPath))
+                        ?? new List<Dual>();
+
+                    Dual dual = dualUsers.FirstOrDefault(user =>
+                        string.Equals(user.FullName, listing.MarketSeller, StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(user.Username, listing.MarketSeller, StringComparison.OrdinalIgnoreCase));
+
+                    sellerProduct = dual == null || dual.MyProducts == null
+                        ? null
+                        : dual.MyProducts.FirstOrDefault(product =>
+                            string.Equals(product.productName, listing.productName, StringComparison.OrdinalIgnoreCase));
+
+                    if (sellerProduct == null || sellerProduct.productStock < quantity)
+                        return false;
+
+                    remainingStock = sellerProduct.productStock - quantity;
+                    sellerProduct.productStock = remainingStock;
+                    inventoryJson = JsonSerializer.Serialize(dualUsers, new JsonSerializerOptions { WriteIndented = true });
+                }
+                else
+                {
+                    return false;
+                }
+
+                savedListing.productStock = remainingStock;
+                File.WriteAllText(inventoryPath, inventoryJson);
+                File.WriteAllText(marketPath, JsonSerializer.Serialize(
+                    marketListings,
+                    new JsonSerializerOptions { WriteIndented = true }));
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         internal static User saveToMarket(User target, SellerProducts updateMyList, List<MarketplaceListings> productList, string productName, int stock,
             double price, string filePath)
         {

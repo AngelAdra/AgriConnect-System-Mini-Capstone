@@ -1,4 +1,4 @@
-﻿using Microsoft.SqlServer.Server;
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -41,7 +41,7 @@ namespace AgriConnect
             get { return _productStock; }
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     MessageBox.Show("Emergency Fallback Protocol Initiated your stock should not be less than 0", "Blocked by Full Property (Product Name)", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;

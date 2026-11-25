@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,7 +37,10 @@ namespace AgriConnect
             InitializeComponent();
 
             if (block.UserRole == "Seller")
+            {
                 btnContackSeller.Enabled = false;
+                btnSetOrder.Enabled = false;
+            }
             lblProdName.Text = $"Product: {productName}";
             lblStock.Text = $"Stock: {stock}";
             lblProdPrice.Text = $"Price: {price}";
@@ -120,7 +124,135 @@ namespace AgriConnect
 
         private void btnSetOrder_Click(object sender, EventArgs e)
         {
+            if (received == null || received.productStock <= 0)
+            {
+                MessageBox.Show("This product is out of stock.", "Order", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            using (OrderForm orderForm = new OrderForm(received))
+            {
+                if (orderForm.ShowDialog(this) == DialogResult.OK)
+                {
+                    received.productStock = orderForm.RemainingStock;
+                    lblStock.Text = $"Stock: {orderForm.RemainingStock}";
+                    btnSetOrder.Enabled = orderForm.RemainingStock > 0;
+                }
+            }
+        }
+    }
+
+    internal class OrderForm : Form
+    {
+        private readonly MarketplaceListings _listing;
+        private readonly NumericUpDown _quantityInput;
+        private readonly Label _totalLabel;
+
+        public int RemainingStock { get; private set; }
+
+        public OrderForm(MarketplaceListings listing)
+        {
+            _listing = listing;
+            RemainingStock = listing.productStock;
+
+            Text = "Set Order";
+            StartPosition = FormStartPosition.CenterParent;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            ClientSize = new Size(360, 220);
+
+            Controls.Add(new Label
+            {
+                AutoSize = true,
+                Location = new Point(20, 20),
+                Text = "Product: " + listing.productName
+            });
+
+            Controls.Add(new Label
+            {
+                AutoSize = true,
+                Location = new Point(20, 55),
+                Text = "Price per item: " + listing.productPrice.ToString("C2")
+            });
+
+            Controls.Add(new Label
+            {
+                AutoSize = true,
+                Location = new Point(20, 90),
+                Text = "Quantity:"
+            });
+
+            _quantityInput = new NumericUpDown
+            {
+                Location = new Point(110, 86),
+                Minimum = 1,
+                Maximum = Math.Max(1, listing.productStock),
+                Value = 1,
+                Width = 100,
+                Enabled = listing.productStock > 0
+            };
+            _quantityInput.ValueChanged += QuantityInput_ValueChanged;
+            Controls.Add(_quantityInput);
+
+            _totalLabel = new Label
+            {
+                AutoSize = true,
+                Location = new Point(20, 125)
+            };
+            Controls.Add(_totalLabel);
+
+            Button confirmButton = new Button
+            {
+                Location = new Point(160, 170),
+                Size = new Size(90, 30),
+                Text = listing.productStock > 0 ? "Confirm" : "Out of stock",
+                Enabled = listing.productStock > 0
+            };
+            confirmButton.Click += ConfirmButton_Click;
+            Controls.Add(confirmButton);
+
+            Button cancelButton = new Button
+            {
+                Location = new Point(260, 170),
+                Size = new Size(80, 30),
+                Text = "Cancel",
+                DialogResult = DialogResult.Cancel
+            };
+            Controls.Add(cancelButton);
+
+            AcceptButton = confirmButton;
+            CancelButton = cancelButton;
+            UpdateTotal();
+        }
+
+        private void QuantityInput_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateTotal();
+        }
+
+        private void UpdateTotal()
+        {
+            decimal total = (decimal)_listing.productPrice * _quantityInput.Value;
+            _totalLabel.Text = "Total: " + total.ToString("C2");
+        }
+
+        private void ConfirmButton_Click(object sender, EventArgs e)
+        {
+            int remainingStock;
+            if (!SelfBuiltEngine.PlaceOrder(_listing, (int)_quantityInput.Value, out remainingStock))
+            {
+                MessageBox.Show(
+                    this,
+                    "The order could not be completed. The product may have insufficient stock or could not be saved.",
+                    "Order Not Completed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            RemainingStock = remainingStock;
+            DialogResult = DialogResult.OK;
         }
     }
 }
