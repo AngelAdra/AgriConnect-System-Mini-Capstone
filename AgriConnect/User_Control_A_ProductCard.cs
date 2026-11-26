@@ -163,70 +163,158 @@ namespace AgriConnect
             _buyer = buyer;
             RemainingStock = listing.productStock;
 
+            // Palette: primary #2E8B57, dark #1F6B41, light #66BB6A, tint #E8F5E9, accent #F5A623
+            Color primary = Color.FromArgb(0x2E, 0x8B, 0x57);
+            Color primaryDark = Color.FromArgb(0x1F, 0x6B, 0x41);
+            Color lightGreen = Color.FromArgb(0x66, 0xBB, 0x6A);
+            Color tint = Color.FromArgb(0xE8, 0xF5, 0xE9);
+            Color accent = Color.FromArgb(0xF5, 0xA6, 0x23);
+            Color textDark = Color.FromArgb(0x26, 0x32, 0x38);
+
             Text = "Set Order";
             StartPosition = FormStartPosition.CenterParent;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
-            ClientSize = new Size(360, 220);
+            BackColor = Color.White;
+            Font = new Font("Segoe UI", 9.5F, FontStyle.Regular, GraphicsUnit.Point);
+            ClientSize = new Size(380, 308);
+
+            // Header band
+            Panel header = new Panel
+            {
+                BackColor = primary,
+                Location = new Point(0, 0),
+                Size = new Size(380, 56)
+            };
+            header.Controls.Add(new Label
+            {
+                AutoSize = false,
+                BackColor = Color.Transparent,
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point),
+                Location = new Point(20, 0),
+                Size = new Size(340, 56),
+                Text = "Set Order",
+                TextAlign = ContentAlignment.MiddleLeft
+            });
+            Panel headerAccent = new Panel
+            {
+                BackColor = accent,
+                Location = new Point(0, 52),
+                Size = new Size(380, 4)
+            };
+            header.Controls.Add(headerAccent);
+            headerAccent.BringToFront();
+            Controls.Add(header);
 
             Controls.Add(new Label
             {
-                AutoSize = true,
-                Location = new Point(20, 20),
-                Text = "Product: " + listing.productName
+                AutoSize = false,
+                AutoEllipsis = true,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point),
+                ForeColor = textDark,
+                Location = new Point(20, 74),
+                Size = new Size(340, 24),
+                Text = "Product: " + listing.productName,
+                TextAlign = ContentAlignment.MiddleLeft
             });
 
             Controls.Add(new Label
             {
-                AutoSize = true,
-                Location = new Point(20, 55),
-                Text = "Price per item: " + listing.productPrice.ToString("C2")
+                AutoSize = false,
+                AutoEllipsis = true,
+                ForeColor = textDark,
+                Location = new Point(20, 102),
+                Size = new Size(340, 24),
+                Text = "Price per item: " + listing.productPrice.ToString("C2"),
+                TextAlign = ContentAlignment.MiddleLeft
             });
 
             Controls.Add(new Label
             {
-                AutoSize = true,
-                Location = new Point(20, 90),
-                Text = "Quantity:"
+                AutoSize = false,
+                ForeColor = textDark,
+                Location = new Point(20, 140),
+                Size = new Size(84, 28),
+                Text = "Quantity:",
+                TextAlign = ContentAlignment.MiddleLeft
             });
 
             _quantityInput = new NumericUpDown
             {
-                Location = new Point(110, 86),
+                Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point),
+                Location = new Point(110, 141),
                 Minimum = 1,
                 Maximum = Math.Max(1, listing.productStock),
                 Value = 1,
-                Width = 100,
+                Width = 110,
+                TextAlign = HorizontalAlignment.Right,
                 Enabled = listing.productStock > 0
             };
             _quantityInput.ValueChanged += QuantityInput_ValueChanged;
             Controls.Add(_quantityInput);
 
+            // Total card with amber accent strip
+            Panel totalCard = new Panel
+            {
+                BackColor = tint,
+                Location = new Point(20, 184),
+                Size = new Size(340, 52)
+            };
+            totalCard.Controls.Add(new Panel
+            {
+                BackColor = accent,
+                Location = new Point(0, 0),
+                Size = new Size(5, 52)
+            });
+
             _totalLabel = new Label
             {
-                AutoSize = true,
-                Location = new Point(20, 125)
+                AutoSize = false,
+                BackColor = Color.Transparent,
+                Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point),
+                ForeColor = primaryDark,
+                Location = new Point(17, 0),
+                Size = new Size(315, 52),
+                TextAlign = ContentAlignment.MiddleLeft
             };
-            Controls.Add(_totalLabel);
+            totalCard.Controls.Add(_totalLabel);
+            Controls.Add(totalCard);
 
             Button confirmButton = new Button
             {
-                Location = new Point(160, 170),
-                Size = new Size(90, 30),
+                BackColor = primary,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9.5F, FontStyle.Bold, GraphicsUnit.Point),
+                ForeColor = Color.White,
+                Location = new Point(140, 256),
+                Size = new Size(120, 36),
                 Text = listing.productStock > 0 ? "Confirm" : "Out of stock",
+                UseVisualStyleBackColor = false,
                 Enabled = listing.productStock > 0
             };
+            confirmButton.FlatAppearance.BorderSize = 0;
+            confirmButton.FlatAppearance.MouseOverBackColor = primaryDark;
+            confirmButton.FlatAppearance.MouseDownBackColor = primaryDark;
             confirmButton.Click += ConfirmButton_Click;
             Controls.Add(confirmButton);
 
             Button cancelButton = new Button
             {
-                Location = new Point(260, 170),
-                Size = new Size(80, 30),
+                BackColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9.5F, FontStyle.Regular, GraphicsUnit.Point),
+                ForeColor = primary,
+                Location = new Point(270, 256),
+                Size = new Size(90, 36),
                 Text = "Cancel",
+                UseVisualStyleBackColor = false,
                 DialogResult = DialogResult.Cancel
             };
+            cancelButton.FlatAppearance.BorderColor = lightGreen;
+            cancelButton.FlatAppearance.BorderSize = 1;
+            cancelButton.FlatAppearance.MouseOverBackColor = tint;
             Controls.Add(cancelButton);
 
             AcceptButton = confirmButton;

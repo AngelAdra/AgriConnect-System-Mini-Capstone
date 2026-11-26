@@ -1,0 +1,12 @@
+[
+  {
+    "MarketSeller": "s1",
+    "MarketPhoneNumber": "13612763781",
+    "ImagePath": "E:\\Downloads\\CozyRoom.png",
+    "barangay": "Paulba",
+    "role": "Seller",
+    "productName": "magic",
+    "productStock": 103,
+    "productPrice": 3
+  }
+]

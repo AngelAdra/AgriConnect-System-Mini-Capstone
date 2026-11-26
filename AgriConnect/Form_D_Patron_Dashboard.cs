@@ -13,13 +13,27 @@ using System.Windows.Forms;
 
 namespace AgriConnect
 {
-    public partial class Patron_Dashboard : Form
+    public partial class Patron_Dashboard : MaterialSkin.Controls.MaterialForm
     {
         public Patron_Dashboard()
         {
             InitializeComponent();
+            ApplyMaterialTheme();
             SelfBuiltEngine.OrderPlaced += Dashboard_OrderPlaced;
             FormClosed += Dashboard_FormClosed;
+        }
+
+        private void ApplyMaterialTheme()
+        {
+            MaterialSkin.MaterialSkinManager skin = MaterialSkin.MaterialSkinManager.Instance;
+            skin.AddFormToManage(this);
+            skin.Theme = MaterialSkin.MaterialSkinManager.Themes.LIGHT;
+            skin.ColorScheme = new MaterialSkin.ColorScheme(
+                Color.FromArgb(0x2E, 0x8B, 0x57),   // primary   #2E8B57
+                Color.FromArgb(0x1F, 0x6B, 0x41),   // dark primary
+                Color.FromArgb(0x66, 0xBB, 0x6A),   // light     #66BB6A
+                Color.FromArgb(0xF5, 0xA6, 0x23),   // accent    #F5A623
+                MaterialSkin.TextShade.WHITE);
         }
 
         private User ActiveUser = SelfBuiltEngine.activeHelper(CurrentUser.currentUser);

@@ -1,6 +1,12 @@
 [
   {
-    "MyProducts": [],
+    "MyProducts": [
+      {
+        "productName": "magic",
+        "productStock": 103,
+        "productPrice": 3
+      }
+    ],
     "SyncMessages": [],
     "Username": "s1",
     "UserPassword": "s1",
