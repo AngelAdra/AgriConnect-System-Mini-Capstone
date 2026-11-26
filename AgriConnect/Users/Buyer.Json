@@ -6,6 +6,30 @@
     "UserRole": "Buyer",
     "PhoneNumber": "13467187263",
     "FullName": "b1",
-    "Barangay": "Busac"
+    "Barangay": "Busac",
+    "Salt": null,
+    "PasswordHash": null
+  },
+  {
+    "SyncMessages": [],
+    "Username": "testhasher",
+    "UserPassword": "testhasher1234",
+    "UserRole": "Buyer",
+    "PhoneNumber": "34612312736",
+    "FullName": "asidu",
+    "Barangay": "Paulba",
+    "Salt": null,
+    "PasswordHash": null
+  },
+  {
+    "SyncMessages": [],
+    "Username": "test2hasher",
+    "UserPassword": null,
+    "UserRole": "Buyer",
+    "PhoneNumber": "23612638712",
+    "FullName": "testhasher2",
+    "Barangay": "Tastas",
+    "Salt": "3kjlWpH0Uu50Amg3w4miIw==",
+    "PasswordHash": "jYaeY07W/cQTrskvSGucOMWOCvU7dJavuBeuBO/UZS4="
   }
 ]

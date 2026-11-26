@@ -53,7 +53,18 @@ namespace AgriConnect
 
             string user = txtUser.Text.Trim();
             string FullName = txtFullName.Text.Trim();
-            string Password = txtPassword.Text.Trim();
+            string Password = txtPassword.Text;
+
+            if (Password.Length < 8 || !Password.All(char.IsLetterOrDigit))
+            {
+                MessageBox.Show(
+                    "Password must be at least 8 characters and contain only letters and digits.",
+                    "Invalid Password",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
             string PhoneNumber = txtPN.Text.Trim();
             string option = cmbOptions.Text.Trim();
             string Barangay = cmbBarangay.Text.Trim();

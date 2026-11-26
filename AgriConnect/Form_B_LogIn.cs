@@ -67,8 +67,7 @@ namespace AgriConnect
                 return;
             }
             string LoginUser = txtUser.Text.Trim();
-            string LogInPassword = txtPassword.Text.Trim();
-
+            string LogInPassword = txtPassword.Text;
 
             List<Collection> Collected = new List<Collection>();
             string getFile = FileGetter.GetFilePath("Collection.Json");
@@ -82,23 +81,33 @@ namespace AgriConnect
 
 
             Collected = JsonSerializer.Deserialize<List<Collection>>(getJson) ?? new List<Collection>();
-            bool isValid = false;
-            CurrentUser.currentUser = LoginUser;
 
+            Collection matchingUser = Collected.FirstOrDefault(
+                user => user.Username == LoginUser);
 
-            foreach (Collection user in Collected)
+            if (matchingUser != null &&
+                (string.IsNullOrEmpty(matchingUser.Salt) ||
+                 string.IsNullOrEmpty(matchingUser.PasswordHash)))
             {
-                if (user.Username == LoginUser && user.UserPassword == LogInPassword)
-                {
-                    CurrentUser.UserRole = user.UserRole;
-                    isValid = true;
-                    break;
-                }
+                MessageBox.Show(
+                    "This account uses an older password format. Remove its old JSON records and register it again.",
+                    "Account Update Required",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
             }
 
+            bool isValid = matchingUser != null &&
+                PasswordSecurity.VerifyPassword(
+                    LogInPassword,
+                    matchingUser.Salt,
+                    matchingUser.PasswordHash);
 
             if (isValid)
             {
+                CurrentUser.currentUser = LoginUser;
+                CurrentUser.UserRole = matchingUser.UserRole;
+
                 if (CurrentUser.UserRole == "Seller" || CurrentUser.UserRole == "Dual")
                 {
                     SellerHub_Dashboard make_Seller_Dashboard = new SellerHub_Dashboard();
@@ -117,7 +126,11 @@ namespace AgriConnect
             }
             else
             {
-                MessageBox.Show("Incorrect Password or User", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    "Incorrect Password or User",
+                    "Warning",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
                 return;
             }
 

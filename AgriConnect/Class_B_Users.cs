@@ -123,6 +123,15 @@ namespace AgriConnect
             }
         }
 
+        public string Salt { get; set; }
+
+public string PasswordHash { get; set; }
+
+protected void SetPassword(string password)
+{
+    Salt = PasswordSecurity.GenerateSalt();
+    PasswordHash = PasswordSecurity.HashPassword(password, Salt);
+}
         
 
     }
@@ -151,7 +160,8 @@ namespace AgriConnect
         {
             FullName = SellerFullName;
             Username = SellerName;
-            UserPassword = SellerPassword;
+            // Seller constructor
+            SetPassword(SellerPassword);
             UserRole = SellerRole;
             PhoneNumber = SellerPN;
             Barangay = SellerBarangay;
@@ -178,7 +188,8 @@ namespace AgriConnect
         {
             FullName = BuyerFullName;
             Username = BuyerName;
-            UserPassword = BuyerPassword;
+            // Buyer constructor
+            SetPassword(BuyerPassword);
             UserRole = BuyerRole;
             PhoneNumber = BuyerPN;
             Barangay = BuyerBarangay;
@@ -385,7 +396,8 @@ namespace AgriConnect
         {
             FullName = DualFullName;
             Username = DualUser;
-            UserPassword = DualPassword;
+            // Dual constructor
+            SetPassword(DualPassword);
             UserRole = DualRole;
             PhoneNumber = DualPN;
             Barangay = DualBarangay;
@@ -461,7 +473,8 @@ namespace AgriConnect
         {
             FullName = CollectionFullName;
             Username = CollectionUsers;
-            UserPassword = CollectionPasswords;
+            // Collection constructor
+            SetPassword(CollectionPasswords);
             UserRole = CollectionRoles;
             PhoneNumber = CollectionPN;
             Barangay = CollectionBarangay;

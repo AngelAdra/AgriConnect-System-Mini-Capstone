@@ -5,7 +5,9 @@
     "UserRole": "Seller",
     "PhoneNumber": "13612763781",
     "FullName": "s1",
-    "Barangay": "Paulba"
+    "Barangay": "Paulba",
+    "Salt": null,
+    "PasswordHash": null
   },
   {
     "Username": "d1",
@@ -13,7 +15,9 @@
     "UserRole": "Dual",
     "PhoneNumber": "12616287673",
     "FullName": "d1",
-    "Barangay": "Paulba"
+    "Barangay": "Paulba",
+    "Salt": null,
+    "PasswordHash": null
   },
   {
     "Username": "b1",
@@ -21,6 +25,28 @@
     "UserRole": "Buyer",
     "PhoneNumber": "13467187263",
     "FullName": "b1",
-    "Barangay": "Busac"
+    "Barangay": "Busac",
+    "Salt": null,
+    "PasswordHash": null
+  },
+  {
+    "Username": "testhasher",
+    "UserPassword": "testhasher1234",
+    "UserRole": "Buyer",
+    "PhoneNumber": "34612312736",
+    "FullName": "asidu",
+    "Barangay": "Paulba",
+    "Salt": null,
+    "PasswordHash": null
+  },
+  {
+    "Username": "test2hasher",
+    "UserPassword": null,
+    "UserRole": "Buyer",
+    "PhoneNumber": "23612638712",
+    "FullName": "testhasher2",
+    "Barangay": "Tastas",
+    "Salt": "jki73XCLwVpwIZVLEgDsUg==",
+    "PasswordHash": "Pp58ltZDmwFThKpMQYA2z0kHRYgkIncBPZzyUu\u002BTDgE="
   }
 ]
