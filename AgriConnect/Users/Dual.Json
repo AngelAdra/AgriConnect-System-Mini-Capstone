@@ -2,11 +2,13 @@
   {
     "MyProducts": [],
     "SyncMessages": [],
-    "Username": "d1",
-    "UserPassword": "d1",
+    "Username": "testhasher3",
+    "UserPassword": "PBKDF2-SHA256$100000$6ArEi28\u002BulFcI\u002BJb8BEJ1Q==$4j3LIFYt/7dExIxFEq2yPiy069icnM\u002BFO6/q2UFsq8o=",
     "UserRole": "Dual",
-    "PhoneNumber": "12616287673",
-    "FullName": "d1",
-    "Barangay": "Paulba"
+    "PhoneNumber": "26378216381",
+    "FullName": "nicename",
+    "Barangay": "Palapas",
+    "Salt": null,
+    "PasswordHash": null
   }
 ]

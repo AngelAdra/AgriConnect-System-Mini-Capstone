@@ -1,35 +1,13 @@
 [
   {
     "SyncMessages": [],
-    "Username": "b1",
-    "UserPassword": "b1",
+    "Username": "testhasher2",
+    "UserPassword": "PBKDF2-SHA256$100000$QTc85cyx0odBlzEwa/c\u002Bcg==$oZRvL2taGLX\u002BgbMtA9JQ/y8/CS19120IOnh7TfF4c1g=",
     "UserRole": "Buyer",
-    "PhoneNumber": "13467187263",
-    "FullName": "b1",
-    "Barangay": "Busac",
-    "Salt": null,
-    "PasswordHash": null
-  },
-  {
-    "SyncMessages": [],
-    "Username": "testhasher",
-    "UserPassword": "testhasher1234",
-    "UserRole": "Buyer",
-    "PhoneNumber": "34612312736",
-    "FullName": "asidu",
-    "Barangay": "Paulba",
-    "Salt": null,
-    "PasswordHash": null
-  },
-  {
-    "SyncMessages": [],
-    "Username": "test2hasher",
-    "UserPassword": null,
-    "UserRole": "Buyer",
-    "PhoneNumber": "23612638712",
-    "FullName": "testhasher2",
+    "PhoneNumber": "32671263127",
+    "FullName": "hsaertester2",
     "Barangay": "Tastas",
-    "Salt": "3kjlWpH0Uu50Amg3w4miIw==",
-    "PasswordHash": "jYaeY07W/cQTrskvSGucOMWOCvU7dJavuBeuBO/UZS4="
+    "Salt": null,
+    "PasswordHash": null
   }
 ]

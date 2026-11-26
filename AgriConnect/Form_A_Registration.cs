@@ -55,10 +55,10 @@ namespace AgriConnect
             string FullName = txtFullName.Text.Trim();
             string Password = txtPassword.Text;
 
-            if (Password.Length < 8 || !Password.All(char.IsLetterOrDigit))
+            if (!PasswordSecurity.IsValidPassword(Password))
             {
                 MessageBox.Show(
-                    "Password must be at least 8 characters and contain only letters and digits.",
+                    "Password must be at least 8 characters and contain only letters and digits, including at least one letter and one digit.",
                     "Invalid Password",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);

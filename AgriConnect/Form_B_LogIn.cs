@@ -60,81 +60,96 @@ namespace AgriConnect
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-
-            if (string.IsNullOrEmpty(txtUser.Text) || string.IsNullOrEmpty(txtPassword.Text))
-            {
-                MessageBox.Show("Please fill out the Fields.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            string LoginUser = txtUser.Text.Trim();
-            string LogInPassword = txtPassword.Text;
-
-            List<Collection> Collected = new List<Collection>();
-            string getFile = FileGetter.GetFilePath("Collection.Json");
-            if (!File.Exists(getFile))
-            {
-                MessageBox.Show("No such account please create one to continue", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            string getJson = File.ReadAllText(getFile);
-
-
-
-            Collected = JsonSerializer.Deserialize<List<Collection>>(getJson) ?? new List<Collection>();
-
-            Collection matchingUser = Collected.FirstOrDefault(
-                user => user.Username == LoginUser);
-
-            if (matchingUser != null &&
-                (string.IsNullOrEmpty(matchingUser.Salt) ||
-                 string.IsNullOrEmpty(matchingUser.PasswordHash)))
+            if (string.IsNullOrEmpty(txtUser.Text) ||
+                string.IsNullOrEmpty(txtPassword.Text))
             {
                 MessageBox.Show(
-                    "This account uses an older password format. Remove its old JSON records and register it again.",
-                    "Account Update Required",
+                    "Please fill out the Fields.",
+                    "Information",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                    MessageBoxIcon.Information);
                 return;
             }
 
-            bool isValid = matchingUser != null &&
+            string loginUser = txtUser.Text.Trim();
+            string loginPassword = txtPassword.Text;
+            List<User> accounts = new List<User>();
+
+            AddUsersFromFile<Collection>(accounts, "Collection.Json");
+            AddUsersFromFile<Buyer>(accounts, "Buyer.Json");
+            AddUsersFromFile<Seller>(accounts, "Sellers.Json");
+            AddUsersFromFile<Dual>(accounts, "Dual.Json");
+
+            User matchingUser = accounts.FirstOrDefault(user =>
+                user.Username == loginUser &&
                 PasswordSecurity.VerifyPassword(
-                    LogInPassword,
-                    matchingUser.Salt,
-                    matchingUser.PasswordHash);
+                    loginPassword,
+                    user.UserPassword));
 
-            if (isValid)
+            if (matchingUser == null)
             {
-                CurrentUser.currentUser = LoginUser;
-                CurrentUser.UserRole = matchingUser.UserRole;
+                bool accountExists = accounts.Any(user =>
+                    user.Username == loginUser);
 
-                if (CurrentUser.UserRole == "Seller" || CurrentUser.UserRole == "Dual")
+                bool needsPasswordUpdate = accounts.Any(user =>
+                    user.Username == loginUser &&
+                    string.IsNullOrEmpty(user.UserPassword));
+
+                if (accountExists && needsPasswordUpdate)
                 {
-                    SellerHub_Dashboard make_Seller_Dashboard = new SellerHub_Dashboard();
-                    make_Seller_Dashboard.Show();
-                   
-                    this.Hide();
+                    MessageBox.Show(
+                        "This account uses the older password format. Reset or re-register the account.",
+                        "Account Update Required",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    Patron_Dashboard make_Buyer_Dashboard = new Patron_Dashboard();
-                    make_Buyer_Dashboard.Show();
-                   
-                    this.Hide();
+                    MessageBox.Show(
+                        "Incorrect Password or User",
+                        "Warning",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
                 }
 
-            }
-            else
-            {
-                MessageBox.Show(
-                    "Incorrect Password or User",
-                    "Warning",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
                 return;
             }
 
+            CurrentUser.currentUser = loginUser;
+            CurrentUser.UserRole = matchingUser.UserRole;
 
+            if (CurrentUser.UserRole == "Seller" ||
+                CurrentUser.UserRole == "Dual")
+            {
+                SellerHub_Dashboard sellerDashboard =
+                    new SellerHub_Dashboard();
+                sellerDashboard.Show();
+            }
+            else
+            {
+                Patron_Dashboard buyerDashboard =
+                    new Patron_Dashboard();
+                buyerDashboard.Show();
+            }
+
+            this.Hide();
+        }
+
+        private static void AddUsersFromFile<T>(
+            List<User> users,
+            string fileName)
+            where T : User
+        {
+            string filePath = FileGetter.GetFilePath(fileName);
+
+            if (!File.Exists(filePath))
+                return;
+
+            List<T> records =
+                JsonSerializer.Deserialize<List<T>>(File.ReadAllText(filePath))
+                ?? new List<T>();
+
+            users.AddRange(records);
         }
 
         private void txtUser_KeyDown(object sender, KeyEventArgs e)

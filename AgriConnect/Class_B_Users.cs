@@ -123,15 +123,11 @@ namespace AgriConnect
             }
         }
 
-        public string Salt { get; set; }
-
-public string PasswordHash { get; set; }
-
+       
 protected void SetPassword(string password)
-{
-    Salt = PasswordSecurity.GenerateSalt();
-    PasswordHash = PasswordSecurity.HashPassword(password, Salt);
-}
+        {
+            UserPassword = PasswordSecurity.HashPassword(password);
+        }
         
 
     }

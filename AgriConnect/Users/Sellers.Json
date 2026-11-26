@@ -1,18 +1,14 @@
 [
   {
-    "MyProducts": [
-      {
-        "productName": "magic",
-        "productStock": 103,
-        "productPrice": 3
-      }
-    ],
+    "MyProducts": [],
     "SyncMessages": [],
-    "Username": "s1",
-    "UserPassword": "s1",
+    "Username": "testhasher",
+    "UserPassword": "PBKDF2-SHA256$100000$RZ1R1SonFDQkbvvoXE6ZMQ==$kpuMLqARYoDME8oJIJEsKXK9nVbeFak05T/s8g7DTSk=",
     "UserRole": "Seller",
-    "PhoneNumber": "13612763781",
-    "FullName": "s1",
-    "Barangay": "Paulba"
+    "PhoneNumber": "31236716238",
+    "FullName": "hashertester",
+    "Barangay": "Paulba",
+    "Salt": null,
+    "PasswordHash": null
   }
 ]

@@ -1,52 +1,32 @@
 [
   {
-    "Username": "s1",
-    "UserPassword": "s1",
-    "UserRole": "Seller",
-    "PhoneNumber": "13612763781",
-    "FullName": "s1",
-    "Barangay": "Paulba",
-    "Salt": null,
-    "PasswordHash": null
-  },
-  {
-    "Username": "d1",
-    "UserPassword": "d1",
-    "UserRole": "Dual",
-    "PhoneNumber": "12616287673",
-    "FullName": "d1",
-    "Barangay": "Paulba",
-    "Salt": null,
-    "PasswordHash": null
-  },
-  {
-    "Username": "b1",
-    "UserPassword": "b1",
-    "UserRole": "Buyer",
-    "PhoneNumber": "13467187263",
-    "FullName": "b1",
-    "Barangay": "Busac",
-    "Salt": null,
-    "PasswordHash": null
-  },
-  {
     "Username": "testhasher",
-    "UserPassword": "testhasher1234",
-    "UserRole": "Buyer",
-    "PhoneNumber": "34612312736",
-    "FullName": "asidu",
+    "UserPassword": "PBKDF2-SHA256$100000$4ZsZhYSRF\u002Bp45gyp9oApmQ==$ONKOEjEUT5a26CCAL6hmOSCfeqN7wcLEMaqSbRIXy20=",
+    "UserRole": "Seller",
+    "PhoneNumber": "31236716238",
+    "FullName": "hashertester",
     "Barangay": "Paulba",
     "Salt": null,
     "PasswordHash": null
   },
   {
-    "Username": "test2hasher",
-    "UserPassword": null,
+    "Username": "testhasher2",
+    "UserPassword": "PBKDF2-SHA256$100000$Y3L09wB\u002BC1XWZoyec4OhrA==$kmOZk9qj1xqKh3CRpruXZdcQyG1AZ926TwWq5Bv/b\u002Bg=",
     "UserRole": "Buyer",
-    "PhoneNumber": "23612638712",
-    "FullName": "testhasher2",
+    "PhoneNumber": "32671263127",
+    "FullName": "hsaertester2",
     "Barangay": "Tastas",
-    "Salt": "jki73XCLwVpwIZVLEgDsUg==",
-    "PasswordHash": "Pp58ltZDmwFThKpMQYA2z0kHRYgkIncBPZzyUu\u002BTDgE="
+    "Salt": null,
+    "PasswordHash": null
+  },
+  {
+    "Username": "testhasher3",
+    "UserPassword": "PBKDF2-SHA256$100000$hSWKGTYgrMyxq6Vd5nKSLA==$LeKx77\u002Bi2L\u002BkyJzRCtJOwblP6BHz71jYz30bbf7Yvrc=",
+    "UserRole": "Dual",
+    "PhoneNumber": "26378216381",
+    "FullName": "nicename",
+    "Barangay": "Palapas",
+    "Salt": null,
+    "PasswordHash": null
   }
 ]
