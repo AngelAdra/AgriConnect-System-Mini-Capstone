@@ -57,6 +57,8 @@ namespace AgriConnect
     }
     internal static class SelfBuiltEngine
     {
+        internal static event Action<ProductOrder> OrderPlaced;
+
         internal static User getUser(User target)
         {
 
@@ -439,11 +441,13 @@ namespace AgriConnect
         }
 
 
-        internal static bool PlaceOrder(MarketplaceListings listing, int quantity, out int remainingStock)
+        internal static bool PlaceOrder(MarketplaceListings listing, User buyer, int quantity, out int remainingStock)
         {
             remainingStock = 0;
 
-            if (listing == null || quantity <= 0)
+            if (listing == null || buyer == null || quantity <= 0 ||
+                (!string.Equals(buyer.UserRole, "Buyer", StringComparison.OrdinalIgnoreCase) &&
+                 !string.Equals(buyer.UserRole, "Dual", StringComparison.OrdinalIgnoreCase)))
                 return false;
 
             try
@@ -465,6 +469,8 @@ namespace AgriConnect
                     return false;
 
                 SellerProducts sellerProduct;
+                string sellerUsername;
+                string sellerName;
                 string inventoryPath;
                 string inventoryJson;
 
@@ -482,7 +488,13 @@ namespace AgriConnect
                         string.Equals(user.FullName, listing.MarketSeller, StringComparison.OrdinalIgnoreCase) ||
                         string.Equals(user.Username, listing.MarketSeller, StringComparison.OrdinalIgnoreCase));
 
-                    sellerProduct = seller == null || seller.MyProducts == null
+                    if (seller == null || string.Equals(seller.Username, buyer.Username, StringComparison.OrdinalIgnoreCase))
+                        return false;
+
+                    sellerUsername = seller.Username;
+                    sellerName = seller.FullName;
+
+                    sellerProduct = seller.MyProducts == null
                         ? null
                         : seller.MyProducts.FirstOrDefault(product =>
                             string.Equals(product.productName, listing.productName, StringComparison.OrdinalIgnoreCase));
@@ -508,7 +520,13 @@ namespace AgriConnect
                         string.Equals(user.FullName, listing.MarketSeller, StringComparison.OrdinalIgnoreCase) ||
                         string.Equals(user.Username, listing.MarketSeller, StringComparison.OrdinalIgnoreCase));
 
-                    sellerProduct = dual == null || dual.MyProducts == null
+                    if (dual == null || string.Equals(dual.Username, buyer.Username, StringComparison.OrdinalIgnoreCase))
+                        return false;
+
+                    sellerUsername = dual.Username;
+                    sellerName = dual.FullName;
+
+                    sellerProduct = dual.MyProducts == null
                         ? null
                         : dual.MyProducts.FirstOrDefault(product =>
                             string.Equals(product.productName, listing.productName, StringComparison.OrdinalIgnoreCase));
@@ -526,10 +544,35 @@ namespace AgriConnect
                 }
 
                 savedListing.productStock = remainingStock;
+                ProductOrder order = new ProductOrder
+                {
+                    BuyerUsername = buyer.Username,
+                    BuyerName = buyer.FullName,
+                    SellerUsername = sellerUsername,
+                    SellerName = sellerName,
+                    ProductName = listing.productName,
+                    Quantity = quantity,
+                    UnitPrice = listing.productPrice,
+                    Total = listing.productPrice * quantity,
+                    OrderedAt = DateTime.Now
+                };
+
+                string ordersPath = FileGetter.GetFilePath("Orders.Json");
+                List<ProductOrder> orders = File.Exists(ordersPath)
+                    ? JsonSerializer.Deserialize<List<ProductOrder>>(File.ReadAllText(ordersPath)) ?? new List<ProductOrder>()
+                    : new List<ProductOrder>();
+                orders.Add(order);
+
                 File.WriteAllText(inventoryPath, inventoryJson);
                 File.WriteAllText(marketPath, JsonSerializer.Serialize(
                     marketListings,
                     new JsonSerializerOptions { WriteIndented = true }));
+                File.WriteAllText(ordersPath, JsonSerializer.Serialize(
+                    orders,
+                    new JsonSerializerOptions { WriteIndented = true }));
+
+                if (OrderPlaced != null)
+                    OrderPlaced(order);
 
                 return true;
             }
@@ -626,7 +669,7 @@ namespace AgriConnect
 
             if (!File.Exists(get))
             {
-                MessageBox.Show("File not found", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+              
                 return null;
             }
 
@@ -677,7 +720,7 @@ namespace AgriConnect
 
         internal static void LoadSearch(FlowLayoutPanel flpSearch, User ActiveUser, Panel pMessage, FlowLayoutPanel flpMessage)
         {
-            List<MarketplaceListings> getDeserealizedMarket = MarketDeserealizer(new List<MarketplaceListings>());
+            List<MarketplaceListings> getDeserealizedMarket = MarketDeserealizer(new List<MarketplaceListings>()) ?? new List<MarketplaceListings>();
 
             foreach (var display in getDeserealizedMarket)
             {

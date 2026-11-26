@@ -1,49 +1,12 @@
 [
   {
-    "MyProducts": [
-      {
-        "productName": "tret",
-        "productStock": 0,
-        "productPrice": 54
-      },
-      {
-        "productName": "hgcfc",
-        "productStock": 65,
-        "productPrice": 454
-      },
-      {
-        "productName": "asxe",
-        "productStock": 324,
-        "productPrice": 3242
-      }
-    ],
-    "SyncMessages": [
-      {
-        "Sender": "d1",
-        "Receiver": "s1",
-        "MessageText": "Hello Mr/Ms s1, i\u0027d Like to inquire about your Product tret Before setting an Order"
-      },
-      {
-        "Sender": "ahvscuhg",
-        "Receiver": "d1",
-        "MessageText": "negatron"
-      }
-    ],
-    "Username": "s1",
-    "UserPassword": "s1",
-    "UserRole": "Seller",
-    "PhoneNumber": "23647236426",
-    "FullName": "ahvscuhg",
-    "Barangay": "Malama"
-  },
-  {
     "MyProducts": [],
     "SyncMessages": [],
     "Username": "s1",
     "UserPassword": "s1",
     "UserRole": "Seller",
-    "PhoneNumber": "12846312541",
-    "FullName": "isdcqs",
-    "Barangay": "Malama"
+    "PhoneNumber": "13612763781",
+    "FullName": "s1",
+    "Barangay": "Paulba"
   }
 ]

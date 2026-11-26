@@ -36,7 +36,7 @@ namespace AgriConnect
         {
             InitializeComponent();
 
-            if (block.UserRole == "Seller")
+            if (block != null && string.Equals(block.UserRole, "Seller", StringComparison.OrdinalIgnoreCase))
             {
                 btnContackSeller.Enabled = false;
                 btnSetOrder.Enabled = false;
@@ -124,13 +124,19 @@ namespace AgriConnect
 
         private void btnSetOrder_Click(object sender, EventArgs e)
         {
+            if (getUser == null || string.Equals(getUser.UserRole, "Seller", StringComparison.OrdinalIgnoreCase))
+            {
+                btnSetOrder.Enabled = false;
+                return;
+            }
+
             if (received == null || received.productStock <= 0)
             {
                 MessageBox.Show("This product is out of stock.", "Order", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            using (OrderForm orderForm = new OrderForm(received))
+            using (OrderForm orderForm = new OrderForm(received, getUser))
             {
                 if (orderForm.ShowDialog(this) == DialogResult.OK)
                 {
@@ -145,14 +151,16 @@ namespace AgriConnect
     internal class OrderForm : Form
     {
         private readonly MarketplaceListings _listing;
+        private readonly User _buyer;
         private readonly NumericUpDown _quantityInput;
         private readonly Label _totalLabel;
 
         public int RemainingStock { get; private set; }
 
-        public OrderForm(MarketplaceListings listing)
+        public OrderForm(MarketplaceListings listing, User buyer)
         {
             _listing = listing;
+            _buyer = buyer;
             RemainingStock = listing.productStock;
 
             Text = "Set Order";
@@ -240,7 +248,7 @@ namespace AgriConnect
         private void ConfirmButton_Click(object sender, EventArgs e)
         {
             int remainingStock;
-            if (!SelfBuiltEngine.PlaceOrder(_listing, (int)_quantityInput.Value, out remainingStock))
+            if (!SelfBuiltEngine.PlaceOrder(_listing, _buyer, (int)_quantityInput.Value, out remainingStock))
             {
                 MessageBox.Show(
                     this,

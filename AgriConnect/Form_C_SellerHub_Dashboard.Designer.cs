@@ -35,7 +35,6 @@ namespace AgriConnect
             this.txtPhoneNumber = new System.Windows.Forms.Label();
             this.txtFullName = new System.Windows.Forms.Label();
             this.LogOff = new System.Windows.Forms.Button();
-            this.Welcome = new System.Windows.Forms.Label();
             this.btnList = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -47,7 +46,6 @@ namespace AgriConnect
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.btnDelist = new System.Windows.Forms.Button();
             this.listedProductBySeller = new System.Windows.Forms.DataGridView();
-            this.btnMarket = new System.Windows.Forms.Button();
             this.flpSearch = new System.Windows.Forms.FlowLayoutPanel();
             this.txtSearchFilter = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -63,6 +61,7 @@ namespace AgriConnect
             this.btnSend = new System.Windows.Forms.Button();
             this.rtbMessage = new System.Windows.Forms.RichTextBox();
             this.pMessage = new System.Windows.Forms.Panel();
+            this.rtbDashboardOrder = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picProduct)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.listedProductBySeller)).BeginInit();
@@ -81,10 +80,9 @@ namespace AgriConnect
             this.panel1.Controls.Add(this.txtPhoneNumber);
             this.panel1.Controls.Add(this.txtFullName);
             this.panel1.Controls.Add(this.LogOff);
-            this.panel1.Controls.Add(this.Welcome);
             this.panel1.Location = new System.Drawing.Point(-1, -1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(202, 490);
+            this.panel1.Size = new System.Drawing.Size(202, 184);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -92,57 +90,47 @@ namespace AgriConnect
             // 
             this.txtUser.BackColor = System.Drawing.Color.Silver;
             this.txtUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUser.Location = new System.Drawing.Point(13, 53);
+            this.txtUser.Location = new System.Drawing.Point(13, 14);
             this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(137, 24);
+            this.txtUser.Size = new System.Drawing.Size(186, 24);
             this.txtUser.TabIndex = 10;
             // 
             // txtRole
             // 
             this.txtRole.BackColor = System.Drawing.Color.Gold;
             this.txtRole.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRole.Location = new System.Drawing.Point(15, 160);
+            this.txtRole.Location = new System.Drawing.Point(15, 119);
             this.txtRole.Name = "txtRole";
-            this.txtRole.Size = new System.Drawing.Size(137, 24);
+            this.txtRole.Size = new System.Drawing.Size(184, 24);
             this.txtRole.TabIndex = 5;
             // 
             // txtPhoneNumber
             // 
             this.txtPhoneNumber.BackColor = System.Drawing.Color.Gold;
             this.txtPhoneNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPhoneNumber.Location = new System.Drawing.Point(15, 119);
+            this.txtPhoneNumber.Location = new System.Drawing.Point(15, 83);
             this.txtPhoneNumber.Name = "txtPhoneNumber";
-            this.txtPhoneNumber.Size = new System.Drawing.Size(137, 24);
+            this.txtPhoneNumber.Size = new System.Drawing.Size(184, 24);
             this.txtPhoneNumber.TabIndex = 4;
             // 
             // txtFullName
             // 
             this.txtFullName.BackColor = System.Drawing.Color.Gold;
             this.txtFullName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFullName.Location = new System.Drawing.Point(14, 88);
+            this.txtFullName.Location = new System.Drawing.Point(15, 45);
             this.txtFullName.Name = "txtFullName";
-            this.txtFullName.Size = new System.Drawing.Size(137, 24);
+            this.txtFullName.Size = new System.Drawing.Size(184, 24);
             this.txtFullName.TabIndex = 3;
             // 
             // LogOff
             // 
-            this.LogOff.Location = new System.Drawing.Point(17, 192);
+            this.LogOff.Location = new System.Drawing.Point(35, 146);
             this.LogOff.Name = "LogOff";
             this.LogOff.Size = new System.Drawing.Size(133, 26);
             this.LogOff.TabIndex = 2;
             this.LogOff.Text = "LogOut";
             this.LogOff.UseVisualStyleBackColor = true;
             this.LogOff.Click += new System.EventHandler(this.LogOff_Click);
-            // 
-            // Welcome
-            // 
-            this.Welcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Welcome.Location = new System.Drawing.Point(13, 10);
-            this.Welcome.Name = "Welcome";
-            this.Welcome.Size = new System.Drawing.Size(137, 24);
-            this.Welcome.TabIndex = 1;
-            this.Welcome.Text = "Welcome";
-            this.Welcome.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // btnList
             // 
@@ -234,16 +222,6 @@ namespace AgriConnect
             this.listedProductBySeller.ReadOnly = true;
             this.listedProductBySeller.Size = new System.Drawing.Size(293, 331);
             this.listedProductBySeller.TabIndex = 14;
-            // 
-            // btnMarket
-            // 
-            this.btnMarket.Location = new System.Drawing.Point(694, 453);
-            this.btnMarket.Name = "btnMarket";
-            this.btnMarket.Size = new System.Drawing.Size(121, 46);
-            this.btnMarket.TabIndex = 15;
-            this.btnMarket.Text = "Market";
-            this.btnMarket.UseVisualStyleBackColor = true;
-            this.btnMarket.Click += new System.EventHandler(this.btnMarket_Click);
             // 
             // flpSearch
             // 
@@ -360,25 +338,25 @@ namespace AgriConnect
             // 
             this.flpMessage.AutoScroll = true;
             this.flpMessage.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.flpMessage.Location = new System.Drawing.Point(14, 3);
+            this.flpMessage.Location = new System.Drawing.Point(3, 3);
             this.flpMessage.Name = "flpMessage";
-            this.flpMessage.Size = new System.Drawing.Size(398, 289);
+            this.flpMessage.Size = new System.Drawing.Size(288, 289);
             this.flpMessage.TabIndex = 0;
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(342, 298);
+            this.btnSend.Location = new System.Drawing.Point(222, 298);
             this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(70, 30);
+            this.btnSend.Size = new System.Drawing.Size(69, 30);
             this.btnSend.TabIndex = 1;
             this.btnSend.Text = "Send";
             this.btnSend.UseVisualStyleBackColor = true;
             // 
             // rtbMessage
             // 
-            this.rtbMessage.Location = new System.Drawing.Point(120, 298);
+            this.rtbMessage.Location = new System.Drawing.Point(0, 298);
             this.rtbMessage.Name = "rtbMessage";
-            this.rtbMessage.Size = new System.Drawing.Size(216, 30);
+            this.rtbMessage.Size = new System.Drawing.Size(220, 30);
             this.rtbMessage.TabIndex = 0;
             this.rtbMessage.Text = "";
             // 
@@ -387,10 +365,18 @@ namespace AgriConnect
             this.pMessage.Controls.Add(this.flpMessage);
             this.pMessage.Controls.Add(this.btnSend);
             this.pMessage.Controls.Add(this.rtbMessage);
-            this.pMessage.Location = new System.Drawing.Point(207, 148);
+            this.pMessage.Location = new System.Drawing.Point(309, 148);
             this.pMessage.Name = "pMessage";
-            this.pMessage.Size = new System.Drawing.Size(397, 341);
+            this.pMessage.Size = new System.Drawing.Size(295, 332);
             this.pMessage.TabIndex = 25;
+            // 
+            // rtbDashboardOrder
+            // 
+            this.rtbDashboardOrder.Location = new System.Drawing.Point(-1, 246);
+            this.rtbDashboardOrder.Name = "rtbDashboardOrder";
+            this.rtbDashboardOrder.Size = new System.Drawing.Size(307, 230);
+            this.rtbDashboardOrder.TabIndex = 26;
+            this.rtbDashboardOrder.Text = "";
             // 
             // SellerHub_Dashboard
             // 
@@ -398,8 +384,8 @@ namespace AgriConnect
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(939, 501);
-            this.Controls.Add(this.btnMarket);
+            this.ClientSize = new System.Drawing.Size(943, 501);
+            this.Controls.Add(this.rtbDashboardOrder);
             this.Controls.Add(this.pMessage);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.pMyProductList);
@@ -408,8 +394,7 @@ namespace AgriConnect
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SellerHub_Dashboard";
-            this.Text = "DashBoard";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.F_Seller_Dual_Dashboard_FormClosing);
+            this.Text = "Seller Dashboard";
             this.Load += new System.EventHandler(this.Dashboard_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picProduct)).EndInit();
@@ -428,7 +413,6 @@ namespace AgriConnect
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label Welcome;
         private System.Windows.Forms.Label txtRole;
         private System.Windows.Forms.Label txtPhoneNumber;
         private System.Windows.Forms.Label txtFullName;
@@ -444,7 +428,6 @@ namespace AgriConnect
         private System.Windows.Forms.PictureBox picProduct;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button btnDelist;
-        private System.Windows.Forms.Button btnMarket;
         private System.Windows.Forms.FlowLayoutPanel flpSearch;
         private System.Windows.Forms.TextBox txtSearchFilter;
         private System.Windows.Forms.Button btnSearch;
@@ -461,5 +444,6 @@ namespace AgriConnect
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.RichTextBox rtbMessage;
         private System.Windows.Forms.Panel pMessage;
+        private System.Windows.Forms.RichTextBox rtbDashboardOrder;
     }
 }

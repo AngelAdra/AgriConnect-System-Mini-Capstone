@@ -123,4 +123,17 @@ namespace AgriConnect
 
     }
 
+    public class ProductOrder
+    {
+        public string BuyerUsername { get; set; }
+        public string BuyerName { get; set; }
+        public string SellerUsername { get; set; }
+        public string SellerName { get; set; }
+        public string ProductName { get; set; }
+        public int Quantity { get; set; }
+        public double UnitPrice { get; set; }
+        public double Total { get; set; }
+        public DateTime OrderedAt { get; set; }
+    }
+
 }

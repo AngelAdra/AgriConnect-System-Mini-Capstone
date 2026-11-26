@@ -23,10 +23,11 @@ namespace AgriConnect
         {
             InitializeComponent();
             btnSend.Click += btnSend_Click;
+            SelfBuiltEngine.OrderPlaced += Dashboard_OrderPlaced;
+            FormClosed += Dashboard_FormClosed;
         }
         private string selectedImagePath = "";
         private User ActiveUser = SelfBuiltEngine.activeHelper(CurrentUser.currentUser);
-        private static market reOpen = new market();
 
         private void label1_Click_1(object sender, EventArgs e)
         {
@@ -35,9 +36,6 @@ namespace AgriConnect
 
         private void Dashboard_Load(object sender, EventArgs e)
         {
-            if (ActiveUser.UserRole == "Seller")
-                btnMarket.Text = "View Market";
-
             Collection active = SelfBuiltEngine.activeHelper(CurrentUser.currentUser);
             txtUser.Text = $"User: {active.Username}";
             txtFullName.Text = $"Name: {active.FullName}";
@@ -50,7 +48,57 @@ namespace AgriConnect
 
             SelfBuiltEngine.LoadSearch(flpSearch, ActiveUser, pMessage, flpMessage);
             LoadNotifications();
+            LoadSellerOrderOutput();
             listedProductBySeller.Visible = false;
+        }
+
+        private void LoadSellerOrderOutput()
+        {
+            rtbDashboardOrder.Clear();
+            rtbDashboardOrder.ReadOnly = true;
+
+            string path = FileGetter.GetFilePath("Orders.Json");
+            if (!File.Exists(path))
+            {
+                rtbDashboardOrder.AppendText("========== ORDERS RECEIVED ==========\r\nNo orders received yet.\r\n");
+                return;
+            }
+
+            List<ProductOrder> orders =
+                JsonSerializer.Deserialize<List<ProductOrder>>(File.ReadAllText(path))
+                ?? new List<ProductOrder>();
+
+            List<ProductOrder> receivedOrders = orders.Where(item =>
+                item.SellerUsername == ActiveUser.Username).ToList();
+
+            rtbDashboardOrder.AppendText("========== ORDERS RECEIVED ==========\r\n");
+            if (receivedOrders.Count == 0)
+            {
+                rtbDashboardOrder.AppendText("No orders received yet.\r\n");
+                return;
+            }
+
+            for (int i = 0; i < receivedOrders.Count; i++)
+            {
+                ProductOrder order = receivedOrders[i];
+                rtbDashboardOrder.AppendText(
+                    $"Order #{i + 1}\r\n--------------------------------------\r\n" +
+                    $"Buyer: {order.BuyerName}\r\nProduct: {order.ProductName}\r\n" +
+                    $"Quantity: {order.Quantity}\r\nUnit price: {order.UnitPrice:C2}\r\n" +
+                    $"Total: {order.Total:C2}\r\nPlaced: {order.OrderedAt:g}\r\n" +
+                    "======================================\r\n\r\n");
+            }
+        }
+
+        private void Dashboard_OrderPlaced(ProductOrder order)
+        {
+            if (order != null && order.SellerUsername == ActiveUser.Username)
+                LoadSellerOrderOutput();
+        }
+
+        private void Dashboard_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            SelfBuiltEngine.OrderPlaced -= Dashboard_OrderPlaced;
         }
 
         private void LoadNotifications()
@@ -224,7 +272,6 @@ namespace AgriConnect
         private void LogOff_Click(object sender, EventArgs e)
         {
             LogIn login = new LogIn();
-            reOpen.Dispose();
             login.Show();
             this.Dispose();
         }
@@ -266,41 +313,6 @@ namespace AgriConnect
 
 
         }
-
-
-        private void btnMarket_Click(object sender, EventArgs e)
-        {
-            if (reOpen == null || reOpen.IsDisposed)
-            {
-                reOpen = new market(ActiveUser, pMessage, flpMessage);
-                reOpen.Show();
-            }
-            else
-            {
-
-                if (reOpen.WindowState == FormWindowState.Minimized)
-                {
-                    reOpen.WindowState = FormWindowState.Normal;
-                }
-
-
-                reOpen.Show();
-                reOpen.Activate();
-            }
-        }
-
-        private void F_Seller_Dual_Dashboard_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (reOpen != null && !reOpen.IsDisposed)
-            {
-                DialogResult res = MessageBox.Show("closing this window will close the market too are you sure?", "Confirm Close", MessageBoxButtons.YesNo);
-                if (res == DialogResult.No)
-                    e.Cancel = true;
-            }
-        }
-
-
-
 
 
         private void btnSearch_Click(object sender, EventArgs e)

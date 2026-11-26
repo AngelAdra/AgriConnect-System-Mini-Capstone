@@ -81,12 +81,6 @@
     <Compile Include="Class_C_AgriProduct.cs" />
     <Compile Include="Class_A_AgriCoreEngine.cs" />
     <Compile Include="Class_D_Messages.cs" />
-    <Compile Include="Form_E_MarketPlace.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form_E_MarketPlace.Designer.cs">
-      <DependentUpon>Form_E_MarketPlace.cs</DependentUpon>
-    </Compile>
     <Compile Include="User_Control_A_ProductCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -132,9 +126,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form_E_MarketPlace.resx">
-      <DependentUpon>Form_E_MarketPlace.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="User_Control_A_ProductCard.resx">
       <DependentUpon>User_Control_A_ProductCard.cs</DependentUpon>
     </EmbeddedResource>

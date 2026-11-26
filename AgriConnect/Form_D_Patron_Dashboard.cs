@@ -18,9 +18,10 @@ namespace AgriConnect
         public Patron_Dashboard()
         {
             InitializeComponent();
+            SelfBuiltEngine.OrderPlaced += Dashboard_OrderPlaced;
+            FormClosed += Dashboard_FormClosed;
         }
 
-        private static market reOpen = new market();
         private User ActiveUser = SelfBuiltEngine.activeHelper(CurrentUser.currentUser);
         private Seller currentConversationSeller;
         private User currentConversationReceiver;
@@ -34,46 +35,63 @@ namespace AgriConnect
             txtRole.Text = $"Role: {active.UserRole}";
             SelfBuiltEngine.LoadSearch(flpSearch, ActiveUser, pMessage, flpMessage);
             LoadBuyerNotifications();
+            LoadBuyerOrderOutput();
+        }
+
+        private void LoadBuyerOrderOutput()
+        {
+            rtbDashboardOrderSetted.Clear();
+            rtbDashboardOrderSetted.ReadOnly = true;
+
+            string path = FileGetter.GetFilePath("Orders.Json");
+            if (!File.Exists(path))
+            {
+                rtbDashboardOrderSetted.AppendText("============== MY ORDERS ==============\r\nNo orders placed yet.\r\n");
+                return;
+            }
+
+            List<ProductOrder> orders =
+                JsonSerializer.Deserialize<List<ProductOrder>>(File.ReadAllText(path))
+                ?? new List<ProductOrder>();
+
+            List<ProductOrder> myOrders = orders.Where(item =>
+                item.BuyerUsername == ActiveUser.Username).ToList();
+
+            rtbDashboardOrderSetted.AppendText("============== MY ORDERS ==============\r\n");
+            if (myOrders.Count == 0)
+            {
+                rtbDashboardOrderSetted.AppendText("No orders placed yet.\r\n");
+                return;
+            }
+
+            for (int i = 0; i < myOrders.Count; i++)
+            {
+                ProductOrder order = myOrders[i];
+                rtbDashboardOrderSetted.AppendText(
+                    $"Order #{i + 1}\r\n--------------------------------------\r\n" +
+                    $"Product: {order.ProductName}\r\nQuantity: {order.Quantity}\r\n" +
+                    $"Seller: {order.SellerName}\r\nUnit price: {order.UnitPrice:C2}\r\n" +
+                    $"Total: {order.Total:C2}\r\nPlaced: {order.OrderedAt:g}\r\n" +
+                    "======================================\r\n\r\n");
+            }
+        }
+
+        private void Dashboard_OrderPlaced(ProductOrder order)
+        {
+            if (order != null && order.BuyerUsername == ActiveUser.Username)
+                LoadBuyerOrderOutput();
+        }
+
+        private void Dashboard_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            SelfBuiltEngine.OrderPlaced -= Dashboard_OrderPlaced;
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
             LogIn open = new LogIn();
-            reOpen.Dispose();
             open.Show();
             this.Dispose();
-        }
-
-
-        private void btnMarket_Click(object sender, EventArgs e)
-        {
-            if (reOpen == null || reOpen.IsDisposed)
-            {
-                reOpen = new market(ActiveUser, pMessage, flpMessage);
-                reOpen.Show();
-            }
-            else
-            {
-
-                if (reOpen.WindowState == FormWindowState.Minimized)
-                {
-                    reOpen.WindowState = FormWindowState.Normal;
-                }
-
-
-                reOpen.Show();
-                reOpen.Activate();
-            }
-        }
-
-        private void G_Buyer_Dashboard_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (reOpen != null && !reOpen.IsDisposed)
-            {
-                DialogResult res = MessageBox.Show("closing this window will close the market too are you sure?", "Confirm Close", MessageBoxButtons.YesNo);
-                if (res == DialogResult.No)
-                    e.Cancel = true;
-            }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)

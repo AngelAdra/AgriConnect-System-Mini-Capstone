@@ -1,4 +1,4 @@
-﻿namespace AgriConnect
+namespace AgriConnect
 {
     partial class LogIn
     {
@@ -114,7 +114,7 @@
             this.lblCreateAcc.BackColor = System.Drawing.Color.Transparent;
             this.lblCreateAcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCreateAcc.ForeColor = System.Drawing.Color.Navy;
-            this.lblCreateAcc.Location = new System.Drawing.Point(330, 356);
+            this.lblCreateAcc.Location = new System.Drawing.Point(353, 356);
             this.lblCreateAcc.Name = "lblCreateAcc";
             this.lblCreateAcc.Size = new System.Drawing.Size(214, 13);
             this.lblCreateAcc.TabIndex = 5;
